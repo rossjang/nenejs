@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# nene.js
 
-## Getting Started
+The AI-native full-stack framework for building modern web applications.
 
-First, run the development server:
+[![npm version](https://badge.fury.io/js/create-nene.svg)](https://www.npmjs.com/package/create-nene)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+## Quick Start
 
 ```bash
+npm create nene@latest my-app
+cd my-app
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Unified Full-Stack** - Seamlessly integrate frontend and backend in a single project
+- **Type-Safe** - End-to-end TypeScript support with automatic type inference
+- **AI-Native** - Optimized for AI-assisted development workflows
+- **NestJS-Style Decorators** - Familiar patterns for backend development
+- **Zero Config** - Sensible defaults that just work
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Project Structure
 
-## Learn More
+```
+nenejs/
+├── packages/
+│   └── create-nene/     # CLI tool (npm: create-nene)
+├── src/                 # Website source code
+├── content/             # Documentation content
+│   └── docs/            # Multi-language docs (en, ko, ja, zh, pt-BR)
+└── docs/                # Internal documentation
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Packages
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Package | Version | Description |
+|---------|---------|-------------|
+| [create-nene](https://www.npmjs.com/package/create-nene) | ![npm](https://img.shields.io/npm/v/create-nene) | CLI to create new nene.js projects |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Development
 
-## Deploy on Vercel
+```bash
+# Install dependencies
+npm install
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+# Run development server
+npm run dev
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# Build for production
+npm run build
+```
+
+## Documentation
+
+Visit the [documentation](https://github.com/rossjang/nenejs) to learn more about nene.js.
+
+## Contributing
+
+We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
+
+## License
+
+MIT License - see [LICENSE](LICENSE) for details.

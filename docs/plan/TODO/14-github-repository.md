@@ -14,16 +14,16 @@ Currently, the `create-nene` npm package references this repository, but it retu
 
 ### Phase 1: Repository Creation
 
-- [ ] Create `rossjang/nenejs` repository on GitHub
-- [ ] Set repository visibility (public)
+- [x] Create `rossjang/nenejs` repository on GitHub
+- [x] Set repository visibility (public)
 - [ ] Add repository description
 - [ ] Add topics/tags (nene, nenejs, fullstack, typescript, framework)
 
 ### Phase 2: Initial Push
 
-- [ ] Initialize git in nene-web project
-- [ ] Add remote origin (`git remote add origin git@github.com:rossjang/nenejs.git`)
-- [ ] Push initial commit to main branch
+- [x] Initialize git in nene-web project
+- [x] Add remote origin (`git remote add origin git@github.com:rossjang/nenejs.git`)
+- [x] Push initial commit to main branch
 
 ### Phase 3: Repository Configuration
 

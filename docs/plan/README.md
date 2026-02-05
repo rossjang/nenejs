@@ -81,9 +81,9 @@ docs/plan/
 
 | Status   | Count |
 | -------- | ----- |
-| ✅ DONE  | 14    |
+| ✅ DONE  | 15    |
 | 🔄 DOING | 0     |
-| 📋 TODO  | 8     |
+| 📋 TODO  | 7     |
 
 ## 🎯 Priority Order (Phase 1 기준)
 
@@ -93,7 +93,7 @@ docs/plan/
 
 1. `12-header-buttons.md` - **Waitlist 이메일 수집** ⭐
 2. ~~`13-create-nene-package.md` - **create-nene NPM 패키지 배포**~~ ✅
-3. `14-github-repository.md` - **GitHub 레포지토리 생성** ⭐
+3. ~~`14-github-repository.md` - **GitHub 레포지토리 생성**~~ ✅
 4. `01-mdx-system.md` - MDX 시스템 설정
 5. `02-docs-content.md` - 문서 콘텐츠 작성
 6. `11-deployment.md` - 사이트 배포

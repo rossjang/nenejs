@@ -1,0 +1,52 @@
+{
+  "name": "create-nene",
+  "version": "0.1.2",
+  "description": "Create a new nene.js project with a single command",
+  "type": "module",
+  "bin": {
+    "create-nene": "./bin/create-nene.js"
+  },
+  "files": [
+    "bin",
+    "dist",
+    "templates"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "nene",
+    "nenejs",
+    "create",
+    "scaffold",
+    "cli",
+    "fullstack",
+    "typescript"
+  ],
+  "author": "nene.js Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rossjang/nenejs"
+  },
+  "homepage": "https://github.com/rossjang/nenejs",
+  "bugs": {
+    "url": "https://github.com/rossjang/nenejs/issues"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "commander": "^12.1.0",
+    "picocolors": "^1.1.1",
+    "prompts": "^2.4.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/prompts": "^2.4.9",
+    "tsup": "^8.3.0",
+    "typescript": "^5.7.0"
+  }
+}

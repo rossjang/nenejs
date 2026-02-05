@@ -1,0 +1,91 @@
+---
+title: Quick Start
+description: Build your first nene.js application in 5 minutes with this step-by-step guide.
+order: 2
+---
+
+## Overview
+
+In this guide, you'll learn how to:
+
+- Create a controller with type-safe endpoints
+- Use auto-generated hooks in your frontend
+- Run the development server
+
+<Callout type="info">
+  This guide assumes you've already installed nene.js. If not, check out the
+  [Installation](/docs/en/getting-started/installation) guide first.
+</Callout>
+
+## Step-by-Step Guide
+
+<Steps>
+  <Step title="Create a Controller">
+    Create a new controller that will handle both backend logic and generate frontend hooks automatically:
+
+    ```typescript
+    // src/controllers/user.controller.ts
+    import { Controller, Get, Query } from '@nene/core';
+
+    @Controller('/api/users')
+    export class UserController {
+      @Get('/')
+      async getUsers(@Query('search') search?: string) {
+        // Your backend logic here
+        return { users: [] };
+      }
+    }
+    ```
+
+  </Step>
+
+  <Step title="Use Auto-Generated Hooks">
+    nene.js automatically generates type-safe hooks for your frontend:
+
+    ```tsx
+    // src/app/page.tsx
+    'use client';
+
+    import { useUsers } from '@/hooks/user';
+
+    export default function UsersPage() {
+      const { data, isLoading } = useUsers({ search: 'john' });
+
+      if (isLoading) return <div>Loading...</div>;
+
+      return (
+        <ul>
+          {data?.users.map(user => (
+            <li key={user.id}>{user.name}</li>
+          ))}
+        </ul>
+      );
+    }
+    ```
+
+  </Step>
+
+  <Step title="Run Development Server">
+    Start the development server to see your changes in real-time:
+
+    ```bash
+    npm run dev
+    ```
+
+    Open [http://localhost:3000](http://localhost:3000) to see your application.
+
+  </Step>
+</Steps>
+
+<Callout type="tip" title="Hot Reload">
+  The development server will automatically regenerate hooks when you modify
+  your controllers. No manual steps needed!
+</Callout>
+
+## Next Steps
+
+Now that you've built your first nene.js application, learn more about:
+
+- [Project Structure](/docs/en/getting-started/project-structure) - Understand the file layout
+- [Decorators](/docs/en/core-concepts/decorators) - Master the decorator API
+- [Type Sharing](/docs/en/core-concepts/type-sharing) - End-to-end type safety

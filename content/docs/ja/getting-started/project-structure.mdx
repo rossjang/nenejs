@@ -1,0 +1,90 @@
+---
+title: プロジェクト構造
+description: nene.jsアプリケーションの推奨プロジェクト構造を理解します。
+order: 3
+---
+
+## 概要
+
+一般的なnene.jsプロジェクトは、関心の分離を維持しながら統合された開発体験を提供する構造化されたレイアウトに従います：
+
+```text
+my-nene-app/
+├── src/
+│   ├── app/              # Next.js App Router pages
+│   ├── controllers/      # nene.js controllers
+│   ├── services/         # Business logic services
+│   ├── hooks/            # Auto-generated hooks
+│   └── components/       # React components
+├── nene.config.ts        # nene.js configuration
+├── next.config.js        # Next.js configuration
+└── package.json
+```
+
+## 主要ディレクトリ
+
+### `src/controllers/`
+
+nene.jsコントローラーが含まれます。APIエンドポイントを定義し、対応するフロントエンドフックを生成します。
+
+```typescript
+// src/controllers/post.controller.ts
+@Controller("/api/posts")
+export class PostController {
+  @Get("/")
+  async getPosts() {
+    /* ... */
+  }
+
+  @Post("/")
+  async createPost(@Body() data: CreatePostDto) {
+    /* ... */
+  }
+}
+```
+
+<Callout type="info">
+  このディレクトリに配置されたコントローラーは自動的に検出され、登録されます。
+</Callout>
+
+### `src/hooks/`
+
+各コントローラーメソッドの型安全なReactフックが含まれる自動生成ディレクトリです。
+
+<Callout type="warning">
+  このディレクトリのファイルを手動で編集しないでください - フックが再生成されると上書きされます。
+</Callout>
+
+### `src/services/`
+
+コントローラー間で共有できるビジネスロジックです。依存性注入を使用します：
+
+```typescript
+// src/services/user.service.ts
+import { Injectable } from "@nene/core";
+
+@Injectable()
+export class UserService {
+  async findById(id: string) {
+    // Business logic here
+  }
+}
+```
+
+### `src/app/`
+
+Reactページとレイアウトのための標準的なNext.js App Routerディレクトリです。
+
+## 設定ファイル
+
+| ファイル             | 説明                    |
+| -------------------- | ----------------------- |
+| `nene.config.ts` | nene.jsフレームワーク設定 |
+| `next.config.js` | Next.js設定            |
+| `tsconfig.json`  | TypeScript設定         |
+
+## ベストプラクティス
+
+1. **機能別グループ化** - より大きなアプリの場合、機能別にコントローラーとサービスをグループ化することを検討してください
+2. **コントローラーは軽量に** - ビジネスロジックをサービスに移動してください
+3. **DTOの使用** - バリデーションのために明確なデータ転送オブジェクトを定義してください

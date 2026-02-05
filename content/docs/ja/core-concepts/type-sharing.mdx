@@ -1,0 +1,131 @@
+---
+title: 型共有
+description: nene.jsがフロントエンドとバックエンド間で型を自動的に共有する方法を学びます。
+order: 2
+---
+
+## 自動型生成
+
+nene.jsはコントローラーから型を自動的に抽出し、フロントエンドフック用のTypeScript定義を生成します。これにより、手動同期なしでエンドツーエンドの型安全性が保証されます。
+
+```typescript
+// Backend: src/controllers/user.controller.ts
+interface User {
+  id: string;
+  name: string;
+  email: string;
+}
+
+@Controller("/api/users")
+export class UserController {
+  @Get("/")
+  async getUsers(): Promise<User[]> {
+    return [{ id: "1", name: "John", email: "john@example.com" }];
+  }
+}
+```
+
+```tsx
+// Frontend: Generated hooks are automatically typed!
+const { data } = useUsers();
+// data's type is User[] | undefined
+```
+
+<Callout type="tip">
+  コントローラーファイルを保存すると、型が自動的に再生成されます。ビルドステップは必要ありません！
+</Callout>
+
+## 動作の仕組み
+
+<Steps>
+  <Step title="コントローラー分析">
+    nene.jsはコントローラーメソッドを分析して、戻り値の型とパラメーター型を抽出します。
+  </Step>
+
+{" "}
+<Step title="型抽出">
+  TypeScript型が抽出され、再利用可能なインターフェースに変換されます。
+</Step>
+
+  <Step title="フック生成">
+    パラメーターとレスポンスに適切な型が指定された型安全なReactフックが生成されます。
+  </Step>
+</Steps>
+
+## カスタム型
+
+フロントエンドとバックエンドの両方からインポートできる共通の場所に共有型を定義してください：
+
+```typescript
+// src/types/user.ts
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  createdAt: Date;
+}
+
+export interface CreateUserDto {
+  name: string;
+  email: string;
+  password: string;
+}
+```
+
+次に、コントローラーで使用してください：
+
+```typescript
+import { User, CreateUserDto } from "@/types/user";
+
+@Controller("/api/users")
+export class UserController {
+  @Post("/")
+  async createUser(@Body() data: CreateUserDto): Promise<User> {
+    // ...
+  }
+}
+```
+
+## バリデーション
+
+nene.jsは人気のあるバリデーションライブラリと統合されます：
+
+<Tabs defaultValue="zod">
+  <TabList>
+    <TabTrigger value="zod">Zod</TabTrigger>
+    <TabTrigger value="class-validator">class-validator</TabTrigger>
+  </TabList>
+  
+  <TabContent value="zod">
+    ```typescript
+    import { z } from 'zod';
+
+    const createUserSchema = z.object({
+      name: z.string().min(1),
+      email: z.string().email(),
+      password: z.string().min(8),
+    });
+
+    type CreateUserDto = z.infer<typeof createUserSchema>;
+    ```
+
+  </TabContent>
+  
+  <TabContent value="class-validator">
+    ```typescript
+    import { IsString, IsEmail, MinLength } from 'class-validator';
+
+    export class CreateUserDto {
+      @IsString()
+      name: string;
+
+      @IsEmail()
+      email: string;
+
+      @MinLength(8)
+      password: string;
+    }
+    ```
+
+  </TabContent>
+</Tabs>

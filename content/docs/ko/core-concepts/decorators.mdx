@@ -1,0 +1,109 @@
+---
+title: 데코레이터
+description: nene.js 컨트롤러를 구동하는 데코레이터 기반 API에 대해 알아봅니다.
+order: 1
+---
+
+## 데코레이터란?
+
+데코레이터는 클래스와 메서드의 동작에 메타데이터를 추가하고 수정할 수 있게 해주는 강력한 TypeScript 기능입니다. nene.js는 라우트 정의, 의존성 주입, 동작 설정에 데코레이터를 광범위하게 사용합니다.
+
+```typescript
+@Controller("/api/users")
+export class UserController {
+  @Get("/:id")
+  async getUser(@Param("id") id: string) {
+    return { id, name: "John" };
+  }
+}
+```
+
+<Callout type="info">
+  TypeScript 데코레이터는 현재 TC39 Stage 3 제안 단계이며, nene.js
+  프로젝트에서는 기본적으로 활성화되어 있습니다.
+</Callout>
+
+## 컨트롤러 데코레이터
+
+`@Controller()` 데코레이터는 새 컨트롤러 클래스를 정의하고 기본 라우트 경로를 설정합니다:
+
+```typescript
+@Controller("/api/posts")
+export class PostController {
+  // 여기의 메서드들은 /api/posts 접두사가 붙습니다
+}
+```
+
+### 컨트롤러 옵션
+
+```typescript
+@Controller("/api/posts", {
+  middleware: [authMiddleware],
+  version: "v1",
+})
+export class PostController {}
+```
+
+| 옵션         | 타입           | 설명                          |
+| ------------ | -------------- | ----------------------------- |
+| `middleware` | `Middleware[]` | 모든 라우트에 적용할 미들웨어 |
+| `version`    | `string`       | API 버전 접두사               |
+
+## HTTP 메서드 데코레이터
+
+메서드 데코레이터는 HTTP 엔드포인트와 그 동작을 정의합니다:
+
+| 데코레이터      | HTTP 메서드 | 예시              |
+| --------------- | ----------- | ----------------- |
+| `@Get(path)`    | GET         | `@Get('/:id')`    |
+| `@Post(path)`   | POST        | `@Post('/')`      |
+| `@Put(path)`    | PUT         | `@Put('/:id')`    |
+| `@Patch(path)`  | PATCH       | `@Patch('/:id')`  |
+| `@Delete(path)` | DELETE      | `@Delete('/:id')` |
+
+```typescript
+@Controller("/api/posts")
+export class PostController {
+  @Get("/") // GET /api/posts
+  async list() {}
+
+  @Get("/:id") // GET /api/posts/:id
+  async get() {}
+
+  @Post("/") // POST /api/posts
+  async create() {}
+
+  @Put("/:id") // PUT /api/posts/:id
+  async update() {}
+
+  @Delete("/:id") // DELETE /api/posts/:id
+  async delete() {}
+}
+```
+
+## 파라미터 데코레이터
+
+들어오는 요청에서 데이터를 추출합니다:
+
+```typescript
+@Post('/')
+async createPost(
+  @Body() data: CreatePostDto,           // 요청 본문
+  @Query('published') published: boolean, // 쿼리 스트링
+  @Headers('authorization') auth: string, // 헤더
+) {
+  // ...
+}
+
+@Get('/:id')
+async getPost(
+  @Param('id') id: string,  // URL 파라미터
+) {
+  // ...
+}
+```
+
+<Callout type="tip">
+  파라미터 데코레이터는 TypeScript 타입에 따라 자동으로 데이터를 검증하고
+  변환합니다.
+</Callout>

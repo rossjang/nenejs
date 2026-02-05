@@ -1,0 +1,80 @@
+---
+title: インストール
+description: 数分でnene.jsを始めましょう。お好みのパッケージマネージャーでインストールできます。
+order: 1
+---
+
+## 事前要件
+
+始める前に、以下がインストールされていることを確認してください：
+
+- Node.js 18.17以上
+- npm、yarn、pnpm、またはbun
+
+<Callout type="tip" title="推奨事項">
+  より高速なインストールと効率的なディスク使用のために、pnpmの使用を推奨します。
+</Callout>
+
+## 新しいプロジェクトの作成
+
+nene.jsを始める最も簡単な方法は、CLIを使用して新しいプロジェクトを作成することです：
+
+```bash
+npx create-nene@latest my-app
+cd my-app
+npm run dev
+```
+
+このコマンドは以下を実行します：
+
+1. `my-app`という新しいディレクトリを作成
+2. 完全なnene.jsプロジェクト構造を設定
+3. すべての依存関係をインストール
+4. サンプルコントローラーとフックを生成
+
+## 手動インストール
+
+既存のプロジェクトにnene.jsを手動で設定するには：
+
+<Tabs defaultValue="npm">
+  <TabList>
+    <TabTrigger value="npm">npm</TabTrigger>
+    <TabTrigger value="pnpm">pnpm</TabTrigger>
+    <TabTrigger value="yarn">yarn</TabTrigger>
+  </TabList>
+
+{" "}
+<TabContent value="npm">
+  ```bash npm install nene @nene/core @nene/cli ```
+</TabContent>
+
+{" "}
+<TabContent value="pnpm">
+  ```bash pnpm add nene @nene/core @nene/cli ```
+</TabContent>
+
+  <TabContent value="yarn">
+    ```bash yarn add nene @nene/core @nene/cli ```
+  </TabContent>
+</Tabs>
+
+次に、プロジェクトにnene.js設定を追加してください：
+
+```typescript
+// nene.config.ts
+import { defineConfig } from "@nene/core";
+
+export default defineConfig({
+  controllersDir: "src/controllers",
+  hooksOutputDir: "src/hooks",
+  apiPrefix: "/api",
+});
+```
+
+## 次のステップ
+
+nene.jsがインストールされたので、最初のアプリケーションを作成する準備ができました：
+
+- [クイックスタート](/docs/ja/getting-started/quick-start) - 最初のnene.jsアプリを作成
+- [プロジェクト構造](/docs/ja/getting-started/project-structure) - レイアウトを理解する
+- [デコレーター](/docs/ja/core-concepts/decorators) - デコレーターAPIを学ぶ

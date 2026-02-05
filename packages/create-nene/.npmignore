@@ -1,0 +1,21 @@
+# Source files
+src/
+tsconfig.json
+tsup.config.ts
+
+# Development
+node_modules/
+*.log
+
+# IDE
+.idea/
+.vscode/
+
+# Git
+.git/
+.gitignore
+
+# Test
+*.test.ts
+*.spec.ts
+__tests__/

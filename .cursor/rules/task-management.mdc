@@ -1,0 +1,60 @@
+---
+description: Task management workflow for docs/plan kanban board
+globs: docs/plan/**/*.md
+alwaysApply: false
+---
+
+# Task Management Rules
+
+프로젝트의 칸반 보드 (`docs/plan/`) 태스크 관리 규칙입니다.
+
+## Task 시작 시
+
+1. `docs/plan/README.md`의 Priority Order 확인
+2. 가장 우선순위 높은 TODO 파일 선택
+3. 작업 시작 전 파일 내용 확인
+
+## Task 완료 시 (필수)
+
+태스크 완료 시 다음 작업을 **반드시** 수행:
+
+### 1. 파일 이동
+
+```bash
+mv docs/plan/TODO/{task-file}.md docs/plan/DONE/
+```
+
+### 2. 파일 내용 업데이트
+
+```markdown
+# Status 변경
+
+- **Status**: 📋 Todo → - **Status**: ✅ Done
+
+# 체크리스트 완료
+
+- [ ] 항목 → - [x] 항목
+```
+
+### 3. README.md 카운트 업데이트
+
+```markdown
+| ✅ DONE | N | # +1 증가
+| 📋 TODO | M | # -1 감소
+```
+
+## Task 상태 표시
+
+| Status | Emoji | Folder   |
+| ------ | ----- | -------- |
+| Todo   | 📋    | `TODO/`  |
+| Doing  | 🔄    | `DOING/` |
+| Done   | ✅    | `DONE/`  |
+
+## 우선순위 표시
+
+| Priority | Emoji |
+| -------- | ----- |
+| High     | 🔥    |
+| Medium   | 🟠    |
+| Low      | 🔵    |

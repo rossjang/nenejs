@@ -1,0 +1,90 @@
+---
+title: クイックスタート
+description: このステップバイステップガイドで5分以内に最初のnene.jsアプリケーションを作成しましょう。
+order: 2
+---
+
+## 概要
+
+このガイドで学ぶ内容：
+
+- 型安全なエンドポイントを持つコントローラーの作成
+- フロントエンドで自動生成されたフックの使用
+- 開発サーバーの実行
+
+<Callout type="info">
+  このガイドは、nene.jsが既にインストールされていることを前提としています。まだインストールしていない場合は、
+  [インストール](/docs/ja/getting-started/installation)ガイドを先に確認してください。
+</Callout>
+
+## ステップバイステップガイド
+
+<Steps>
+  <Step title="コントローラーの作成">
+    バックエンドロジックを処理し、フロントエンドフックを自動生成する新しいコントローラーを作成します：
+
+    ```typescript
+    // src/controllers/user.controller.ts
+    import { Controller, Get, Query } from '@nene/core';
+
+    @Controller('/api/users')
+    export class UserController {
+      @Get('/')
+      async getUsers(@Query('search') search?: string) {
+        // Backend logic here
+        return { users: [] };
+      }
+    }
+    ```
+
+  </Step>
+
+  <Step title="自動生成されたフックの使用">
+    nene.jsはフロントエンド用の型安全なフックを自動生成します：
+
+    ```tsx
+    // src/app/page.tsx
+    'use client';
+
+    import { useUsers } from '@/hooks/user';
+
+    export default function UsersPage() {
+      const { data, isLoading } = useUsers({ search: 'john' });
+
+      if (isLoading) return <div>読み込み中...</div>;
+
+      return (
+        <ul>
+          {data?.users.map(user => (
+            <li key={user.id}>{user.name}</li>
+          ))}
+        </ul>
+      );
+    }
+    ```
+
+  </Step>
+
+  <Step title="開発サーバーの実行">
+    開発サーバーを起動して、変更をリアルタイムで確認してください：
+
+    ```bash
+    npm run dev
+    ```
+
+    [http://localhost:3000](http://localhost:3000)を開いてアプリケーションを確認してください。
+
+  </Step>
+</Steps>
+
+<Callout type="tip" title="ホットリロード">
+  開発サーバーはコントローラーを変更すると自動的にフックを再生成します。手動作業は必要ありません！
+</Callout>
+
+## 次のステップ
+
+最初のnene.jsアプリケーションを作成したので、以下についてさらに学びましょう：
+
+- [プロジェクト構造](/docs/ja/getting-started/project-structure) - ファイルレイアウトを理解する
+- [デコレーター](/docs/ja/core-concepts/decorators) - デコレーターAPIをマスターする
+- [型共有](/docs/ja/core-concepts/type-sharing) - エンドツーエンドの型安全性

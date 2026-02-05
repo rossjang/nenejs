@@ -1,0 +1,133 @@
+---
+title: Type Sharing
+description: Learn how nene.js automatically shares types between frontend and backend.
+order: 2
+---
+
+## Automatic Type Generation
+
+nene.js automatically extracts types from your controllers and generates TypeScript definitions for your frontend hooks. This ensures end-to-end type safety without any manual synchronization.
+
+```typescript
+// Backend: src/controllers/user.controller.ts
+interface User {
+  id: string;
+  name: string;
+  email: string;
+}
+
+@Controller("/api/users")
+export class UserController {
+  @Get("/")
+  async getUsers(): Promise<User[]> {
+    return [{ id: "1", name: "John", email: "john@example.com" }];
+  }
+}
+```
+
+```tsx
+// Frontend: The generated hook is automatically typed!
+const { data } = useUsers();
+// data is typed as User[] | undefined
+```
+
+<Callout type="tip">
+  Types are regenerated automatically when you save your controller files. No
+  build step needed!
+</Callout>
+
+## How It Works
+
+<Steps>
+  <Step title="Controller Analysis">
+    nene.js analyzes your controller methods and extracts return types and
+    parameter types.
+  </Step>
+
+  <Step title="Type Extraction">
+    TypeScript types are extracted and transformed into reusable interfaces.
+  </Step>
+
+  <Step title="Hook Generation">
+    Type-safe React hooks are generated with proper typing for parameters and
+    responses.
+  </Step>
+</Steps>
+
+## Custom Types
+
+Define shared types in a common location that both frontend and backend can import:
+
+```typescript
+// src/types/user.ts
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  createdAt: Date;
+}
+
+export interface CreateUserDto {
+  name: string;
+  email: string;
+  password: string;
+}
+```
+
+Then use them in your controller:
+
+```typescript
+import { User, CreateUserDto } from "@/types/user";
+
+@Controller("/api/users")
+export class UserController {
+  @Post("/")
+  async createUser(@Body() data: CreateUserDto): Promise<User> {
+    // ...
+  }
+}
+```
+
+## Validation
+
+nene.js integrates with popular validation libraries:
+
+<Tabs defaultValue="zod">
+  <TabList>
+    <TabTrigger value="zod">Zod</TabTrigger>
+    <TabTrigger value="class-validator">class-validator</TabTrigger>
+  </TabList>
+  
+  <TabContent value="zod">
+    ```typescript
+    import { z } from 'zod';
+
+    const createUserSchema = z.object({
+      name: z.string().min(1),
+      email: z.string().email(),
+      password: z.string().min(8),
+    });
+
+    type CreateUserDto = z.infer<typeof createUserSchema>;
+    ```
+
+  </TabContent>
+  
+  <TabContent value="class-validator">
+    ```typescript
+    import { IsString, IsEmail, MinLength } from 'class-validator';
+
+    export class CreateUserDto {
+      @IsString()
+      name: string;
+
+      @IsEmail()
+      email: string;
+
+      @MinLength(8)
+      password: string;
+    }
+    ```
+
+  </TabContent>
+</Tabs>

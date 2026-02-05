@@ -1,0 +1,109 @@
+---
+title: Decorators
+description: Aprenda sobre a API baseada em decorators que alimenta os controllers do nene.js.
+order: 1
+---
+
+## O que são Decorators?
+
+Decorators são um recurso poderoso do TypeScript que permite adicionar metadados e modificar o comportamento de classes e métodos. O nene.js usa decorators extensivamente para definir rotas, injetar dependências e configurar comportamentos.
+
+```typescript
+@Controller("/api/users")
+export class UserController {
+  @Get("/:id")
+  async getUser(@Param("id") id: string) {
+    return { id, name: "John" };
+  }
+}
+```
+
+<Callout type="info">
+  Os decorators do TypeScript são atualmente uma proposta TC39 Stage 3 e estão
+  habilitados por padrão em projetos nene.js.
+</Callout>
+
+## Decorators de Controller
+
+O decorator `@Controller()` define uma nova classe de controller e configura o caminho base da rota:
+
+```typescript
+@Controller("/api/posts")
+export class PostController {
+  // Os métodos aqui serão prefixados com /api/posts
+}
+```
+
+### Opções do Controller
+
+```typescript
+@Controller("/api/posts", {
+  middleware: [authMiddleware],
+  version: "v1",
+})
+export class PostController {}
+```
+
+| Opção        | Tipo           | Descrição                              |
+| ------------ | -------------- | -------------------------------------- |
+| `middleware` | `Middleware[]` | Middleware a aplicar em todas as rotas |
+| `version`    | `string`       | Prefixo de versão da API               |
+
+## Decorators de Método HTTP
+
+Decorators de método definem endpoints HTTP e seu comportamento:
+
+| Decorator       | Método HTTP | Exemplo           |
+| --------------- | ----------- | ----------------- |
+| `@Get(path)`    | GET         | `@Get('/:id')`    |
+| `@Post(path)`   | POST        | `@Post('/')`      |
+| `@Put(path)`    | PUT         | `@Put('/:id')`    |
+| `@Patch(path)`  | PATCH       | `@Patch('/:id')`  |
+| `@Delete(path)` | DELETE      | `@Delete('/:id')` |
+
+```typescript
+@Controller("/api/posts")
+export class PostController {
+  @Get("/") // GET /api/posts
+  async list() {}
+
+  @Get("/:id") // GET /api/posts/:id
+  async get() {}
+
+  @Post("/") // POST /api/posts
+  async create() {}
+
+  @Put("/:id") // PUT /api/posts/:id
+  async update() {}
+
+  @Delete("/:id") // DELETE /api/posts/:id
+  async delete() {}
+}
+```
+
+## Decorators de Parâmetro
+
+Extraia dados de requisições recebidas:
+
+```typescript
+@Post('/')
+async createPost(
+  @Body() data: CreatePostDto,           // Corpo da requisição
+  @Query('published') published: boolean, // Query string
+  @Headers('authorization') auth: string, // Headers
+) {
+  // ...
+}
+
+@Get('/:id')
+async getPost(
+  @Param('id') id: string,  // Parâmetros de URL
+) {
+  // ...
+}
+```
+
+<Callout type="tip">
+  Os decorators de parâmetro validam e transformam automaticamente os dados com
+  base nos seus tipos TypeScript.
+</Callout>

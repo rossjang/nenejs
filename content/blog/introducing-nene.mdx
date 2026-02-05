@@ -1,0 +1,96 @@
+---
+title: Introducing nene.js - The Unified Full-Stack Framework
+description: We're excited to announce nene.js, a new approach to full-stack TypeScript development that bridges the gap between frontend and backend.
+date: 2026-01-15
+author: nene Team
+image: /blog/introducing-nene.jpg
+tags:
+  - announcement
+  - release
+category: Announcements
+---
+
+Today, we're thrilled to announce **nene.js** - a revolutionary approach to full-stack TypeScript development.
+
+## The Problem
+
+Modern web development requires managing two separate worlds:
+
+- **Backend**: APIs, validation, database queries
+- **Frontend**: State management, data fetching, type synchronization
+
+Developers spend countless hours keeping these worlds in sync, writing boilerplate code, and debugging type mismatches.
+
+<Callout type="info">
+  According to our research, developers spend up to 30% of their time on
+  boilerplate code that bridges frontend and backend.
+</Callout>
+
+## Our Solution
+
+nene.js introduces a **unified development experience** where:
+
+1. You write your API once using decorators
+2. Type-safe React hooks are generated automatically
+3. Context is shared seamlessly between frontend and backend
+
+```typescript
+@Controller("/api/users")
+export class UserController {
+  @Get("/:id")
+  async getUser(@Param("id") id: string) {
+    return await this.userService.findById(id);
+  }
+}
+```
+
+That's it. The frontend hook `useUser({ id })` is generated automatically with full type safety.
+
+## Key Features
+
+### Automatic Hook Generation
+
+No more writing fetch calls or managing loading states manually:
+
+```tsx
+const { data, isLoading, error } = useUser({ id: "123" });
+```
+
+### End-to-End Type Safety
+
+Types flow from your backend to frontend automatically. Change a type in your controller, and TypeScript catches mismatches everywhere.
+
+### Unified Context
+
+Share authentication, locale, and custom data between frontend and backend without manual synchronization.
+
+## Getting Started
+
+Install nene.js and create your first project:
+
+```bash
+npx create-nene@latest my-app
+cd my-app
+npm run dev
+```
+
+Check out our [documentation](/docs/en/getting-started/installation) for a complete guide.
+
+## What's Next
+
+We're just getting started. Here's what's coming:
+
+- Real-time subscriptions with WebSocket support
+- Built-in caching with intelligent invalidation
+- Visual API explorer and documentation
+- Plugin system for extending functionality
+
+## Join the Community
+
+We'd love to hear from you:
+
+- Star us on [GitHub](https://github.com/nene/nene.js)
+- Join our [Discord](https://discord.gg/nene) community
+- Follow us on [Twitter](https://twitter.com/nenejs) for updates
+
+Thank you for being part of this journey. Let's build something amazing together!

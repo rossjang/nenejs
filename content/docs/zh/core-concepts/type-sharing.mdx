@@ -1,0 +1,131 @@
+---
+title: 类型共享
+description: 了解 nene.js 如何在前端和后端之间自动共享类型。
+order: 2
+---
+
+## 自动类型生成
+
+nene.js 从控制器自动提取类型并生成前端钩子的 TypeScript 定义。这确保了端到端的类型安全，无需手动同步。
+
+```typescript
+// Backend: src/controllers/user.controller.ts
+interface User {
+  id: string;
+  name: string;
+  email: string;
+}
+
+@Controller("/api/users")
+export class UserController {
+  @Get("/")
+  async getUsers(): Promise<User[]> {
+    return [{ id: "1", name: "John", email: "john@example.com" }];
+  }
+}
+```
+
+```tsx
+// Frontend: Generated hooks are automatically typed!
+const { data } = useUsers();
+// data's type is User[] | undefined
+```
+
+<Callout type="tip">
+  保存控制器文件时，类型会自动重新生成。无需构建步骤！
+</Callout>
+
+## 工作原理
+
+<Steps>
+  <Step title="控制器分析">
+    nene.js 分析控制器方法以提取返回类型和参数类型。
+  </Step>
+
+{" "}
+<Step title="类型提取">
+  TypeScript 类型被提取并转换为可重用的接口。
+</Step>
+
+  <Step title="钩子生成">
+    生成具有适当参数和响应类型的类型安全 React 钩子。
+  </Step>
+</Steps>
+
+## 自定义类型
+
+在前后端都可以导入的公共位置定义共享类型：
+
+```typescript
+// src/types/user.ts
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  createdAt: Date;
+}
+
+export interface CreateUserDto {
+  name: string;
+  email: string;
+  password: string;
+}
+```
+
+然后在控制器中使用：
+
+```typescript
+import { User, CreateUserDto } from "@/types/user";
+
+@Controller("/api/users")
+export class UserController {
+  @Post("/")
+  async createUser(@Body() data: CreateUserDto): Promise<User> {
+    // ...
+  }
+}
+```
+
+## 验证
+
+nene.js 与流行的验证库集成：
+
+<Tabs defaultValue="zod">
+  <TabList>
+    <TabTrigger value="zod">Zod</TabTrigger>
+    <TabTrigger value="class-validator">class-validator</TabTrigger>
+  </TabList>
+  
+  <TabContent value="zod">
+    ```typescript
+    import { z } from 'zod';
+
+    const createUserSchema = z.object({
+      name: z.string().min(1),
+      email: z.string().email(),
+      password: z.string().min(8),
+    });
+
+    type CreateUserDto = z.infer<typeof createUserSchema>;
+    ```
+
+  </TabContent>
+  
+  <TabContent value="class-validator">
+    ```typescript
+    import { IsString, IsEmail, MinLength } from 'class-validator';
+
+    export class CreateUserDto {
+      @IsString()
+      name: string;
+
+      @IsEmail()
+      email: string;
+
+      @MinLength(8)
+      password: string;
+    }
+    ```
+
+  </TabContent>
+</Tabs>

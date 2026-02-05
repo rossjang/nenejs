@@ -1,0 +1,109 @@
+---
+title: Decorators
+description: Learn about the decorator-based API that powers nene.js controllers.
+order: 1
+---
+
+## What are Decorators?
+
+Decorators are a powerful TypeScript feature that allows you to add metadata and modify the behavior of classes and methods. nene.js uses decorators extensively to define routes, inject dependencies, and configure behavior.
+
+```typescript
+@Controller("/api/users")
+export class UserController {
+  @Get("/:id")
+  async getUser(@Param("id") id: string) {
+    return { id, name: "John" };
+  }
+}
+```
+
+<Callout type="info">
+  TypeScript decorators are currently a Stage 3 TC39 proposal and are enabled in
+  nene.js projects by default.
+</Callout>
+
+## Controller Decorators
+
+The `@Controller()` decorator defines a new controller class and sets the base route path:
+
+```typescript
+@Controller("/api/posts")
+export class PostController {
+  // Methods here will be prefixed with /api/posts
+}
+```
+
+### Controller Options
+
+```typescript
+@Controller("/api/posts", {
+  middleware: [authMiddleware],
+  version: "v1",
+})
+export class PostController {}
+```
+
+| Option       | Type           | Description                       |
+| ------------ | -------------- | --------------------------------- |
+| `middleware` | `Middleware[]` | Middleware to apply to all routes |
+| `version`    | `string`       | API version prefix                |
+
+## HTTP Method Decorators
+
+Method decorators define HTTP endpoints and their behavior:
+
+| Decorator       | HTTP Method | Example           |
+| --------------- | ----------- | ----------------- |
+| `@Get(path)`    | GET         | `@Get('/:id')`    |
+| `@Post(path)`   | POST        | `@Post('/')`      |
+| `@Put(path)`    | PUT         | `@Put('/:id')`    |
+| `@Patch(path)`  | PATCH       | `@Patch('/:id')`  |
+| `@Delete(path)` | DELETE      | `@Delete('/:id')` |
+
+```typescript
+@Controller("/api/posts")
+export class PostController {
+  @Get("/") // GET /api/posts
+  async list() {}
+
+  @Get("/:id") // GET /api/posts/:id
+  async get() {}
+
+  @Post("/") // POST /api/posts
+  async create() {}
+
+  @Put("/:id") // PUT /api/posts/:id
+  async update() {}
+
+  @Delete("/:id") // DELETE /api/posts/:id
+  async delete() {}
+}
+```
+
+## Parameter Decorators
+
+Extract data from incoming requests:
+
+```typescript
+@Post('/')
+async createPost(
+  @Body() data: CreatePostDto,           // Request body
+  @Query('published') published: boolean, // Query string
+  @Headers('authorization') auth: string, // Headers
+) {
+  // ...
+}
+
+@Get('/:id')
+async getPost(
+  @Param('id') id: string,  // URL parameters
+) {
+  // ...
+}
+```
+
+<Callout type="tip">
+  Parameter decorators automatically validate and transform data based on your
+  TypeScript types.
+</Callout>

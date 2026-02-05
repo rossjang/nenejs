@@ -1,0 +1,108 @@
+---
+title: 装饰器
+description: 了解驱动 nene.js 控制器的基于装饰器的 API。
+order: 1
+---
+
+## 什么是装饰器？
+
+装饰器是 TypeScript 的强大功能，允许您向类和方法的元数据添加和修改行为。nene.js 广泛使用装饰器来定义路由、依赖注入和行为配置。
+
+```typescript
+@Controller("/api/users")
+export class UserController {
+  @Get("/:id")
+  async getUser(@Param("id") id: string) {
+    return { id, name: "John" };
+  }
+}
+```
+
+<Callout type="info">
+  TypeScript 装饰器目前处于 TC39 Stage 3 提案阶段，在 nene.js
+  项目中默认启用。
+</Callout>
+
+## 控制器装饰器
+
+`@Controller()` 装饰器定义新的控制器类并设置基本路由路径：
+
+```typescript
+@Controller("/api/posts")
+export class PostController {
+  // Methods here will have /api/posts prefix
+}
+```
+
+### 控制器选项
+
+```typescript
+@Controller("/api/posts", {
+  middleware: [authMiddleware],
+  version: "v1",
+})
+export class PostController {}
+```
+
+| 选项         | 类型           | 说明                          |
+| ------------ | -------------- | ----------------------------- |
+| `middleware` | `Middleware[]` | 应用于所有路由的中间件 |
+| `version`    | `string`       | API version prefix               |
+
+## HTTP 方法装饰器
+
+方法装饰器定义 HTTP 端点及其行为：
+
+| 装饰器      | HTTP 方法 | 示例              |
+| --------------- | ----------- | ----------------- |
+| `@Get(path)`    | GET         | `@Get('/:id')`    |
+| `@Post(path)`   | POST        | `@Post('/')`      |
+| `@Put(path)`    | PUT         | `@Put('/:id')`    |
+| `@Patch(path)`  | PATCH       | `@Patch('/:id')`  |
+| `@Delete(path)` | DELETE      | `@Delete('/:id')` |
+
+```typescript
+@Controller("/api/posts")
+export class PostController {
+  @Get("/") // GET /api/posts
+  async list() {}
+
+  @Get("/:id") // GET /api/posts/:id
+  async get() {}
+
+  @Post("/") // POST /api/posts
+  async create() {}
+
+  @Put("/:id") // PUT /api/posts/:id
+  async update() {}
+
+  @Delete("/:id") // DELETE /api/posts/:id
+  async delete() {}
+}
+```
+
+## 参数装饰器
+
+从传入请求中提取数据：
+
+```typescript
+@Post('/')
+async createPost(
+  @Body() data: CreatePostDto,           // Request body
+  @Query('published') published: boolean, // Query string
+  @Headers('authorization') auth: string, // Headers
+) {
+  // ...
+}
+
+@Get('/:id')
+async getPost(
+  @Param('id') id: string,  // URL parameters
+) {
+  // ...
+}
+```
+
+<Callout type="tip">
+  参数装饰器根据 TypeScript 类型自动验证和转换数据。
+</Callout>

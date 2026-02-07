@@ -54,7 +54,7 @@ pnpm build
 
 ## Tech Stack
 
-- **Frontend**: Next.js 15, React 19, Tailwind CSS
+- **Frontend**: Next.js 16, React 19, Tailwind CSS
 - **Backend**: NestJS 11, class-validator
 - **Shared**: TypeScript, shared types and DTOs
 - **Tooling**: Turborepo, pnpm workspaces

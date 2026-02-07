@@ -8,7 +8,7 @@ alwaysApply: true
 ## Project Structure
 
 This is a full-stack monorepo:
-- `apps/web/` - Next.js 15 frontend (port 3000)
+- `apps/web/` - Next.js 16 frontend (port 3000)
 - `apps/api/` - NestJS 11 backend (port 4000)
 - `packages/shared/` - Shared types, DTOs, constants
 

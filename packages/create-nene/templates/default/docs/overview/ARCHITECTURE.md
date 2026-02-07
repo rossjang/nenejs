@@ -5,7 +5,7 @@ This document describes the architecture of this project for AI agents and devel
 ## Overview
 
 This is a full-stack monorepo with:
-- **Frontend**: Next.js 15 with React 19
+- **Frontend**: Next.js 16 with React 19
 - **Backend**: NestJS 11 with class-validator
 - **Shared**: TypeScript types and constants
 

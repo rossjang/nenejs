@@ -18,7 +18,7 @@ pnpm dev
 ```
 
 This creates a full-stack monorepo with:
-- **Frontend**: Next.js 15 (port 3000)
+- **Frontend**: Next.js 16 (port 3000)
 - **Backend**: NestJS 11 (port 4000)
 - **Shared**: TypeScript types and DTOs
 - **Docs**: AI-friendly project documentation

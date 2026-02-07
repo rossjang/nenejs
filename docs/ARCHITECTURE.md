@@ -5,7 +5,7 @@ This document describes the architecture of nene.js for AI agents and developers
 ## Overview
 
 nene.js is a full-stack monorepo framework combining:
-- **Frontend**: Next.js 15+ with React 19
+- **Frontend**: Next.js 16 with React 19
 - **Backend**: NestJS 11 with full decorator support
 - **Shared**: TypeScript types, DTOs, and constants
 - **Tooling**: Turborepo for build orchestration, pnpm workspaces

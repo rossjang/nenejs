@@ -25,7 +25,7 @@ The project is in active development.
 - [x] Waitlist API endpoint (POST /waitlist, GET /waitlist/count)
 
 ### apps/web (Next.js Frontend)
-- [x] Next.js 15 with App Router
+- [x] Next.js 16 with App Router
 - [x] Tailwind CSS setup
 - [x] Landing page
 - [x] Documentation pages (MDX)

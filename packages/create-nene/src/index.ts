@@ -11,9 +11,6 @@ const __dirname = path.dirname(__filename);
 
 interface ProjectOptions {
   projectName: string;
-  template: "default" | "minimal";
-  typescript: boolean;
-  eslint: boolean;
   packageManager: "npm" | "yarn" | "pnpm";
 }
 
@@ -29,7 +26,7 @@ function detectPackageManager(): "npm" | "yarn" | "pnpm" {
     if (userAgent.startsWith("yarn")) return "yarn";
     if (userAgent.startsWith("pnpm")) return "pnpm";
   }
-  return "npm";
+  return "pnpm"; // Default to pnpm for monorepo
 }
 
 function copyDir(src: string, dest: string): void {
@@ -48,16 +45,16 @@ function copyDir(src: string, dest: string): void {
   }
 }
 
-function getTemplateDir(template: string): string {
+function getTemplateDir(): string {
   // In development, templates are relative to src
   // In production (dist), templates are at the package root
-  const devPath = path.resolve(__dirname, "..", "templates", template);
-  const prodPath = path.resolve(__dirname, "..", "..", "templates", template);
+  const devPath = path.resolve(__dirname, "..", "templates", "default");
+  const prodPath = path.resolve(__dirname, "..", "..", "templates", "default");
 
   if (fs.existsSync(devPath)) return devPath;
   if (fs.existsSync(prodPath)) return prodPath;
 
-  throw new Error(`Template "${template}" not found`);
+  throw new Error("Template not found");
 }
 
 function updatePackageJson(projectPath: string, projectName: string): void {
@@ -65,6 +62,71 @@ function updatePackageJson(projectPath: string, projectName: string): void {
   const pkg = JSON.parse(fs.readFileSync(pkgPath, "utf-8"));
   pkg.name = projectName;
   fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + "\n");
+}
+
+function updateSubPackageNames(projectPath: string, projectName: string): void {
+  // Update apps/web package.json
+  const webPkgPath = path.join(projectPath, "apps", "web", "package.json");
+  if (fs.existsSync(webPkgPath)) {
+    const pkg = JSON.parse(fs.readFileSync(webPkgPath, "utf-8"));
+    pkg.name = `@${projectName}/web`;
+    // Update shared package reference
+    if (pkg.dependencies?.["@app/shared"]) {
+      pkg.dependencies[`@${projectName}/shared`] = pkg.dependencies["@app/shared"];
+      delete pkg.dependencies["@app/shared"];
+    }
+    fs.writeFileSync(webPkgPath, JSON.stringify(pkg, null, 2) + "\n");
+  }
+
+  // Update apps/api package.json
+  const apiPkgPath = path.join(projectPath, "apps", "api", "package.json");
+  if (fs.existsSync(apiPkgPath)) {
+    const pkg = JSON.parse(fs.readFileSync(apiPkgPath, "utf-8"));
+    pkg.name = `@${projectName}/api`;
+    // Update shared package reference
+    if (pkg.dependencies?.["@app/shared"]) {
+      pkg.dependencies[`@${projectName}/shared`] = pkg.dependencies["@app/shared"];
+      delete pkg.dependencies["@app/shared"];
+    }
+    fs.writeFileSync(apiPkgPath, JSON.stringify(pkg, null, 2) + "\n");
+  }
+
+  // Update packages/shared package.json
+  const sharedPkgPath = path.join(projectPath, "packages", "shared", "package.json");
+  if (fs.existsSync(sharedPkgPath)) {
+    const pkg = JSON.parse(fs.readFileSync(sharedPkgPath, "utf-8"));
+    pkg.name = `@${projectName}/shared`;
+    fs.writeFileSync(sharedPkgPath, JSON.stringify(pkg, null, 2) + "\n");
+  }
+
+  // Update import statements in apps/web/src/app/page.tsx
+  const pagePath = path.join(projectPath, "apps", "web", "src", "app", "page.tsx");
+  if (fs.existsSync(pagePath)) {
+    let content = fs.readFileSync(pagePath, "utf-8");
+    content = content.replace(/@app\/shared/g, `@${projectName}/shared`);
+    fs.writeFileSync(pagePath, content);
+  }
+
+  // Update cursor rules to use correct package names
+  const cursorRulesDir = path.join(projectPath, ".cursor", "rules");
+  if (fs.existsSync(cursorRulesDir)) {
+    const ruleFiles = fs.readdirSync(cursorRulesDir);
+    for (const file of ruleFiles) {
+      const filePath = path.join(cursorRulesDir, file);
+      let content = fs.readFileSync(filePath, "utf-8");
+      content = content.replace(/@app\/shared/g, `@${projectName}/shared`);
+      fs.writeFileSync(filePath, content);
+    }
+  }
+
+  // Update turbo.json filter names
+  const rootPkgPath = path.join(projectPath, "package.json");
+  if (fs.existsSync(rootPkgPath)) {
+    let content = fs.readFileSync(rootPkgPath, "utf-8");
+    content = content.replace(/@app\/web/g, `@${projectName}/web`);
+    content = content.replace(/@app\/api/g, `@${projectName}/api`);
+    fs.writeFileSync(rootPkgPath, content);
+  }
 }
 
 function renameGitignore(projectPath: string): void {
@@ -95,44 +157,14 @@ async function promptForOptions(projectName?: string): Promise<ProjectOptions> {
       },
       {
         type: "select",
-        name: "template",
-        message: "Select a template:",
-        choices: [
-          {
-            title: "Default",
-            description: "Full-stack with unified frontend and backend",
-            value: "default",
-          },
-          {
-            title: "Minimal",
-            description: "Minimal setup for quick prototyping",
-            value: "minimal",
-          },
-        ],
-        initial: 0,
-      },
-      {
-        type: "confirm",
-        name: "typescript",
-        message: "Use TypeScript?",
-        initial: true,
-      },
-      {
-        type: "confirm",
-        name: "eslint",
-        message: "Use ESLint?",
-        initial: true,
-      },
-      {
-        type: "select",
         name: "packageManager",
         message: "Select a package manager:",
         choices: [
+          { title: "pnpm (recommended)", value: "pnpm" },
           { title: "npm", value: "npm" },
           { title: "yarn", value: "yarn" },
-          { title: "pnpm", value: "pnpm" },
         ],
-        initial: ["npm", "yarn", "pnpm"].indexOf(detectPackageManager()),
+        initial: 0,
       },
     ],
     {
@@ -145,15 +177,12 @@ async function promptForOptions(projectName?: string): Promise<ProjectOptions> {
 
   return {
     projectName: projectName || response.projectName,
-    template: response.template,
-    typescript: response.typescript,
-    eslint: response.eslint,
     packageManager: response.packageManager,
   };
 }
 
 async function createProject(options: ProjectOptions): Promise<void> {
-  const { projectName, template, packageManager } = options;
+  const { projectName, packageManager } = options;
   const projectPath = path.resolve(process.cwd(), projectName);
 
   // Check if directory exists
@@ -175,12 +204,12 @@ async function createProject(options: ProjectOptions): Promise<void> {
 
   console.log();
   console.log(
-    pc.cyan(`Creating a new nene.js project in ${pc.bold(projectPath)}`)
+    pc.cyan(`Creating a new nene.js monorepo in ${pc.bold(projectPath)}`)
   );
   console.log();
 
   // Copy template
-  const templateDir = getTemplateDir(template);
+  const templateDir = getTemplateDir();
   copyDir(templateDir, projectPath);
 
   // Rename _gitignore to .gitignore
@@ -188,6 +217,9 @@ async function createProject(options: ProjectOptions): Promise<void> {
 
   // Update package.json with project name
   updatePackageJson(projectPath, projectName);
+
+  // Update sub-package names
+  updateSubPackageNames(projectPath, projectName);
 
   // Install dependencies
   console.log(pc.cyan("Installing dependencies..."));
@@ -212,11 +244,35 @@ async function createProject(options: ProjectOptions): Promise<void> {
     );
   }
 
+  // Build shared package first
+  console.log();
+  console.log(pc.cyan("Building shared package..."));
+  
+  try {
+    const buildCmd = packageManager === "npm" ? "npm run build" : `${packageManager} build`;
+    execSync(buildCmd, {
+      cwd: path.join(projectPath, "packages", "shared"),
+      stdio: "inherit",
+    });
+  } catch {
+    console.log(
+      pc.yellow("\nFailed to build shared package. Run 'pnpm build' in packages/shared manually.")
+    );
+  }
+
   // Success message
   console.log();
   console.log(
     pc.green("Success!") + ` Created ${pc.bold(projectName)} at ${projectPath}`
   );
+  console.log();
+  console.log("Project structure:");
+  console.log();
+  console.log(`  ${pc.cyan("apps/web")}      - Next.js frontend (port 3000)`);
+  console.log(`  ${pc.cyan("apps/api")}      - NestJS backend (port 4000)`);
+  console.log(`  ${pc.cyan("packages/shared")} - Shared types and constants`);
+  console.log(`  ${pc.cyan("docs/")}         - Project documentation`);
+  console.log(`  ${pc.cyan(".cursor/rules/")} - Cursor AI agent rules`);
   console.log();
   console.log("Next steps:");
   console.log();
@@ -225,6 +281,8 @@ async function createProject(options: ProjectOptions): Promise<void> {
     `  ${pc.cyan(packageManager === "npm" ? "npm run" : packageManager)} dev`
   );
   console.log();
+  console.log("This will start both the frontend (port 3000) and backend (port 4000).");
+  console.log();
   console.log("Happy coding!");
   console.log();
 }
@@ -232,19 +290,15 @@ async function createProject(options: ProjectOptions): Promise<void> {
 export async function main(): Promise<void> {
   program
     .name("create-nene")
-    .description("Create a new nene.js project")
-    .version("0.1.0")
+    .description("Create a new nene.js monorepo with Next.js and NestJS")
+    .version("0.2.0")
     .argument("[project-name]", "Name of the project")
-    .option("-t, --template <template>", "Template to use (default, minimal)")
-    .option("--typescript", "Use TypeScript (default: true)")
-    .option("--no-typescript", "Do not use TypeScript")
-    .option("--eslint", "Use ESLint (default: true)")
-    .option("--no-eslint", "Do not use ESLint")
     .action(async (projectName: string | undefined) => {
       console.log();
       console.log(
         pc.bold(pc.cyan("  nene.js ") + "- The AI-native full-stack framework")
       );
+      console.log(pc.dim("  Next.js + NestJS monorepo for AI-assisted development"));
       console.log();
 
       const options = await promptForOptions(projectName);

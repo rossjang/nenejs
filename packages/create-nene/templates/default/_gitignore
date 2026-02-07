@@ -1,13 +1,11 @@
 # Dependencies
-node_modules/
-.pnp
-.pnp.js
+node_modules
+.pnpm-store
 
-# Build
-dist/
-.nene/
-.next/
-out/
+# Build outputs
+dist
+.next
+.turbo
 
 # Environment
 .env
@@ -15,8 +13,8 @@ out/
 .env.*.local
 
 # IDE
-.idea/
-.vscode/
+.idea
+.vscode
 *.swp
 *.swo
 
@@ -27,15 +25,10 @@ Thumbs.db
 # Logs
 *.log
 npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
 pnpm-debug.log*
 
 # Testing
-coverage/
-
-# TypeScript
-*.tsbuildinfo
+coverage
 
 # Misc
-.vercel
+*.tsbuildinfo

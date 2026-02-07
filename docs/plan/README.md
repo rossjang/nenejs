@@ -1,83 +1,83 @@
 # Implementation Plan
 
-nene.js 웹사이트 구현 칸반 보드입니다.
+Kanban board for nene.js website implementation.
 
 ---
 
-## 🚀 Project Vision & Roadmap
+## Project Vision & Roadmap
 
 ### Business Model
 
 ```
 Phase 1: Open Source        Phase 2: Cloud Platform       Phase 3: Enterprise
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-[현재]                      [사용자 확보 후]              [스케일업]
+[Current]                   [After user acquisition]     [Scale-up]
 
-• nene.js 오픈소스 공개     • nene Cloud 출시             • Enterprise 플랜
-• 문서 사이트 운영          • 웹 배포 기능 (like Vercel)  • 전용 지원
-• 커뮤니티 구축             • 프리미엄 기능               • SLA 보장
-• Waitlist 이메일 수집      • 유료 플랜 도입              • On-premise 옵션
+• nene.js open source       • nene Cloud launch          • Enterprise plan
+• Documentation site       • Web deploy (like Vercel)    • Dedicated support
+• Community building       • Premium features            • SLA guarantee
+• Waitlist email collection • Paid plans                  • On-premise option
 ```
 
-### Phase 1: Open Source Foundation (현재)
+### Phase 1: Open Source Foundation (Current)
 
-**목표**: 오픈소스 프레임워크로 개발자 커뮤니티 확보
+**Goal**: Build developer community with open source framework
 
-| 항목      | 설명                                         |
-| --------- | -------------------------------------------- |
-| 핵심 가치 | 무료, 오픈소스, 커뮤니티 중심                |
-| 수익      | 없음 (투자 단계)                             |
-| KPI       | GitHub Stars, NPM Downloads, Waitlist 가입자 |
+| Item        | Description                              |
+| ----------- | ---------------------------------------- |
+| Core value  | Free, open source, community-centric      |
+| Revenue     | None (investment stage)                  |
+| KPI         | GitHub Stars, NPM Downloads, Waitlist signups |
 
-**우선 작업:**
+**Priority work:**
 
-- ✅ 랜딩 페이지
-- ✅ 문서 사이트 UI
-- 📋 문서 콘텐츠 작성
-- 📋 Waitlist 이메일 수집
-- 📋 GitHub 레포 공개
+- ✅ Landing page
+- ✅ Documentation site UI
+- 📋 Documentation content writing
+- 📋 Waitlist email collection
+- 📋 GitHub repo public release
 
-### Phase 2: Cloud Platform (사용자 확보 후)
+### Phase 2: Cloud Platform (After user acquisition)
 
-**목표**: Vercel처럼 nene.js 앱을 웹에서 쉽게 배포하는 플랫폼
+**Goal**: Platform to deploy nene.js apps on the web easily, like Vercel
 
-| 항목      | 설명                                      |
-| --------- | ----------------------------------------- |
-| 핵심 가치 | One-click deploy, 자동 스케일링, 모니터링 |
-| 수익 모델 | Freemium (무료 + Pro/Team 유료)           |
-| KPI       | MAU, 배포 수, 유료 전환율                 |
+| Item        | Description                                   |
+| ----------- | --------------------------------------------- |
+| Core value  | One-click deploy, auto scaling, monitoring    |
+| Revenue     | Freemium (free + Pro/Team paid)                |
+| KPI         | MAU, deployment count, paid conversion rate   |
 
-**계획 기능:**
+**Planned features:**
 
 - nene Cloud Dashboard
-- GitHub 연동 자동 배포
-- 커스텀 도메인
-- 환경 변수 관리
-- 로그/모니터링
-- Team 협업
+- GitHub integration auto deploy
+- Custom domain
+- Environment variable management
+- Logs/monitoring
+- Team collaboration
 
-### Phase 3: Enterprise (스케일업)
+### Phase 3: Enterprise (Scale-up)
 
-**목표**: 대규모 조직을 위한 엔터프라이즈 솔루션
+**Goal**: Enterprise solution for large organizations
 
-| 항목      | 설명                          |
-| --------- | ----------------------------- |
-| 핵심 가치 | 보안, 컴플라이언스, 전용 지원 |
-| 수익 모델 | Enterprise 라이센스           |
-| KPI       | ARR, 고객사 수                |
+| Item        | Description                          |
+| ----------- | ------------------------------------- |
+| Core value  | Security, compliance, dedicated support |
+| Revenue     | Enterprise license                    |
+| KPI         | ARR, customer count                   |
 
 ---
 
-## 📁 Structure
+## Structure
 
 ```
 docs/plan/
-├── TODO/       # 할 일
-├── DOING/      # 진행 중
-└── DONE/       # 완료
+├── TODO/       # To do
+├── DOING/      # In progress
+└── DONE/       # Done
 ```
 
-## 📊 Current Status
+## Current Status
 
 | Status   | Count |
 | -------- | ----- |
@@ -85,110 +85,110 @@ docs/plan/
 | 🔄 DOING | 0     |
 | 📋 TODO  | 7     |
 
-## 🎯 Priority Order (Phase 1 기준)
+## Priority Order (Phase 1)
 
-### 🔥 Phase 1 Critical - 검증 & 런칭
+### Phase 1 Critical - Validation & Launch
 
-> 오픈소스 공개 및 초기 사용자 확보에 필수
+> Essential for open source release and initial user acquisition
 
-1. `12-header-buttons.md` - **Waitlist 이메일 수집** ⭐
-2. ~~`13-create-nene-package.md` - **create-nene NPM 패키지 배포**~~ ✅
-3. ~~`14-github-repository.md` - **GitHub 레포지토리 생성**~~ ✅
-4. `01-mdx-system.md` - MDX 시스템 설정
-5. `02-docs-content.md` - 문서 콘텐츠 작성
-6. `11-deployment.md` - 사이트 배포
+1. `12-header-buttons.md` - **Waitlist email collection** ⭐
+2. ~~`13-create-nene-package.md` - **create-nene NPM package release**~~ ✅
+3. ~~`14-github-repository.md` - **GitHub repository creation**~~ ✅
+4. `01-mdx-system.md` - MDX system setup
+5. `02-docs-content.md` - Documentation content writing
+6. `11-deployment.md` - Site deployment
 
-### 🟠 Phase 1 Important - 완성도
+### Phase 1 Important - Polish
 
-> 사용자 경험 향상
+> Improve user experience
 
-7. `03-docs-search.md` - 문서 검색 기능
-8. `08-seo-optimization.md` - SEO 최적화
-9. `10-analytics.md` - 분석 도구 (사용자 행동 추적)
+7. `03-docs-search.md` - Documentation search
+8. `08-seo-optimization.md` - SEO optimization
+9. `10-analytics.md` - Analytics (user behavior tracking)
 
-### 🔵 Phase 1 Nice-to-have
+### Phase 1 Nice-to-have
 
-> 있으면 좋지만 런칭 필수 아님
+> Nice to have but not required for launch
 
-10. `05-blog-system.md` - 블로그 시스템
-11. `06-showcase-system.md` - 쇼케이스 시스템
-12. `07-i18n-content.md` - 다국어 콘텐츠
-13. `09-performance.md` - 성능 최적화
+10. `05-blog-system.md` - Blog system
+11. `06-showcase-system.md` - Showcase system
+12. `07-i18n-content.md` - i18n content
+13. `09-performance.md` - Performance optimization
 
-### ⏸️ Phase 2 Deferred - 추후 개발
+### Phase 2 Deferred - Later development
 
-> 사용자 확보 후 Cloud Platform 단계에서 구현
+> Implement in Cloud Platform phase after user acquisition
 
-14. `04-auth-backend.md` - 인증 백엔드 (Cloud 로그인용)
+14. `04-auth-backend.md` - Auth backend (for Cloud login)
 
-## 🚀 How to Use
+## How to Use
 
-### 작업 시작할 때
+### When starting a task
 
 ```bash
-# TODO에서 DOING으로 파일 이동
+# Move file from TODO to DOING
 mv docs/plan/TODO/01-mdx-system.md docs/plan/DOING/
 ```
 
-### 작업 완료할 때
+### When completing a task
 
 ```bash
-# DOING에서 DONE으로 파일 이동
+# Move file from DOING to DONE
 mv docs/plan/DOING/01-mdx-system.md docs/plan/DONE/
 ```
 
-### 각 Task 파일 구조
+### Task file structure
 
 ```markdown
-# Task 제목
+# Task title
 
 - **Status**: 📋 Todo / 🔄 Doing / ✅ Done
 - **Priority**: 🔥 High / 🟠 Medium / 🔵 Low
 - **Labels**: `tag1` `tag2`
-- **Depends on**: (의존성 있는 경우)
+- **Depends on**: (when there are dependencies)
 
 ## Description
 
-작업 설명
+Task description
 
 ## Tasks
 
-- [ ] 체크리스트
+- [ ] Checklist
 
 ## Install
 
-설치 명령어
+Install commands
 
 ## Code Example
 
-코드 예시
+Code example
 
 ## Acceptance Criteria
 
-완료 조건
+Completion criteria
 ```
 
-## 🏷️ Labels
+## Labels
 
-| Label            | Description          |
-| ---------------- | -------------------- |
-| `infrastructure` | 인프라/설정          |
-| `ui`             | UI 컴포넌트          |
-| `backend`        | 백엔드 로직          |
-| `content`        | 콘텐츠 작성          |
-| `feature`        | 새 기능              |
-| `docs`           | 문서 관련            |
-| `blog`           | 블로그 관련          |
-| `auth`           | 인증 관련            |
-| `showcase`       | 쇼케이스 관련        |
-| `i18n`           | 다국어               |
-| `seo`            | 검색 최적화          |
-| `performance`    | 성능                 |
-| `analytics`      | 분석                 |
-| `launch`         | 런칭 준비            |
-| `deploy`         | 배포                 |
-| `waitlist`       | 이메일/Waitlist      |
-| `validation`     | 검증 단계 핵심       |
-| `phase-1`        | Phase 1 (OSS)        |
-| `phase-2`        | Phase 2 (Cloud)      |
+| Label            | Description        |
+| ---------------- | ------------------ |
+| `infrastructure` | Infrastructure/setup |
+| `ui`             | UI components      |
+| `backend`        | Backend logic      |
+| `content`        | Content writing    |
+| `feature`        | New feature        |
+| `docs`           | Documentation      |
+| `blog`           | Blog               |
+| `auth`           | Authentication     |
+| `showcase`       | Showcase           |
+| `i18n`           | Internationalization |
+| `seo`            | Search optimization |
+| `performance`    | Performance        |
+| `analytics`      | Analytics          |
+| `launch`         | Launch preparation |
+| `deploy`         | Deployment         |
+| `waitlist`       | Email/Waitlist     |
+| `validation`     | Validation phase   |
+| `phase-1`        | Phase 1 (OSS)      |
+| `phase-2`        | Phase 2 (Cloud)    |
 | `phase-3`        | Phase 3 (Enterprise) |

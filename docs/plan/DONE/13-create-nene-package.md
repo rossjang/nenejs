@@ -6,9 +6,9 @@
 
 ## Description
 
-`npm create nene@latest` 명령어가 작동하도록 `create-nene` 패키지를 npm에 배포합니다.
+Publish the `create-nene` package to npm so that the `npm create nene@latest` command works.
 
-현재 랜딩 페이지에 `npm create nene@latest` 명령어가 표시되어 있지만, 실제 패키지가 npm에 배포되어 있지 않아 사용자가 명령어 실행 시 404 에러가 발생합니다.
+The landing page shows `npm create nene@latest`, but the package was not published to npm, so users got a 404 when running the command.
 
 ```bash
 $ npm create nene@latest
@@ -17,34 +17,34 @@ npm error 404 Not Found - GET https://registry.npmjs.org/create-nene - Not found
 
 ## Tasks
 
-### Phase 1: 패키지 생성
+### Phase 1: Package creation
 
-- [ ] `create-nene` 패키지 프로젝트 생성
-- [ ] CLI 엔트리포인트 구현 (`bin/create-nene.js`)
-- [ ] 프로젝트 템플릿 구조 정의
-- [ ] 대화형 프롬프트 구현 (prompts)
-- [ ] 템플릿 파일 복사 로직 구현
-- [ ] 의존성 설치 로직 구현
+- [ ] Create `create-nene` package project
+- [ ] Implement CLI entrypoint (`bin/create-nene.js`)
+- [ ] Define project template structure
+- [ ] Implement interactive prompts
+- [ ] Implement template copy logic
+- [ ] Implement dependency install logic
 
-### Phase 2: 템플릿 준비
+### Phase 2: Template preparation
 
-- [ ] 기본 nene.js 프로젝트 템플릿 생성
-- [ ] TypeScript 설정 포함
-- [ ] ESLint/Prettier 설정 포함
-- [ ] 기본 폴더 구조 정의
+- [ ] Create default nene.js project template
+- [ ] Include TypeScript setup
+- [ ] Include ESLint/Prettier setup
+- [ ] Define default folder structure
 
-### Phase 3: 배포
+### Phase 3: Publish
 
-- [ ] npm 계정 설정 (npm login)
-- [ ] 패키지 이름 사용 가능 여부 확인
-- [ ] `npm publish` 실행
-- [ ] 버전 관리 전략 수립
+- [ ] Set up npm account (npm login)
+- [ ] Verify package name availability
+- [ ] Run `npm publish`
+- [ ] Define versioning strategy
 
-### Phase 4: 검증
+### Phase 4: Verification
 
-- [ ] `npm create nene@latest` 명령어 테스트
-- [ ] 생성된 프로젝트 정상 작동 확인
-- [ ] 문서 업데이트
+- [ ] Test `npm create nene@latest` command
+- [ ] Verify generated project runs
+- [ ] Update documentation
 
 ## Package Structure
 
@@ -52,14 +52,14 @@ npm error 404 Not Found - GET https://registry.npmjs.org/create-nene - Not found
 create-nene/
 ├── package.json
 ├── bin/
-│   └── create-nene.js      # CLI 엔트리포인트
+│   └── create-nene.js      # CLI entrypoint
 ├── src/
-│   ├── index.ts            # 메인 로직
-│   ├── prompts.ts          # 대화형 프롬프트
-│   ├── template.ts         # 템플릿 복사 로직
-│   └── utils.ts            # 유틸리티 함수
+│   ├── index.ts            # Main logic
+│   ├── prompts.ts          # Interactive prompts
+│   ├── template.ts         # Template copy logic
+│   └── utils.ts            # Utility functions
 ├── templates/
-│   └── default/            # 기본 템플릿
+│   └── default/            # Default template
 │       ├── package.json
 │       ├── tsconfig.json
 │       ├── src/
@@ -70,7 +70,7 @@ create-nene/
 └── LICENSE
 ```
 
-## package.json 예시
+## package.json example
 
 ```json
 {
@@ -91,7 +91,7 @@ create-nene/
 }
 ```
 
-## CLI 엔트리포인트 예시
+## CLI entrypoint example
 
 ```javascript
 #!/usr/bin/env node
@@ -104,7 +104,7 @@ create().catch((err) => {
 });
 ```
 
-## 사용자 경험 (UX) 예시
+## User experience (UX) example
 
 ```bash
 $ npm create nene@latest my-app
@@ -152,32 +152,32 @@ Happy coding! 🎨
 }
 ```
 
-## npm 배포 명령어
+## npm publish commands
 
 ```bash
-# npm 로그인
+# npm login
 npm login
 
-# 패키지 이름 사용 가능 여부 확인
+# Check package name availability
 npm view create-nene
 
-# dry-run으로 배포 미리보기
+# Dry-run publish
 npm publish --dry-run
 
-# 실제 배포
+# Actual publish
 npm publish --access public
 
-# 버전 업데이트
+# Version bump
 npm version patch  # 0.1.0 -> 0.1.1
 npm version minor  # 0.1.0 -> 0.2.0
 npm version major  # 0.1.0 -> 1.0.0
 ```
 
-## 대안: 임시 해결책
+## Alternative: Temporary workaround
 
-패키지 배포 전까지 홈페이지에서 다른 설치 방법을 안내할 수 있습니다:
+Until the package is published, the homepage can guide users to other install methods:
 
-### Option A: Git clone 방식
+### Option A: Git clone
 
 ```bash
 git clone https://github.com/nene-js/nene-starter my-app
@@ -185,7 +185,7 @@ cd my-app
 npm install
 ```
 
-### Option B: npx degit 방식
+### Option B: npx degit
 
 ```bash
 npx degit nene-js/nene-starter my-app
@@ -193,19 +193,19 @@ cd my-app
 npm install
 ```
 
-### Option C: "Coming Soon" 표시
+### Option C: "Coming Soon" display
 
-랜딩 페이지에서 명령어 대신 Waitlist 가입 유도
+Show Waitlist signup instead of the command on the landing page
 
 ## Related Files
 
-- `src/components/landing/hero-section.tsx` - 랜딩 페이지 명령어 표시
-- `content/docs/*/getting-started/installation.mdx` - 설치 문서
+- `src/components/landing/hero-section.tsx` - Landing page command display
+- `content/docs/*/getting-started/installation.mdx` - Installation docs
 
 ## Acceptance Criteria
 
-- [ ] `npm create nene@latest` 명령어 정상 작동
-- [ ] 생성된 프로젝트가 정상적으로 빌드 및 실행됨
-- [ ] TypeScript 지원
-- [ ] 대화형 프롬프트로 옵션 선택 가능
-- [ ] 문서와 일치하는 사용자 경험
+- [ ] `npm create nene@latest` command works
+- [ ] Generated project builds and runs
+- [ ] TypeScript support
+- [ ] Interactive prompts for options
+- [ ] User experience matches documentation

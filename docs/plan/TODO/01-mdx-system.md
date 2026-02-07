@@ -1,4 +1,4 @@
-# MDX System 설정
+# MDX System Setup
 
 - **Status**: 📋 Todo
 - **Priority**: 🔥 High
@@ -6,19 +6,19 @@
 
 ## Description
 
-Documentation과 Blog에서 사용할 MDX 콘텐츠 시스템 설정
+Setup MDX content system for Documentation and Blog
 
 ## Tasks
 
-- [ ] 패키지 설치
-- [ ] `src/lib/mdx.ts` 유틸리티 함수 생성
-- [ ] MDX 커스텀 컴포넌트 생성
-  - [ ] `Callout` (info/warning/error 박스)
-  - [ ] `CodeBlock` (탭, 복사 기능)
-  - [ ] `Tabs` (탭 컨텐츠)
-  - [ ] `Steps` (단계별 가이드)
-- [ ] `content/docs/` 폴더 구조 생성
-- [ ] `content/blog/` 폴더 구조 생성
+- [ ] Install packages
+- [ ] Create `src/lib/mdx.ts` utility
+- [ ] Create MDX custom components
+  - [ ] `Callout` (info/warning/error box)
+  - [ ] `CodeBlock` (tabs, copy button)
+  - [ ] `Tabs` (tab content)
+  - [ ] `Steps` (step-by-step guide)
+- [ ] Create `content/docs/` folder structure
+- [ ] Create `content/blog/` folder structure
 
 ## Install
 
@@ -102,7 +102,7 @@ export function Callout({ type, title, children }: CalloutProps) {
 
 ## Acceptance Criteria
 
-- [ ] MDX 파일이 정상 렌더링됨
-- [ ] 코드 하이라이팅 작동
-- [ ] 커스텀 컴포넌트 작동 (Callout, Tabs 등)
-- [ ] Frontmatter 파싱됨
+- [ ] MDX files render correctly
+- [ ] Code highlighting works
+- [ ] Custom components work (Callout, Tabs, etc.)
+- [ ] Frontmatter is parsed

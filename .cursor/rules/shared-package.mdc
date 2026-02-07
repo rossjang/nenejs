@@ -1,0 +1,68 @@
+---
+description: Shared package development rules
+globs: packages/shared/**/*.ts
+alwaysApply: false
+---
+
+# Shared Package Rules
+
+## Purpose
+
+The `@nene/shared` package is the single source of truth for:
+- TypeScript types and interfaces
+- DTOs with validation decorators
+- API route constants
+- Shared utilities
+
+## File Structure
+
+```
+packages/shared/src/
+├── index.ts         # Main exports
+├── types/
+│   └── index.ts     # Interfaces and types
+├── constants/
+│   └── index.ts     # API routes, constants
+└── utils/           # Shared utilities (optional)
+```
+
+## Adding New Types
+
+1. Add to `packages/shared/src/types/index.ts`
+2. Export from `packages/shared/src/index.ts`
+3. Run `pnpm build` in shared package
+
+```typescript
+// types/index.ts
+export interface NewType {
+  id: string;
+  name: string;
+}
+
+// index.ts
+export * from './types';
+```
+
+## Adding DTOs
+
+```typescript
+import { IsString, IsEmail } from 'class-validator';
+
+export class CreateUserDto {
+  @IsEmail()
+  email: string;
+
+  @IsString()
+  name: string;
+}
+```
+
+## After Changes
+
+Always rebuild shared package after changes:
+
+```bash
+pnpm --filter @nene/shared build
+# or from root
+pnpm build
+```

@@ -1,0 +1,27 @@
+{
+  "projects": [
+    {
+      "id": "1",
+      "slug": "nenejs-docs",
+      "title": "nene.js Documentation",
+      "description": "This documentation and marketing site—built with nene.js. Next.js frontend, NestJS API, shared types.",
+      "image": "",
+      "category": "devtools",
+      "tags": ["Docs", "Next.js", "NestJS"],
+      "url": "https://nenejs.com",
+      "github": "https://github.com/rossjang/nenejs",
+      "featured": true
+    },
+    {
+      "id": "2",
+      "slug": "your-project",
+      "title": "Your Project",
+      "description": "Submit your nene.js project to be featured here. Join the community.",
+      "image": "",
+      "category": "opensource",
+      "tags": ["Community", "Showcase"],
+      "url": "#",
+      "featured": true
+    }
+  ]
+}

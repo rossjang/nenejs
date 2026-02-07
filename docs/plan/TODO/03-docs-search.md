@@ -7,15 +7,15 @@
 
 ## Description
 
-문서 검색 기능 구현 (Cmd+K)
+Implement documentation search (Cmd+K)
 
 ## Tasks
 
-- [ ] Pagefind 설치 및 설정
-- [ ] `src/components/docs/docs-search.tsx` 생성
-- [ ] Command+K 단축키 지원
-- [ ] 검색 결과 UI 구현
-- [ ] Header에 검색 버튼 추가
+- [ ] Install and configure Pagefind
+- [ ] Create `src/components/docs/docs-search.tsx`
+- [ ] Support Command+K shortcut
+- [ ] Implement search results UI
+- [ ] Add search button to Header
 
 ## Install
 
@@ -86,7 +86,7 @@ export function DocsSearch() {
 
 ## Acceptance Criteria
 
-- [ ] Cmd+K로 검색 모달 열림
-- [ ] 검색 결과 표시됨
-- [ ] 검색 결과 클릭 시 해당 문서로 이동
-- [ ] ESC로 모달 닫힘
+- [ ] Search modal opens with Cmd+K
+- [ ] Search results are displayed
+- [ ] Clicking a result navigates to that doc
+- [ ] ESC closes the modal

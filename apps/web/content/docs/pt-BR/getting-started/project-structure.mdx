@@ -1,0 +1,92 @@
+---
+title: Estrutura do Projeto
+description: Entenda a estrutura de projeto recomendada para aplicações nene.js.
+order: 3
+---
+
+## Visão Geral
+
+Um projeto nene.js típico segue um layout estruturado que separa as responsabilidades enquanto mantém a experiência de desenvolvimento unificada:
+
+```text
+my-nene-app/
+├── src/
+│   ├── app/              # Páginas do Next.js App Router
+│   ├── controllers/      # Controllers do nene.js
+│   ├── services/         # Serviços de lógica de negócio
+│   ├── hooks/            # Hooks gerados automaticamente
+│   └── components/       # Componentes React
+├── nene.config.ts        # Configuração do nene.js
+├── next.config.js        # Configuração do Next.js
+└── package.json
+```
+
+## Diretórios Principais
+
+### `src/controllers/`
+
+Contém seus controllers nene.js. Estes definem seus endpoints de API e geram os hooks correspondentes para o frontend.
+
+```typescript
+// src/controllers/post.controller.ts
+@Controller("/api/posts")
+export class PostController {
+  @Get("/")
+  async getPosts() {
+    /* ... */
+  }
+
+  @Post("/")
+  async createPost(@Body() data: CreatePostDto) {
+    /* ... */
+  }
+}
+```
+
+<Callout type="info">
+  Os controllers são automaticamente descobertos e registrados quando colocados
+  neste diretório.
+</Callout>
+
+### `src/hooks/`
+
+Diretório gerado automaticamente contendo hooks React type-safe para cada método do controller.
+
+<Callout type="warning">
+  Não edite arquivos neste diretório manualmente - eles serão sobrescritos
+  quando os hooks forem regenerados.
+</Callout>
+
+### `src/services/`
+
+Lógica de negócio que pode ser compartilhada entre controllers. Usa injeção de dependência:
+
+```typescript
+// src/services/user.service.ts
+import { Injectable } from "nene/decorators";
+
+@Injectable()
+export class UserService {
+  async findById(id: string) {
+    // Lógica de negócio aqui
+  }
+}
+```
+
+### `src/app/`
+
+Diretório padrão do Next.js App Router para suas páginas e layouts React.
+
+## Arquivos de Configuração
+
+| Arquivo          | Descrição                         |
+| ---------------- | --------------------------------- |
+| `nene.config.ts` | Configuração do framework nene.js |
+| `next.config.js` | Configuração do Next.js           |
+| `tsconfig.json`  | Configuração do TypeScript        |
+
+## Boas Práticas
+
+1. **Agrupe por funcionalidade** - Para apps maiores, considere agrupar controllers e serviços por funcionalidade
+2. **Mantenha controllers enxutos** - Mova a lógica de negócio para serviços
+3. **Use DTOs** - Defina objetos de transferência de dados claros para validação

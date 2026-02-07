@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-nene.js는 Next.js와 NestJS를 융합한 AI-Native 풀스택 프레임워크입니다. 이 웹사이트는 nene.js 프레임워크의 공식 랜딩 페이지 및 문서 사이트입니다.
+nene.js is an AI-Native full-stack framework that fuses Next.js and NestJS. This website is the official landing page and documentation site for the nene.js framework.
 
 ## Tech Stack
 
@@ -17,18 +17,18 @@ nene.js는 Next.js와 NestJS를 융합한 AI-Native 풀스택 프레임워크입
 
 ### Color Palette
 
-| Name            | Hex Code                | Usage               |
-| --------------- | ----------------------- | ------------------- |
-| Background Dark | `#0A0A0A`               | 기본 배경색         |
-| Text Primary    | `#EDEDED`               | 주요 텍스트         |
-| Text Secondary  | `#A1A1A1` / `slate-400` | 보조 텍스트         |
-| Next Blue       | `#0070F3`               | Next.js 브랜드 색상 |
-| Nest Red        | `#E0234E`               | NestJS 브랜드 색상  |
-| Primary         | `#0667ef`               | 주요 액센트 색상    |
+| Name            | Hex Code                | Usage                  |
+| --------------- | ----------------------- | ---------------------- |
+| Background Dark | `#0A0A0A`               | Primary background     |
+| Text Primary    | `#EDEDED`               | Primary text           |
+| Text Secondary  | `#A1A1A1` / `slate-400` | Secondary text         |
+| Next Blue       | `#0070F3`               | Next.js brand color    |
+| Nest Red        | `#E0234E`               | NestJS brand color     |
+| Primary         | `#0667ef`               | Primary accent color   |
 
 ### Fusion Gradient
 
-Next.js와 NestJS의 융합을 상징하는 핵심 그라디언트:
+Core gradient symbolizing the fusion of Next.js and NestJS:
 
 ```css
 background: linear-gradient(90deg, #0070f3 0%, #e0234e 100%);
@@ -42,10 +42,10 @@ background: linear-gradient(90deg, #0070f3 0%, #e0234e 100%);
 
 ### Key CSS Classes
 
-- `.fusion-gradient` - 배경 그라디언트
-- `.fusion-gradient-text` - 텍스트 그라디언트
-- `.glass-card` - 글래스모피즘 카드
-- `.code-window-shadow` - 코드 블록 글로우 효과
+- `.fusion-gradient` - Background gradient
+- `.fusion-gradient-text` - Text gradient
+- `.glass-card` - Glassmorphism card
+- `.code-window-shadow` - Code block glow effect
 
 ## Project Structure
 
@@ -79,15 +79,15 @@ src/
 
 ## Pages Overview
 
-| Page            | Route                   | Status      | Description      |
-| --------------- | ----------------------- | ----------- | ---------------- |
-| Landing         | `/`                     | ✅ Complete | 메인 랜딩 페이지 |
-| Docs            | `/docs`                 | 🔲 Pending  | 문서 메인 페이지 |
-| Getting Started | `/docs/getting-started` | 🔲 Pending  | 시작 가이드      |
-| Features        | `/features`             | 🔲 Pending  | 기능 상세 페이지 |
-| Showcase        | `/showcase`             | 🔲 Pending  | 쇼케이스 갤러리  |
-| Blog            | `/blog`                 | 🔲 Pending  | 블로그 목록      |
-| Auth            | `/auth/signin`          | 🔲 Pending  | 로그인 페이지    |
+| Page            | Route                   | Status      | Description           |
+| --------------- | ----------------------- | ----------- | --------------------- |
+| Landing         | `/`                     | ✅ Complete | Main landing page     |
+| Docs            | `/docs`                 | 🔲 Pending  | Documentation home    |
+| Getting Started | `/docs/getting-started` | 🔲 Pending  | Getting started guide |
+| Features        | `/features`             | 🔲 Pending  | Features detail page   |
+| Showcase        | `/showcase`             | 🔲 Pending  | Showcase gallery      |
+| Blog            | `/blog`                 | 🔲 Pending  | Blog list             |
+| Auth            | `/auth/signin`          | 🔲 Pending  | Sign-in page          |
 
 ## Development Commands
 
@@ -107,7 +107,7 @@ npm run lint
 
 ## Page Documentation
 
-각 페이지별 상세 문서는 `docs/pages/` 폴더에서 확인할 수 있습니다:
+Detailed documentation for each page is available in the `docs/pages/` folder:
 
 - [Landing Page](./pages/landing/README.md)
 - [Docs Page](./pages/docs/README.md)

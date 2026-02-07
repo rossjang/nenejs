@@ -1,0 +1,91 @@
+---
+title: Início Rápido
+description: Construa sua primeira aplicação nene.js em 5 minutos com este guia passo a passo.
+order: 2
+---
+
+## Visão Geral
+
+Neste guia, você aprenderá como:
+
+- Criar um controller com endpoints type-safe
+- Usar hooks gerados automaticamente no seu frontend
+- Executar o servidor de desenvolvimento
+
+<Callout type="info">
+  Este guia assume que você já instalou o nene.js. Se não, confira primeiro o
+  guia de [Instalação](/docs/pt-BR/getting-started/installation).
+</Callout>
+
+## Guia Passo a Passo
+
+<Steps>
+  <Step title="Criar um Controller">
+    Crie um novo controller que irá lidar com a lógica do backend e gerar hooks para o frontend automaticamente:
+
+    ```typescript
+    // src/controllers/user.controller.ts
+    import { Controller, Get, Query } from 'nene/decorators';
+
+    @Controller('/api/users')
+    export class UserController {
+      @Get('/')
+      async getUsers(@Query('search') search?: string) {
+        // Sua lógica de backend aqui
+        return { users: [] };
+      }
+    }
+    ```
+
+  </Step>
+
+  <Step title="Usar Hooks Gerados Automaticamente">
+    O nene.js gera automaticamente hooks type-safe para seu frontend:
+
+    ```tsx
+    // src/app/page.tsx
+    'use client';
+
+    import { useUsers } from '@/hooks/user';
+
+    export default function UsersPage() {
+      const { data, isLoading } = useUsers({ search: 'john' });
+
+      if (isLoading) return <div>Carregando...</div>;
+
+      return (
+        <ul>
+          {data?.users.map(user => (
+            <li key={user.id}>{user.name}</li>
+          ))}
+        </ul>
+      );
+    }
+    ```
+
+  </Step>
+
+  <Step title="Executar o Servidor de Desenvolvimento">
+    Inicie o servidor de desenvolvimento para ver suas alterações em tempo real:
+
+    ```bash
+    npm run dev
+    ```
+
+    Abra [http://localhost:3000](http://localhost:3000) para ver sua aplicação.
+
+  </Step>
+</Steps>
+
+<Callout type="tip" title="Hot Reload">
+  O servidor de desenvolvimento irá regenerar automaticamente os hooks quando
+  você modificar seus controllers. Nenhum passo manual necessário!
+</Callout>
+
+## Próximos Passos
+
+Agora que você construiu sua primeira aplicação nene.js, aprenda mais sobre:
+
+- [Estrutura do Projeto](/docs/pt-BR/getting-started/project-structure) - Entenda o layout de arquivos
+- [Decorators](/docs/pt-BR/core-concepts/decorators) - Domine a API de decorators
+- [Compartilhamento de Tipos](/docs/pt-BR/core-concepts/type-sharing) - Type safety de ponta a ponta

@@ -6,16 +6,16 @@
 
 ## Description
 
-Showcase 프로젝트 데이터 시스템 구현
+Showcase project data system implementation
 
 ## Tasks
 
-- [x] 데이터 소스 결정 (JSON 파일 권장)
-- [x] `data/showcase.json` 생성
-- [ ] 프로젝트 이미지 추가
-- [x] `showcase-detail.tsx` 모달 컴포넌트 생성
-- [x] 기존 하드코딩 데이터 교체
-- [ ] (Optional) 프로젝트 제출 폼 백엔드
+- [x] Decide data source (JSON file recommended)
+- [x] Create `data/showcase.json`
+- [ ] Add project images
+- [x] Create `showcase-detail.tsx` modal component
+- [x] Replace existing hardcoded data
+- [ ] (Optional) Project submission form backend
 
 ## Files to Create
 
@@ -84,7 +84,7 @@ export function ShowcaseDetail({ project, onClose }: ShowcaseDetailProps) {
 
 ## Acceptance Criteria
 
-- [x] 프로젝트 목록이 JSON에서 로드됨
-- [x] 카테고리 필터 작동
-- [x] 프로젝트 클릭 시 상세 모달 열림
-- [ ] 실제 프로젝트 이미지 표시
+- [x] Project list loads from JSON
+- [x] Category filter works
+- [x] Detail modal opens on project click
+- [ ] Real project images displayed

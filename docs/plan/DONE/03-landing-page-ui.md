@@ -1,4 +1,4 @@
-# 랜딩 페이지 UI
+# Landing Page UI
 
 - **Status**: ✅ Done
 - **Labels**: `landing` `ui`
@@ -6,16 +6,16 @@
 
 ## Description
 
-메인 랜딩 페이지 UI 구현 완료
+Main landing page UI implementation completed
 
 ## Completed
 
-- [x] Header 컴포넌트
+- [x] Header component
 - [x] Hero Section
-- [x] Code Block 컴포넌트
-- [x] Social Proof 섹션
+- [x] Code Block component
+- [x] Social Proof section
 - [x] Features Grid
-- [x] Showcase 섹션
+- [x] Showcase section
 - [x] CTA Section
 - [x] Footer
 

@@ -1,0 +1,88 @@
+---
+title: 统一上下文
+description: 了解 nene.js 如何在前端和后端之间共享上下文。
+order: 3
+---
+
+## 概述
+
+nene.js 提供了一个统一上下文系统，可在前端和后端之间无缝共享数据。这消除了手动状态同步的需要，并减少了样板代码。
+
+<Callout type="info">
+  统一上下文是使 nene.js 与众不同的核心功能之一 - 编写一次，随处使用。
+</Callout>
+
+## 请求上下文
+
+使用统一上下文在应用程序的任何地方访问请求信息：
+
+```typescript
+import { useContext } from "nene";
+
+// In controller
+@Controller("/api/posts")
+export class PostController {
+  @Get("/")
+  async getPosts() {
+    const { user, session } = useContext();
+
+    if (!user) {
+      throw new UnauthorizedException();
+    }
+
+    return await this.postService.findByUser(user.id);
+  }
+}
+```
+
+## 前端上下文
+
+相同的上下文也可在 React 组件中使用：
+
+```tsx
+"use client";
+
+import { useNeneContext } from "nene/react";
+
+export function UserProfile() {
+  const { user, isLoading } = useNeneContext();
+
+  if (isLoading) return <Skeleton />;
+  if (!user) return <LoginPrompt />;
+
+  return <div>欢迎, {user.name}!</div>;
+}
+```
+
+## 可用上下文
+
+| 属性      | 类型                | 说明         |
+| --------- | ------------------- | ------------ |
+| `user`    | `User \| null`      | 当前认证用户 |
+| `session` | `Session \| null`   | 当前会话数据 |
+| `locale`  | `string`            | 当前区域设置 |
+| `theme`   | `'light' \| 'dark'` | 当前主题     |
+
+## 自定义上下文
+
+您可以使用自己的数据扩展上下文：
+
+```typescript
+// nene.config.ts
+import { defineConfig } from "nene";
+
+export default defineConfig({
+  context: {
+    extend: async (ctx) => ({
+      ...ctx,
+      tenant: await getTenantFromRequest(ctx.request),
+    }),
+  },
+});
+```
+
+然后随处访问：
+
+```typescript
+const { tenant } = useContext();
+```

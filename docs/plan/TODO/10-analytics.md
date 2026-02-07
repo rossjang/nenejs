@@ -6,13 +6,13 @@
 
 ## Description
 
-분석 도구 및 에러 모니터링 설정
+Analytics and error monitoring setup
 
 ## Tasks
 
-- [ ] Vercel Analytics 설정
-- [ ] Vercel Speed Insights 설정
-- [ ] Sentry 에러 모니터링 설정 (optional)
+- [ ] Configure Vercel Analytics
+- [ ] Configure Vercel Speed Insights
+- [ ] Configure Sentry error monitoring (optional)
 
 ## Install
 
@@ -61,6 +61,6 @@ npx @sentry/wizard@latest -i nextjs
 
 ## Acceptance Criteria
 
-- [ ] Analytics 데이터 수집됨
-- [ ] Speed Insights 작동
-- [ ] 에러 모니터링 작동 (optional)
+- [ ] Analytics data is collected
+- [ ] Speed Insights works
+- [ ] Error monitoring works (optional)

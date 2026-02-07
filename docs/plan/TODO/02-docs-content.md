@@ -1,4 +1,4 @@
-# Documentation Content 작성
+# Documentation Content Writing
 
 - **Status**: 📋 Todo
 - **Priority**: 🔥 High
@@ -7,20 +7,20 @@
 
 ## Description
 
-실제 문서 콘텐츠 작성 및 기존 하드코딩 컴포넌트 수정
+Write actual documentation content and update existing hardcoded components
 
 ## Tasks
 
-- [ ] Getting Started 문서 작성
+- [ ] Write Getting Started docs
   - [ ] `installation.mdx`
   - [ ] `quick-start.mdx`
   - [ ] `project-structure.mdx`
-- [ ] Core Concepts 문서 작성
+- [ ] Write Core Concepts docs
   - [ ] `decorators.mdx`
   - [ ] `unified-context.mdx`
   - [ ] `type-sharing.mdx`
-- [ ] `DocContent` 컴포넌트 MDX 렌더링으로 전환
-- [x] `Sidebar` 컴포넌트 동적 네비게이션으로 전환
+- [ ] Switch `DocContent` component to MDX rendering
+- [x] Switch `Sidebar` component to dynamic navigation
 
 ## Files to Create
 
@@ -63,12 +63,12 @@ npm run dev
 
 ## Files to Modify
 
-- `src/components/docs/doc-content.tsx` - MDX 렌더링으로 변경
-- `src/components/docs/sidebar.tsx` - 파일 시스템 기반으로 변경
-- `src/app/docs/[locale]/[...slug]/page.tsx` - MDX 로딩으로 변경
+- `src/components/docs/doc-content.tsx` - Switch to MDX rendering
+- `src/components/docs/sidebar.tsx` - Switch to file-system based
+- `src/app/docs/[locale]/[...slug]/page.tsx` - Switch to MDX loading
 
 ## Acceptance Criteria
 
-- [ ] 최소 6개 문서 페이지 완성
-- [x] Sidebar가 파일 구조 기반으로 동작
-- [ ] 문서 간 네비게이션 작동
+- [ ] At least 6 doc pages completed
+- [x] Sidebar works from file structure
+- [ ] Doc-to-doc navigation works

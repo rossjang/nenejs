@@ -1,0 +1,53 @@
+---
+description: Next.js frontend development patterns
+globs: apps/web/**/*.{ts,tsx}
+alwaysApply: false
+---
+
+# Frontend Patterns
+
+## Component Structure
+
+```
+apps/web/src/
+├── app/           # App Router pages
+├── components/    # React components
+│   ├── ui/        # Reusable UI components
+│   └── features/  # Feature-specific components
+├── hooks/         # Custom React hooks
+└── lib/           # Utilities and helpers
+```
+
+## Server vs Client Components
+
+```typescript
+// Default: Server Component (no directive needed)
+export default function Page() {
+  return <div>Server rendered</div>;
+}
+
+// Client Component: add 'use client' at top
+'use client';
+export function InteractiveComponent() {
+  const [state, setState] = useState();
+  return <button onClick={() => setState(...)}>Click</button>;
+}
+```
+
+## API Calls to Backend
+
+```typescript
+// Use environment variable for API URL
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
+// Import routes from shared
+import { API_ROUTES } from '@nene/shared';
+
+const response = await fetch(`${API_URL}${API_ROUTES.USERS}`);
+```
+
+## Styling
+
+- Use Tailwind CSS for styling
+- Follow mobile-first responsive design
+- Use CSS variables for theming

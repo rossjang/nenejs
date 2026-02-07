@@ -1,4 +1,4 @@
-# 디자인 시스템 정의
+# Design System Definition
 
 - **Status**: ✅ Done
 - **Labels**: `design`
@@ -6,11 +6,11 @@
 
 ## Description
 
-nene.js 웹사이트 디자인 시스템 정의 완료
+nene.js website design system definition completed
 
 ## Completed
 
-- [x] 색상 팔레트 정의 (Next.js Blue + NestJS Red Fusion)
-- [x] 타이포그래피 정의
-- [x] 다크 모드 우선 디자인
-- [x] 컴포넌트 스타일 가이드
+- [x] Color palette defined (Next.js Blue + NestJS Red Fusion)
+- [x] Typography defined
+- [x] Dark mode first design
+- [x] Component style guide

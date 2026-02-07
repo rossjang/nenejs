@@ -1,0 +1,84 @@
+---
+title: Instalação
+description: Comece a usar o nene.js em minutos. Instale usando seu gerenciador de pacotes favorito.
+order: 1
+---
+
+## Pré-requisitos
+
+Antes de começar, certifique-se de ter os seguintes itens instalados:
+
+- Node.js 18.17 ou superior
+- npm, yarn, pnpm ou bun
+
+<Callout type="tip" title="Recomendado">
+  Recomendamos usar o pnpm para instalação mais rápida e melhor uso de espaço em
+  disco.
+</Callout>
+
+## Criar Novo Projeto
+
+A maneira mais fácil de começar com o nene.js é usar nossa CLI para criar um novo projeto:
+
+```bash
+npx create-nene@latest my-app
+cd my-app
+npm run dev
+```
+
+Isso irá:
+
+1. Criar um novo diretório chamado `my-app`
+2. Configurar uma estrutura completa de projeto nene.js
+3. Instalar todas as dependências
+4. Gerar controllers e hooks de exemplo
+
+## Instalação Manual
+
+Se você preferir configurar o nene.js manualmente em um projeto existente:
+
+<Tabs defaultValue="npm">
+  <TabList>
+    <TabTrigger value="npm">npm</TabTrigger>
+    <TabTrigger value="pnpm">pnpm</TabTrigger>
+    <TabTrigger value="yarn">yarn</TabTrigger>
+  </TabList>
+
+{" "}
+<TabContent value="npm">```bash npm install nene ```</TabContent>
+
+{" "}
+<TabContent value="pnpm">```bash pnpm add nene ```</TabContent>
+
+  <TabContent value="yarn">
+    ```bash
+    yarn add nene
+    ```
+  </TabContent>
+</Tabs>
+
+Em seguida, atualize os scripts do seu `package.json`:
+
+```json
+{
+  "scripts": {
+    "dev": "nene dev",
+    "build": "nene build",
+    "start": "nene start"
+  }
+}
+```
+
+Crie os diretórios necessários:
+
+```bash
+mkdir -p src/controllers src/services src/hooks
+```
+
+## Próximos Passos
+
+Agora que você tem o nene.js instalado, você está pronto para construir sua primeira aplicação:
+
+- [Início Rápido](/docs/pt-BR/getting-started/quick-start) - Construa seu primeiro app nene.js
+- [Estrutura do Projeto](/docs/pt-BR/getting-started/project-structure) - Entenda o layout
+- [Decorators](/docs/pt-BR/core-concepts/decorators) - Aprenda a API de decorators

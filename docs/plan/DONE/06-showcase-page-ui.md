@@ -1,4 +1,4 @@
-# Showcase 페이지 UI
+# Showcase Page UI
 
 - **Status**: ✅ Done
 - **Labels**: `showcase` `ui`
@@ -6,7 +6,7 @@
 
 ## Description
 
-Showcase 페이지 UI 구현 완료 (데이터는 하드코딩)
+Showcase page UI implementation completed (data is hardcoded)
 
 ## Completed
 
@@ -23,4 +23,4 @@ Showcase 페이지 UI 구현 완료 (데이터는 하드코딩)
 
 ## Note
 
-현재 프로젝트 데이터는 하드코딩되어 있음. 데이터 소스 연동 필요.
+Project data is currently hardcoded. Data source integration needed.

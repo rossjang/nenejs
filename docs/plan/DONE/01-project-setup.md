@@ -1,4 +1,4 @@
-# 프로젝트 초기 설정
+# Initial Project Setup
 
 - **Status**: ✅ Done
 - **Labels**: `setup` `infrastructure`
@@ -6,13 +6,13 @@
 
 ## Description
 
-Next.js 프로젝트 초기 설정 완료
+Next.js project initial setup completed
 
 ## Completed
 
-- [x] Next.js 16 프로젝트 생성
-- [x] TypeScript 설정
-- [x] Tailwind CSS 4 설정
-- [x] shadcn/ui 설정
-- [x] ESLint 설정
-- [x] 폴더 구조 정의
+- [x] Next.js 16 project creation
+- [x] TypeScript setup
+- [x] Tailwind CSS 4 setup
+- [x] shadcn/ui setup
+- [x] ESLint setup
+- [x] Folder structure defined

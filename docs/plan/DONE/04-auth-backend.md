@@ -6,27 +6,27 @@
 
 ## Description
 
-NextAuth.js를 사용한 인증 시스템 구현
+Authentication system using NextAuth.js
 
 ## Tasks
 
-- [x] NextAuth.js v5 설치
-- [x] Prisma 설치 및 스키마 정의
-- [ ] 데이터베이스 연결 (Supabase 권장)
-- [x] `src/lib/auth.ts` 생성
-- [x] `src/lib/prisma.ts` 생성
-- [x] API route 생성
-- [x] GitHub OAuth 설정
-- [x] Google OAuth 설정
-- [ ] 기존 UI 컴포넌트 연동
+- [x] Install NextAuth.js v5
+- [x] Install Prisma and define schema
+- [ ] Connect database (Supabase recommended)
+- [x] Create `src/lib/auth.ts`
+- [x] Create `src/lib/prisma.ts`
+- [x] Create API route
+- [x] Configure GitHub OAuth
+- [x] Configure Google OAuth
+- [ ] Wire existing UI components
   - [ ] `SignInForm`
   - [ ] `SignUpForm`
   - [ ] `OAuthButtons`
   - [ ] `ForgotPasswordForm`
-- [ ] 누락 페이지 생성
+- [ ] Create missing pages
   - [ ] `/auth/reset-password`
   - [ ] `/auth/verify-email`
-- [ ] 누락 컴포넌트 생성
+- [ ] Create missing components
   - [ ] `reset-password-form.tsx`
   - [ ] `email-verification.tsx`
 
@@ -106,9 +106,9 @@ model Account {
 
 ## Acceptance Criteria
 
-- [ ] 이메일/비밀번호 회원가입 작동
-- [ ] 이메일/비밀번호 로그인 작동
-- [ ] GitHub 로그인 작동
-- [ ] Google 로그인 작동
-- [ ] 비밀번호 리셋 작동
-- [ ] 세션 유지됨
+- [ ] Email/password signup works
+- [ ] Email/password login works
+- [ ] GitHub login works
+- [ ] Google login works
+- [ ] Password reset works
+- [ ] Session persists

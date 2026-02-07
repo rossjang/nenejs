@@ -1,4 +1,4 @@
-# Header Buttons - Email 수집 (Waitlist)
+# Header Buttons - Email Collection (Waitlist)
 
 - **Status**: ✅ Done
 - **Priority**: 🔥 High
@@ -6,35 +6,35 @@
 
 ## Description
 
-검증 단계에서 사용자 이메일 수집을 위한 Header 버튼 동작 구현
+Implement Header button behavior for user email collection during validation phase
 
 ## Current State
 
-현재 `src/components/landing/header.tsx`의 버튼들은 `<button>` 태그로만 되어있고, 클릭 시 아무 동작도 하지 않음.
+The buttons in `src/components/landing/header.tsx` were plain `<button>` elements with no click behavior.
 
-## Phase 1: Email 수집 (현재 - 검증 단계) 🎯
+## Phase 1: Email Collection (Current - Validation Phase)
 
-### Sign In 버튼
+### Sign In button
 
-- [x] 클릭 시 이메일 수집 모달 열기
-- [x] 버튼 텍스트 변경: "Sign In" → "Join Waitlist"
+- [x] Open email collection modal on click
+- [x] Change button text: "Sign In" → "Join Waitlist"
 
-### Deploy 버튼
+### Deploy button
 
-- [x] 클릭 시 이메일 수집 모달 열기
-- [x] 버튼 텍스트 변경: "Deploy" → "Get Started"
+- [x] Open email collection modal on click
+- [x] Change button text: "Deploy" → "Get Started"
 
-### 이메일 수집 모달
+### Email collection modal
 
-- [x] 이메일 입력 필드
-- [x] 제출 버튼
-- [x] 성공 메시지 (Thank you! We'll notify you when we launch.)
-- [x] 이메일 유효성 검사
+- [x] Email input field
+- [x] Submit button
+- [x] Success message (Thank you! We'll notify you when we launch.)
+- [x] Email validation
 
-### 이메일 저장
+### Email storage
 
-- [x] 옵션 결정: **Option A** - DB 저장 (Prisma + Waitlist 테이블)
-- [x] 중복 이메일 체크
+- [x] Option chosen: **Option A** - DB storage (Prisma + Waitlist table)
+- [x] Duplicate email check
 
 ## Implementation Details
 
@@ -128,12 +128,12 @@ import { NextResponse } from "next/server";
 export async function POST(request: Request) {
   const { email } = await request.json();
 
-  // 이메일 유효성 검사
+  // Email validation
   if (!email || !email.includes("@")) {
     return NextResponse.json({ error: "Invalid email" }, { status: 400 });
   }
 
-  // 중복 체크 및 저장
+  // Duplicate check and save
   const existing = await prisma.waitlist.findUnique({ where: { email } });
   if (existing) {
     return NextResponse.json({ message: "Already registered" });
@@ -145,7 +145,7 @@ export async function POST(request: Request) {
 }
 ```
 
-### Prisma Schema 추가
+### Add to Prisma Schema
 
 ```prisma
 model Waitlist {
@@ -155,7 +155,7 @@ model Waitlist {
 }
 ```
 
-### Header 수정
+### Header update
 
 ```tsx
 // src/components/landing/header.tsx
@@ -188,30 +188,30 @@ export default function Header() {
 
 ## Files to Create/Modify
 
-- `src/components/landing/header.tsx` - 클라이언트 컴포넌트로 변경, 모달 연동
-- `src/components/landing/email-modal.tsx` - (신규) 이메일 수집 모달
-- `src/app/api/waitlist/route.ts` - (신규) Waitlist API
-- `prisma/schema.prisma` - Waitlist 모델 추가
+- `src/components/landing/header.tsx` - Convert to client component, wire modal
+- `src/components/landing/email-modal.tsx` - (New) Email collection modal
+- `src/app/api/waitlist/route.ts` - (New) Waitlist API
+- `prisma/schema.prisma` - Add Waitlist model
 
 ## Acceptance Criteria
 
-- [x] 버튼 클릭 시 이메일 수집 모달 표시
-- [x] 이메일 제출 시 DB에 저장
-- [x] 중복 이메일 처리
-- [x] 성공/에러 피드백 표시
-- [x] 모바일 반응형 유지
+- [x] Email collection modal shows on button click
+- [x] Email is saved to DB on submit
+- [x] Duplicate email handled
+- [x] Success/error feedback shown
+- [x] Mobile responsive preserved
 
 ---
 
-## Phase 2: 정식 기능 (추후 - 제품 출시 후)
+## Phase 2: Full Feature (Later - After product launch)
 
-> 아래는 검증 완료 후 구현할 내용
+> Implement after validation is complete
 
-### Sign In 버튼
+### Sign In button
 
-- [ ] 버튼 클릭 시 `/auth/signin` 페이지로 이동
-- [ ] 로그인 상태에 따른 버튼 표시 변경
+- [ ] Navigate to `/auth/signin` on click
+- [ ] Change button display based on login state
 
-### Deploy 버튼
+### Deploy button
 
-- [ ] Vercel One-Click Deploy 또는 문서 페이지 연결
+- [ ] Vercel One-Click Deploy or link to docs page

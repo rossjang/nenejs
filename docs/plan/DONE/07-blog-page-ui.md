@@ -1,4 +1,4 @@
-# Blog 페이지 UI
+# Blog Page UI
 
 - **Status**: ✅ Done
 - **Labels**: `blog` `ui`
@@ -6,7 +6,7 @@
 
 ## Description
 
-Blog 페이지 UI 구현 완료 (콘텐츠는 샘플 데이터)
+Blog page UI implementation completed (content uses sample data)
 
 ## Completed
 
@@ -26,4 +26,4 @@ Blog 페이지 UI 구현 완료 (콘텐츠는 샘플 데이터)
 
 ## Note
 
-현재 `samplePosts` 배열 사용. MDX 시스템 연동 필요.
+Currently uses `samplePosts` array. MDX system integration needed.

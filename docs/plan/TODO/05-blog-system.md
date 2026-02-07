@@ -7,22 +7,22 @@
 
 ## Description
 
-블로그 MDX 시스템 연동 및 누락 컴포넌트 구현
+Wire blog to MDX system and implement missing components
 
 ## Tasks
 
-- [ ] `content/blog/` 폴더 구조 생성
-- [ ] 블로그 유틸리티 함수 생성
+- [ ] Create `content/blog/` folder structure
+- [ ] Create blog utility functions
   - [ ] `getAllPosts()`
   - [ ] `getPostBySlug()`
   - [ ] `getPostsByCategory()`
-- [ ] Reading time 자동 계산
-- [ ] 누락 컴포넌트 생성
+- [ ] Auto-calculate reading time
+- [ ] Create missing components
   - [ ] `author-bio.tsx`
   - [ ] `related-posts.tsx`
   - [ ] `share-buttons.tsx`
-- [ ] 기존 컴포넌트 수정 (하드코딩 → MDX)
-- [ ] 샘플 블로그 포스트 작성 (2-3개)
+- [ ] Update existing components (hardcoded → MDX)
+- [ ] Write sample blog posts (2–3)
 
 ## Files to Create
 
@@ -91,9 +91,9 @@ export async function getAllPosts() {
 
 ## Acceptance Criteria
 
-- [ ] 블로그 목록 페이지 MDX 기반으로 작동
-- [ ] 개별 포스트 페이지 작동
-- [ ] 카테고리 필터 작동
-- [ ] Reading time 표시
-- [ ] Author bio 표시
-- [ ] Share 버튼 작동
+- [ ] Blog list page works from MDX
+- [ ] Individual post page works
+- [ ] Category filter works
+- [ ] Reading time is shown
+- [ ] Author bio is shown
+- [ ] Share buttons work

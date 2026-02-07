@@ -8,7 +8,7 @@
 
 ## Overview
 
-nene.js로 구축된 실제 프로젝트들을 소개하는 갤러리 페이지입니다. 커뮤니티 프로젝트와 공식 예제를 포함합니다.
+Gallery page showcasing real projects built with nene.js. Includes community projects and official examples.
 
 ## Page Structure
 
@@ -25,8 +25,8 @@ nene.js로 구축된 실제 프로젝트들을 소개하는 갤러리 페이지�
 
 ### Hero Section
 
-- 심플한 타이틀: "Built with nene.js"
-- 서브텍스트: "Explore production apps and community projects"
+- Simple title: "Built with nene.js"
+- Subtext: "Explore production apps and community projects"
 
 ### Filter Tabs
 
@@ -59,30 +59,30 @@ nene.js로 구축된 실제 프로젝트들을 소개하는 갤러리 페이지�
 ### 1. ShowcaseHero
 
 - **File**: `src/components/showcase/hero.tsx`
-- **Description**: 쇼케이스 페이지 히어로
+- **Description**: Showcase page hero
 
 ### 2. ShowcaseFilters
 
 - **File**: `src/components/showcase/filters.tsx`
-- **Description**: 카테고리 필터 탭
+- **Description**: Category filter tabs
 - **Features**:
-  - 탭 스타일 필터
-  - URL 쿼리 파라미터 연동
-  - 필터 상태 유지
+  - Tab-style filters
+  - URL query param sync
+  - Filter state persistence
 
 ### 3. ShowcaseGrid
 
 - **File**: `src/components/showcase/grid.tsx`
-- **Description**: 프로젝트 카드 그리드
+- **Description**: Project card grid
 - **Features**:
-  - 반응형 그리드
-  - 무한 스크롤 또는 페이지네이션
-  - 로딩 스켈레톤
+  - Responsive grid
+  - Infinite scroll or pagination
+  - Loading skeleton
 
 ### 4. ShowcaseCard
 
 - **File**: `src/components/showcase/card.tsx`
-- **Description**: 개별 프로젝트 카드
+- **Description**: Single project card
 - **Props**:
   ```typescript
   interface ShowcaseCardProps {
@@ -96,25 +96,25 @@ nene.js로 구축된 실제 프로젝트들을 소개하는 갤러리 페이지�
   }
   ```
 - **Features**:
-  - 썸네일 이미지 (aspect-video)
-  - 호버 시 확대 효과
-  - 카테고리 태그
-  - 외부 링크 아이콘
+  - Thumbnail image (aspect-video)
+  - Zoom on hover
+  - Category tag
+  - External link icon
 
 ### 5. ShowcaseDetail (Modal or Page)
 
 - **File**: `src/components/showcase/detail.tsx`
-- **Description**: 프로젝트 상세 보기
+- **Description**: Project detail view
 - **Features**:
-  - 스크린샷 갤러리
-  - 기술 스택 태그
-  - 개발자 정보
-  - GitHub / Live Demo 링크
+  - Screenshot gallery
+  - Tech stack tags
+  - Developer info
+  - GitHub / Live Demo links
 
 ### 6. SubmitProjectCTA
 
 - **File**: `src/components/showcase/submit-cta.tsx`
-- **Description**: 프로젝트 제출 유도 섹션
+- **Description**: Section encouraging project submission
 
 ## Data Structure
 
@@ -166,22 +166,21 @@ const projects: ShowcaseProject[] = [
 
 ### Frontend Developer
 
-- **필수 역량**:
-
+- **Required**:
   - React (useState, useEffect)
-  - Next.js Image 최적화
-  - Tailwind CSS Grid 시스템
+  - Next.js Image optimization
+  - Tailwind CSS Grid
   - TypeScript
 
-- **권장 역량**:
-  - URL 쿼리 파라미터 관리 (nuqs 또는 next/navigation)
-  - 이미지 최적화 (next/image, blur placeholder)
-  - 애니메이션 (Framer Motion)
+- **Recommended**:
+  - URL query param handling (nuqs or next/navigation)
+  - Image optimization (next/image, blur placeholder)
+  - Animation (Framer Motion)
 
 ### Backend/Data (Optional)
 
-- **데이터 소스 옵션**:
-  - JSON 파일 (정적)
+- **Data source options**:
+  - JSON file (static)
   - CMS (Contentful, Sanity, etc.)
   - Database (Supabase, etc.)
 
@@ -237,6 +236,6 @@ color: slate-400;
 
 ## SEO Considerations
 
-- 각 프로젝트별 메타데이터
-- Open Graph 이미지
+- Metadata per project
+- Open Graph images
 - Structured Data (JSON-LD)

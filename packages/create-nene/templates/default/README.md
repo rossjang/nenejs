@@ -1,43 +1,60 @@
 # My Nene App
 
-This project was bootstrapped with [create-nene](https://nene.js.org).
-
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) in your browser to see the result.
+A full-stack monorepo with Next.js frontend and NestJS backend.
 
 ## Project Structure
 
 ```
-my-nene-app/
-├── src/
-│   ├── app/           # Frontend pages and layouts
-│   │   ├── page.tsx   # Home page
-│   │   └── layout.tsx # Root layout
-│   └── server/        # Backend API and services
-│       └── api/       # API routes
-├── public/            # Static assets
-├── package.json
-└── tsconfig.json
+├── apps/
+│   ├── web/          # Next.js frontend (port 3000)
+│   └── api/          # NestJS backend (port 4000)
+├── packages/
+│   └── shared/       # Shared types, DTOs, utilities
+└── docs/             # Project documentation
 ```
 
-## Learn More
+## Getting Started
 
-To learn more about nene.js, check out the following resources:
+### Prerequisites
 
-- [nene.js Documentation](https://github.com/rossjang/nenejs) - learn about nene.js features and API.
-- [GitHub Repository](https://github.com/rossjang/nenejs) - your feedback and contributions are welcome!
+- Node.js 18+
+- pnpm 9+
 
-## Deploy
+### Installation
 
-Deploy your nene.js app with [Vercel](https://vercel.com) or any Node.js hosting platform.
+```bash
+pnpm install
+```
+
+### Development
+
+Run both frontend and backend:
+
+```bash
+pnpm dev
+```
+
+Run only frontend:
+
+```bash
+pnpm dev:web
+```
+
+Run only backend:
+
+```bash
+pnpm dev:api
+```
+
+### Build
+
+```bash
+pnpm build
+```
+
+## Tech Stack
+
+- **Frontend**: Next.js 15, React 19, Tailwind CSS
+- **Backend**: NestJS 11, class-validator
+- **Shared**: TypeScript, shared types and DTOs
+- **Tooling**: Turborepo, pnpm workspaces

@@ -1,0 +1,65 @@
+---
+description: Nene monorepo architecture and key patterns
+alwaysApply: true
+---
+
+# Nene Architecture Rules
+
+## Project Structure
+
+This is a full-stack monorepo:
+- `apps/web/` - Next.js 15 frontend (port 3000)
+- `apps/api/` - NestJS 11 backend (port 4000)
+- `packages/shared/` - Shared types, DTOs, constants
+
+## Key Patterns
+
+### Type Sharing (Critical)
+
+**NEVER duplicate types.** Always use `@app/shared`:
+
+```typescript
+// ✅ GOOD - import from shared
+import { User, CreateUserDto } from '@app/shared';
+
+// ❌ BAD - duplicating types
+interface User { id: string; ... }
+```
+
+### API Routes
+
+Use shared constants for API routes:
+
+```typescript
+// packages/shared/src/constants/index.ts
+export const API_ROUTES = {
+  USERS: '/api/users',
+};
+
+// Use in both apps
+import { API_ROUTES } from '@app/shared';
+```
+
+### Validation
+
+DTOs with class-validator are shared:
+
+```typescript
+// packages/shared/src/types/index.ts
+export class CreateUserDto {
+  @IsEmail()
+  email: string;
+}
+```
+
+## Before Making Changes
+
+1. Check `docs/ARCHITECTURE.md` for current patterns
+2. Check `docs/API.md` for existing endpoints
+3. Check `docs/PROGRESS.md` for project status
+
+## After Making Changes
+
+1. Update `docs/API.md` when adding/modifying endpoints
+2. Update `docs/PROGRESS.md` to reflect progress
+3. Run `pnpm build` to verify shared package changes work

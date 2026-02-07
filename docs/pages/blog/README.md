@@ -3,14 +3,14 @@
 ## Page Info
 
 - **Routes**:
-  - `/blog` - 블로그 목록
-  - `/blog/[slug]` - 개별 포스트
+  - `/blog` - Blog list
+  - `/blog/[slug]` - Single post
 - **Status**: 🔲 Pending
 - **Priority**: Low
 
 ## Overview
 
-nene.js 관련 뉴스, 튜토리얼, 업데이트를 공유하는 블로그 페이지입니다.
+Blog page for nene.js news, tutorials, and updates.
 
 ## Page Structure
 
@@ -105,7 +105,7 @@ nene.js 관련 뉴스, 튜토리얼, 업데이트를 공유하는 블로그 페�
 #### 2. FeaturedPost
 
 - **File**: `src/components/blog/featured-post.tsx`
-- **Description**: 대형 피처드 포스트 카드
+- **Description**: Large featured post card
 
 #### 3. BlogPostCard
 
@@ -143,7 +143,7 @@ nene.js 관련 뉴스, 튜토리얼, 업데이트를 공유하는 블로그 페�
 #### 7. BlogPostContent
 
 - **File**: `src/components/blog/post-content.tsx`
-- **Features**: MDX 렌더링, 커스텀 컴포넌트
+- **Features**: MDX rendering, custom components
 
 #### 8. AuthorBio
 
@@ -193,19 +193,18 @@ interface Author {
 
 ### Content Developer
 
-- **필수 역량**:
-
-  - MDX 작성
+- **Required**:
+  - MDX writing
   - Next.js App Router
   - React Server Components
   - TypeScript
 
-- **권장 역량**:
-  - ContentLayer 또는 next-mdx-remote
-  - 이미지 최적화
-  - SEO 최적화
+- **Recommended**:
+  - ContentLayer or next-mdx-remote
+  - Image optimization
+  - SEO optimization
 
-### Required Packages (추천)
+### Required Packages (recommended)
 
 ```json
 {
@@ -235,10 +234,10 @@ publishedAt: "2026-01-15"
 
 ### MDX Components
 
-- `<Callout type="info|warning|error">` - 강조 박스
-- `<CodeBlock>` - 코드 블록 with 탭
-- `<VideoEmbed>` - 비디오 임베드
-- `<Tweet>` - 트윗 임베드
+- `<Callout type="info|warning|error">` - Callout box
+- `<CodeBlock>` - Code block with tabs
+- `<VideoEmbed>` - Video embed
+- `<Tweet>` - Tweet embed
 
 ## Design Specifications
 
@@ -246,7 +245,7 @@ publishedAt: "2026-01-15"
 
 - Border radius: `rounded-xl`
 - Image aspect: `aspect-video`
-- Hover effect: border color change, slight lift
+- Hover: Border color change, slight lift
 
 ### Typography (Blog Post)
 
@@ -266,8 +265,8 @@ publishedAt: "2026-01-15"
 
 ## SEO Requirements
 
-- 각 포스트별 메타 태그
-- Open Graph 이미지 자동 생성
+- Meta tags per post
+- Open Graph image auto generation
 - Structured Data (Article schema)
 - RSS Feed
-- Sitemap 포함
+- Include in Sitemap

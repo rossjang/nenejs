@@ -1,4 +1,4 @@
-# Features 페이지 UI
+# Features Page UI
 
 - **Status**: ✅ Done
 - **Labels**: `features` `ui`
@@ -6,13 +6,13 @@
 
 ## Description
 
-Features 페이지 UI 구현 완료
+Features page UI implementation completed
 
 ## Completed
 
 - [x] Features Hero
-- [x] Feature Section (4개 기능)
-- [x] Code Demo 컴포넌트
+- [x] Feature Section (4 features)
+- [x] Code Demo component
 - [x] Comparison Table
 
 ## Files

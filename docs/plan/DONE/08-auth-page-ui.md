@@ -1,4 +1,4 @@
-# Auth 페이지 UI
+# Auth Page UI
 
 - **Status**: ✅ Done
 - **Labels**: `auth` `ui`
@@ -6,12 +6,12 @@
 
 ## Description
 
-인증 관련 페이지 UI 구현 완료 (백엔드 미연동)
+Auth-related page UI implementation completed (backend not wired)
 
 ## Completed
 
 - [x] Auth Layout
-- [x] Auth Card 컴포넌트
+- [x] Auth Card component
 - [x] Sign In Form
 - [x] Sign Up Form
 - [x] Forgot Password Form
@@ -27,4 +27,4 @@
 
 ## Note
 
-백엔드 인증 로직 미구현. NextAuth.js 연동 필요.
+Backend auth logic not implemented. NextAuth.js integration needed.

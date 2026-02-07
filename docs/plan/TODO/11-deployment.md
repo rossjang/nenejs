@@ -6,15 +6,15 @@
 
 ## Description
 
-Vercel 배포 설정
+Vercel deployment setup
 
 ## Tasks
 
-- [ ] 환경 변수 설정
-- [ ] Vercel 프로젝트 연결
-- [ ] 도메인 연결
-- [ ] Preview deployments 설정
-- [ ] Production 배포
+- [ ] Set environment variables
+- [ ] Connect Vercel project
+- [ ] Connect domain
+- [ ] Configure preview deployments
+- [ ] Production deployment
 
 ## Environment Variables
 
@@ -67,7 +67,7 @@ vercel --prod
 
 ## Acceptance Criteria
 
-- [ ] Production 배포 성공
-- [ ] 커스텀 도메인 연결됨
-- [ ] HTTPS 작동
-- [ ] Preview deployments 작동
+- [ ] Production deployment succeeds
+- [ ] Custom domain is connected
+- [ ] HTTPS works
+- [ ] Preview deployments work

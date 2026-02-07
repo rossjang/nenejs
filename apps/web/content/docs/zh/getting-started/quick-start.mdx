@@ -1,0 +1,90 @@
+---
+title: 快速开始
+description: 通过此分步指南，在 5 分钟内创建您的第一个 nene.js 应用程序。
+order: 2
+---
+
+## 概述
+
+在本指南中，您将学习：
+
+- 创建具有类型安全端点的控制器
+- 在前端使用自动生成的钩子
+- 运行开发服务器
+
+<Callout type="info">
+  本指南假设 nene.js 已安装。如果尚未安装，请先查看
+  [安装](/docs/zh/getting-started/installation) 指南。
+</Callout>
+
+## 分步指南
+
+<Steps>
+  <Step title="创建控制器">
+    创建一个新控制器来处理后端逻辑并自动生成前端钩子：
+
+    ```typescript
+    // src/controllers/user.controller.ts
+    import { Controller, Get, Query } from 'nene/decorators';
+
+    @Controller('/api/users')
+    export class UserController {
+      @Get('/')
+      async getUsers(@Query('search') search?: string) {
+        // Backend logic goes here
+        return { users: [] };
+      }
+    }
+    ```
+
+  </Step>
+
+  <Step title="使用自动生成的钩子">
+    nene.js 会自动为前端生成类型安全的钩子：
+
+    ```tsx
+    // src/app/page.tsx
+    'use client';
+
+    import { useUsers } from '@/hooks/user';
+
+    export default function UsersPage() {
+      const { data, isLoading } = useUsers({ search: 'john' });
+
+      if (isLoading) return <div>加载中...</div>;
+
+      return (
+        <ul>
+          {data?.users.map(user => (
+            <li key={user.id}>{user.name}</li>
+          ))}
+        </ul>
+      );
+    }
+    ```
+
+  </Step>
+
+  <Step title="运行开发服务器">
+    启动开发服务器以实时查看更改：
+
+    ```bash
+    npm run dev
+    ```
+
+    打开 [http://localhost:3000](http://localhost:3000) 查看您的应用程序。
+
+  </Step>
+</Steps>
+
+<Callout type="tip" title="热重载">
+  开发服务器会在您修改控制器时自动重新生成钩子。无需手动操作！
+</Callout>
+
+## 下一步
+
+您已经创建了第一个 nene.js 应用程序，现在了解更多：
+
+- [项目结构](/docs/zh/getting-started/project-structure) - 了解文件布局
+- [装饰器](/docs/zh/core-concepts/decorators) - 掌握装饰器 API
+- [类型共享](/docs/zh/core-concepts/type-sharing) - 端到端类型安全

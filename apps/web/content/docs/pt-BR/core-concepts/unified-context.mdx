@@ -1,0 +1,89 @@
+---
+title: Contexto Unificado
+description: Entenda como o nene.js compartilha contexto entre frontend e backend.
+order: 3
+---
+
+## Visão Geral
+
+O nene.js fornece um sistema de contexto unificado que compartilha dados perfeitamente entre seu frontend e backend. Isso elimina a necessidade de sincronização manual de estado e reduz código boilerplate.
+
+<Callout type="info">
+  O Contexto Unificado é uma das principais funcionalidades que torna o nene.js
+  único - escreva uma vez, use em qualquer lugar.
+</Callout>
+
+## Contexto de Requisição
+
+Acesse informações de requisição em qualquer lugar da sua aplicação usando o contexto unificado:
+
+```typescript
+import { useContext } from "nene";
+
+// Em um controller
+@Controller("/api/posts")
+export class PostController {
+  @Get("/")
+  async getPosts() {
+    const { user, session } = useContext();
+
+    if (!user) {
+      throw new UnauthorizedException();
+    }
+
+    return await this.postService.findByUser(user.id);
+  }
+}
+```
+
+## Contexto no Frontend
+
+O mesmo contexto está disponível nos seus componentes React:
+
+```tsx
+"use client";
+
+import { useNeneContext } from "nene/react";
+
+export function UserProfile() {
+  const { user, isLoading } = useNeneContext();
+
+  if (isLoading) return <Skeleton />;
+  if (!user) return <LoginPrompt />;
+
+  return <div>Bem-vindo, {user.name}!</div>;
+}
+```
+
+## Contexto Disponível
+
+| Propriedade | Tipo                | Descrição                 |
+| ----------- | ------------------- | ------------------------- |
+| `user`      | `User \| null`      | Usuário autenticado atual |
+| `session`   | `Session \| null`   | Dados da sessão atual     |
+| `locale`    | `string`            | Localidade atual          |
+| `theme`     | `'light' \| 'dark'` | Tema atual                |
+
+## Contexto Personalizado
+
+Você pode estender o contexto com seus próprios dados:
+
+```typescript
+// nene.config.ts
+import { defineConfig } from "nene";
+
+export default defineConfig({
+  context: {
+    extend: async (ctx) => ({
+      ...ctx,
+      tenant: await getTenantFromRequest(ctx.request),
+    }),
+  },
+});
+```
+
+Então acesse em qualquer lugar:
+
+```typescript
+const { tenant } = useContext();
+```

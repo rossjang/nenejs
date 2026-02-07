@@ -6,15 +6,15 @@
 
 ## Description
 
-성능 최적화 및 Lighthouse 점수 개선
+Performance optimization and Lighthouse score improvement
 
 ## Tasks
 
-- [ ] Image 최적화 검토 (next/image)
-- [ ] Font 최적화 (next/font)
-- [ ] Bundle 분석
-- [ ] 코드 스플리팅 검토
-- [ ] Lighthouse Performance > 90 달성
+- [ ] Review image optimization (next/image)
+- [ ] Font optimization (next/font)
+- [ ] Bundle analysis
+- [ ] Review code splitting
+- [ ] Achieve Lighthouse Performance > 90
 
 ## Install
 
@@ -75,4 +75,4 @@ import Image from "next/image";
 - [ ] Lighthouse Performance > 90
 - [ ] Lighthouse Accessibility > 95
 - [ ] Time to Interactive < 3s
-- [ ] Bundle size 최적화됨
+- [ ] Bundle size optimized

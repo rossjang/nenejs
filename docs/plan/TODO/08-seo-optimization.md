@@ -6,16 +6,16 @@
 
 ## Description
 
-검색 엔진 최적화
+Search engine optimization
 
 ## Tasks
 
-- [ ] 모든 페이지 메타데이터 검토
-- [ ] Open Graph 이미지 생성
-- [ ] `next-sitemap` 설정
-- [ ] RSS Feed 생성 (블로그)
-- [ ] JSON-LD Structured Data 추가
-- [ ] robots.txt 설정
+- [ ] Review metadata on all pages
+- [ ] Generate Open Graph images
+- [ ] Configure `next-sitemap`
+- [ ] Generate RSS Feed (blog)
+- [ ] Add JSON-LD Structured Data
+- [ ] Configure robots.txt
 
 ## Install
 
@@ -65,7 +65,7 @@ export const metadata: Metadata = {
 
 ## Acceptance Criteria
 
-- [ ] Sitemap 생성됨
-- [ ] robots.txt 존재
-- [ ] OG 이미지 모든 페이지에 설정
-- [ ] RSS Feed 접근 가능
+- [ ] Sitemap is generated
+- [ ] robots.txt exists
+- [ ] OG image set on all pages
+- [ ] RSS Feed is accessible

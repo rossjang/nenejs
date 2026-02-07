@@ -1,4 +1,4 @@
-# Documentation 페이지 UI
+# Documentation Page UI
 
 - **Status**: ✅ Done
 - **Labels**: `docs` `ui`
@@ -6,14 +6,14 @@
 
 ## Description
 
-Documentation 페이지 UI 구현 완료 (콘텐츠는 하드코딩)
+Documentation page UI implementation completed (content is hardcoded)
 
 ## Completed
 
 - [x] Docs Layout
-- [x] Sidebar 네비게이션
+- [x] Sidebar navigation
 - [x] Mobile Sidebar
-- [x] Doc Content 영역
+- [x] Doc Content area
 - [x] Table of Contents
 - [x] Language Switcher
 
@@ -25,4 +25,4 @@ Documentation 페이지 UI 구현 완료 (콘텐츠는 하드코딩)
 
 ## Note
 
-현재 콘텐츠는 하드코딩되어 있음. MDX 시스템 연동 필요.
+Content is currently hardcoded. MDX system integration needed.

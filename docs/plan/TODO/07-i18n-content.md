@@ -1,4 +1,4 @@
-# i18n Content (한국어)
+# i18n Content (Korean)
 
 - **Status**: 📋 Todo
 - **Priority**: 🟠 Medium
@@ -7,20 +7,20 @@
 
 ## Description
 
-한국어 문서 콘텐츠 작성
+Write Korean documentation content
 
 ## Tasks
 
-- [ ] `content/docs/ko/` 폴더 구조 생성
-- [ ] Getting Started 한국어 번역
+- [ ] Create `content/docs/ko/` folder structure
+- [ ] Translate Getting Started to Korean
   - [ ] `installation.mdx`
   - [ ] `quick-start.mdx`
   - [ ] `project-structure.mdx`
-- [ ] Core Concepts 한국어 번역
+- [ ] Translate Core Concepts to Korean
   - [ ] `decorators.mdx`
   - [ ] `unified-context.mdx`
   - [ ] `type-sharing.mdx`
-- [ ] 언어 전환 기능 테스트
+- [ ] Test language switcher
 
 ## Files to Create
 
@@ -38,6 +38,6 @@ content/docs/ko/
 
 ## Acceptance Criteria
 
-- [ ] 한국어 문서 페이지 접근 가능
-- [ ] 언어 전환 시 콘텐츠 변경됨
-- [ ] 최소 Getting Started 섹션 완성
+- [ ] Korean doc pages are accessible
+- [ ] Content changes when switching language
+- [ ] At least Getting Started section is complete

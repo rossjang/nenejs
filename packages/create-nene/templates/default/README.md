@@ -10,7 +10,12 @@ A full-stack monorepo with Next.js frontend and NestJS backend.
 │   └── api/          # NestJS backend (port 4000)
 ├── packages/
 │   └── shared/       # Shared types, DTOs, utilities
-└── docs/             # Project documentation
+├── docs/             # Project documentation
+├── AI_CONTEXT.md     # Universal AI context (single source of truth)
+├── .cursor/rules/    # Cursor AI agent rules
+├── .github/          # GitHub Copilot instructions
+├── CLAUDE.md         # Claude Code agent rules
+└── AGENTS.md         # OpenAI Codex agent rules
 ```
 
 ## Getting Started
@@ -58,3 +63,17 @@ pnpm build
 - **Backend**: NestJS 11, class-validator
 - **Shared**: TypeScript, shared types and DTOs
 - **Tooling**: Turborepo, pnpm workspaces
+
+## AI Agent Support
+
+This project includes built-in configuration for AI coding assistants:
+
+| Tool | Config File |
+|------|------------|
+| Any AI Agent | `AI_CONTEXT.md` (universal context) |
+| Cursor | `.cursor/rules/*.mdc` |
+| GitHub Copilot | `.github/copilot-instructions.md` |
+| Claude Code | `CLAUDE.md` |
+| OpenAI Codex | `AGENTS.md` |
+
+`AI_CONTEXT.md` is the single source of truth. Tool-specific files are lightweight pointers that reference it.

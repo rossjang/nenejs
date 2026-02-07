@@ -79,8 +79,9 @@ nenejs/
 
 ### packages/create-nene
 - CLI tool to scaffold new projects
-- Creates full monorepo structure
+- Creates full monorepo structure with multi-agent support
 - `npx create-nene my-app`
+- Generates rule files for Cursor, Claude Code, and OpenAI Codex
 
 ## Key Patterns
 
@@ -166,6 +167,20 @@ Build pipeline is configured in `turbo.json`:
 2. Start development: `pnpm dev`
 3. Frontend available at: http://localhost:3000
 4. Backend available at: http://localhost:4000
+
+## AI Agent Integration
+
+Every nene.js project ships with built-in rule files for multiple AI coding tools:
+
+| Tool | Rule Files | How It Works |
+|------|-----------|--------------|
+| Any AI Agent | `AI_CONTEXT.md` | Universal context file - single source of truth |
+| Cursor | `.cursor/rules/*.mdc` | Auto-applied based on YAML frontmatter (`globs`, `alwaysApply`) |
+| GitHub Copilot | `.github/copilot-instructions.md` | Automatically read by Copilot in VS Code/JetBrains |
+| Claude Code | `CLAUDE.md` (root + subdirectories) | Automatically read by Claude Code on session start |
+| OpenAI Codex | `AGENTS.md` (root + subdirectories) | Automatically read by Codex on session start |
+
+`AI_CONTEXT.md` is the **single source of truth** for project context. Tool-specific files are lightweight pointers that reference it. The detailed documentation lives in `docs/` (this file, API.md, etc.).
 
 ## For AI Agents
 

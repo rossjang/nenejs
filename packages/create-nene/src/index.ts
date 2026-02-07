@@ -189,6 +189,25 @@ function updateSubPackageNames(projectPath: string, projectName: string): void {
     }
   }
 
+  // Update agent rule files to use correct package names
+  const agentRuleFiles = [
+    path.join(projectPath, "AI_CONTEXT.md"),
+    path.join(projectPath, "CLAUDE.md"),
+    path.join(projectPath, "AGENTS.md"),
+    path.join(projectPath, ".github", "copilot-instructions.md"),
+    path.join(projectPath, "apps", "web", "CLAUDE.md"),
+    path.join(projectPath, "apps", "web", "AGENTS.md"),
+    path.join(projectPath, "apps", "api", "CLAUDE.md"),
+    path.join(projectPath, "apps", "api", "AGENTS.md"),
+  ];
+  for (const filePath of agentRuleFiles) {
+    if (fs.existsSync(filePath)) {
+      let content = fs.readFileSync(filePath, "utf-8");
+      content = content.replace(/@app\/shared/g, `@${projectName}/shared`);
+      fs.writeFileSync(filePath, content);
+    }
+  }
+
   // Update turbo.json filter names
   const rootPkgPath = path.join(projectPath, "package.json");
   if (fs.existsSync(rootPkgPath)) {
@@ -374,7 +393,11 @@ async function createProject(options: ProjectOptions): Promise<void> {
   console.log(`  ${pc.cyan("apps/api")}      - NestJS backend (port 4000)`);
   console.log(`  ${pc.cyan("packages/shared")} - Shared types and constants`);
   console.log(`  ${pc.cyan("docs/")}         - Project documentation`);
+  console.log(`  ${pc.cyan("AI_CONTEXT.md")}  - Universal AI context (single source of truth)`);
   console.log(`  ${pc.cyan(".cursor/rules/")} - Cursor AI agent rules`);
+  console.log(`  ${pc.cyan(".github/")}       - GitHub Copilot instructions`);
+  console.log(`  ${pc.cyan("CLAUDE.md")}      - Claude Code agent rules`);
+  console.log(`  ${pc.cyan("AGENTS.md")}      - OpenAI Codex agent rules`);
   console.log();
   console.log("Next steps:");
   console.log();

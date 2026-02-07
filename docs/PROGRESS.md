@@ -42,6 +42,8 @@ The project is in active development.
 - [x] CLI scaffolding tool
 - [x] Monorepo template generation
 - [x] Package name customization
+- [x] Multi-agent rule files (Cursor, GitHub Copilot, Claude Code, OpenAI Codex)
+- [x] AI_CONTEXT.md universal context file (single source of truth)
 
 ### Documentation
 - [x] ARCHITECTURE.md

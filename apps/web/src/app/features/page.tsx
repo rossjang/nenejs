@@ -36,21 +36,24 @@ export default function UsersPage() {
     reversed: false,
   },
   {
-    title: "AI Agent Friendly",
+    title: "AI-Agnostic",
     description:
-      "Structured docs and consistent patterns so AI coding assistants understand your stack. ARCHITECTURE.md, API.md, and shared types make the codebase navigable.",
+      "Works with Cursor, GitHub Copilot, Claude Code, and OpenAI Codex out of the box. One universal context file powers every AI coding assistant.",
     bullets: [
-      "Documentation structure AI agents understand",
-      "Consistent patterns across frontend and backend",
-      "Shared types reduce ambiguity",
+      "AI_CONTEXT.md - single source of truth for all agents",
+      "Built-in rules for Cursor, Copilot, Claude Code, and Codex",
+      "Shared types reduce ambiguity for AI agents",
     ],
-    codeExample: `// docs/ARCHITECTURE.md - AI reads this
-// - apps/web (Next.js), apps/api (NestJS)
-// - packages/shared for types and DTOs
+    codeExample: `// Every nene.js project includes:
+// AI_CONTEXT.md    → Universal context (SSOT)
+// .cursor/rules/   → Cursor AI rules
+// .github/         → GitHub Copilot instructions
+// CLAUDE.md        → Claude Code rules
+// AGENTS.md        → OpenAI Codex rules
 
-// Controllers → auto-generated hooks
-// No @Backend or useAction - use @Controller + useGetXxx`,
-    codeFilename: "docs/ARCHITECTURE.md",
+// Plus structured docs AI agents read:
+// docs/ARCHITECTURE.md, docs/API.md`,
+    codeFilename: "AI Agent Integration",
     accentColor: "#e0234e",
     reversed: true,
   },

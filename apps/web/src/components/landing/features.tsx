@@ -37,8 +37,8 @@ export default function Features() {
                 AI Agent Friendly
               </h3>
               <p className="text-slate-400 text-base leading-relaxed">
-                Structured documentation and consistent patterns that AI coding
-                assistants can understand and work with effectively.
+                Built-in rules for Cursor, GitHub Copilot, Claude Code, and
+                OpenAI Codex. One context file powers every AI agent.
               </p>
             </div>
           </div>

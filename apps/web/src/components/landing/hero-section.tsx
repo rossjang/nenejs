@@ -39,8 +39,8 @@ export default function HeroSection() {
         {/* Description */}
         <p className="text-slate-400 text-lg md:text-xl max-w-2xl mb-12">
           Merge Next.js and NestJS for a seamless full-stack experience.
-          Shared types, auto-generated hooks, and documentation that AI agents
-          understand.
+          Shared types, auto-generated hooks, and built-in rules for Cursor,
+          GitHub Copilot, Claude Code, and OpenAI Codex.
         </p>
 
         {/* Command input */}

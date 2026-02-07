@@ -22,12 +22,13 @@ This creates a full-stack monorepo with:
 - **Backend**: NestJS 11 (port 4000)
 - **Shared**: TypeScript types and DTOs
 - **Docs**: AI-friendly project documentation
+- **Agent Rules**: Built-in config for Cursor, GitHub Copilot, Claude Code, and OpenAI Codex
 
 ## Features
 
 - **Full-Stack Monorepo** - Next.js frontend + NestJS backend in one repo
 - **Type-Safe** - Shared types between frontend and backend
-- **AI-Native** - Documentation structure optimized for AI agents
+- **AI-Agnostic** - Built-in rules for Cursor, GitHub Copilot, Claude Code, and OpenAI Codex
 - **NestJS Backend** - Full decorator support, validation, DI
 - **Zero Config** - Sensible defaults that just work
 
@@ -48,8 +49,13 @@ my-app/
 │   └── pages/            # Page documentation
 ├── scripts/
 │   └── dev.sh            # Development server startup script
+├── AI_CONTEXT.md         # Universal AI context (single source of truth)
 ├── .cursor/
 │   └── rules/            # Cursor AI agent rules
+├── .github/
+│   └── copilot-instructions.md  # GitHub Copilot instructions
+├── CLAUDE.md             # Claude Code agent rules
+├── AGENTS.md             # OpenAI Codex agent rules
 ├── turbo.json
 └── pnpm-workspace.yaml
 ```
@@ -140,12 +146,25 @@ pnpm build:shared
 
 ## For AI Agents
 
-This project is designed for AI-assisted development:
+nene.js is optimized for **Cursor, GitHub Copilot, Claude Code, and CLI agents**. Includes pre-configured context for Copilot (`.github/copilot-instructions.md`) and generic LLMs (`AI_CONTEXT.md`).
 
-1. **Read `docs/overview/ARCHITECTURE.md`** - Project structure and patterns
-2. **See `docs/API.md`** - API endpoint reference
-3. **Check `docs/kanban/`** - Task management board (TODO/DOING/DONE)
-4. **Use shared types** - Don't duplicate type definitions
+Every scaffolded project includes:
+
+| Tool | Config File | How It Works |
+|------|------------|--------------|
+| Any AI Agent | `AI_CONTEXT.md` | Universal context file (single source of truth) |
+| Cursor | `.cursor/rules/*.mdc` | Auto-applied based on file globs |
+| GitHub Copilot | `.github/copilot-instructions.md` | Read automatically by Copilot |
+| Claude Code | `CLAUDE.md` (root + subdirectories) | Read automatically by Claude Code |
+| OpenAI Codex | `AGENTS.md` (root + subdirectories) | Read automatically by Codex |
+
+**Getting started as an AI agent:**
+
+1. **Read `AI_CONTEXT.md`** - Full project context in one file
+2. **Read `docs/overview/ARCHITECTURE.md`** - Detailed architecture
+3. **See `docs/API.md`** - API endpoint reference
+4. **Check `docs/kanban/`** - Task management board (TODO/DOING/DONE)
+5. **Use shared types** - Don't duplicate type definitions
 
 ## Documentation
 

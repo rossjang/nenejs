@@ -12,7 +12,7 @@ interface HealthStatus {
 type ServiceStatus = 'checking' | 'active' | 'inactive';
 
 const EXAMPLE_PROMPT =
-  'Turn this nene.js project into a blog with real-time comments. Use a light theme with modern fonts. Skip auth for now (add it as a TODO), and let anyone write posts and comments.';
+  'Turn this nene.js project into a blog with real-time comments. Use a light theme with modern fonts. Skip auth for now (add it as a kanban TODO), and let anyone write posts and comments.';
 
 function StatusBadge({ status }: { status: ServiceStatus }) {
   if (status === 'checking') {

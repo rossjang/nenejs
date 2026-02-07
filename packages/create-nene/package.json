@@ -1,6 +1,6 @@
 {
   "name": "create-nene",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Create a new nene.js project with a single command",
   "type": "module",
   "bin": {

@@ -2,7 +2,7 @@
 
 The AI-native full-stack framework for building modern web applications.
 
-[![npm version](https://badge.fury.io/js/create-nene.svg)](https://www.npmjs.com/package/create-nene)
+[![npm version](https://img.shields.io/npm/v/create-nene.svg)](https://www.npmjs.com/package/create-nene)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## Overview

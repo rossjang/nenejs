@@ -23,7 +23,10 @@ This is a full-stack monorepo with:
 │       └── src/
 │           ├── types/    # TypeScript interfaces
 │           └── constants/# API routes, constants
-└── docs/                 # Project documentation
+├── docs/
+│   ├── overview/         # Project overview & architecture
+│   ├── kanban/           # Task management (TODO/DOING/DONE)
+│   └── pages/            # Page-specific documentation
 ```
 
 ## Data Flow

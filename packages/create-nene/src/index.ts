@@ -29,6 +29,76 @@ function detectPackageManager(): "npm" | "yarn" | "pnpm" {
   return "pnpm"; // Default to pnpm for monorepo
 }
 
+function isCommandAvailable(command: string): boolean {
+  try {
+    execSync(`${command} --version`, { stdio: "ignore" });
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function ensurePackageManager(packageManager: "npm" | "yarn" | "pnpm"): boolean {
+  if (isCommandAvailable(packageManager)) {
+    return true;
+  }
+
+  console.log(
+    pc.yellow(`\n${packageManager} is not installed. Attempting to install...`)
+  );
+
+  // Try corepack first (built-in to Node.js 16.9+)
+  if (isCommandAvailable("corepack")) {
+    try {
+      console.log(pc.dim(`  Using corepack to enable ${packageManager}...`));
+      execSync(`corepack enable ${packageManager}`, { stdio: "inherit" });
+      if (isCommandAvailable(packageManager)) {
+        console.log(pc.green(`  ✓ ${packageManager} installed via corepack\n`));
+        return true;
+      }
+    } catch {
+      // corepack failed, try next method
+    }
+  }
+
+  // Fallback: install via npm
+  if (packageManager !== "npm" && isCommandAvailable("npm")) {
+    try {
+      console.log(pc.dim(`  Installing ${packageManager} globally via npm...`));
+      execSync(`npm install -g ${packageManager}`, { stdio: "inherit" });
+      if (isCommandAvailable(packageManager)) {
+        console.log(pc.green(`\n  ✓ ${packageManager} installed via npm\n`));
+        return true;
+      }
+    } catch {
+      // npm global install failed (possibly permission issue)
+    }
+  }
+
+  // All methods failed
+  console.log(
+    pc.red(`\n  ✗ Failed to install ${packageManager} automatically.`)
+  );
+  console.log(
+    pc.yellow(`  Please install it manually:\n`)
+  );
+
+  if (packageManager === "pnpm") {
+    console.log(pc.dim("    npm install -g pnpm"));
+    console.log(pc.dim("    # or"));
+    console.log(pc.dim("    corepack enable pnpm"));
+    console.log(pc.dim("    # or"));
+    console.log(pc.dim("    curl -fsSL https://get.pnpm.io/install.sh | sh -"));
+  } else if (packageManager === "yarn") {
+    console.log(pc.dim("    npm install -g yarn"));
+    console.log(pc.dim("    # or"));
+    console.log(pc.dim("    corepack enable yarn"));
+  }
+  console.log();
+
+  return false;
+}
+
 function copyDir(src: string, dest: string): void {
   fs.mkdirSync(dest, { recursive: true });
   const entries = fs.readdirSync(src, { withFileTypes: true });
@@ -160,9 +230,24 @@ async function promptForOptions(projectName?: string): Promise<ProjectOptions> {
         name: "packageManager",
         message: "Select a package manager:",
         choices: [
-          { title: "pnpm (recommended)", value: "pnpm" },
-          { title: "npm", value: "npm" },
-          { title: "yarn", value: "yarn" },
+          {
+            title: isCommandAvailable("pnpm")
+              ? "pnpm (recommended)"
+              : "pnpm (recommended, will be installed)",
+            value: "pnpm",
+          },
+          {
+            title: isCommandAvailable("npm")
+              ? "npm"
+              : "npm (not found)",
+            value: "npm",
+          },
+          {
+            title: isCommandAvailable("yarn")
+              ? "yarn"
+              : "yarn (will be installed)",
+            value: "yarn",
+          },
         ],
         initial: 0,
       },
@@ -221,43 +306,60 @@ async function createProject(options: ProjectOptions): Promise<void> {
   // Update sub-package names
   updateSubPackageNames(projectPath, projectName);
 
-  // Install dependencies
-  console.log(pc.cyan("Installing dependencies..."));
-  console.log();
+  // Ensure package manager is available
+  const pmReady = ensurePackageManager(packageManager);
 
-  const installCmd = {
-    npm: "npm install",
-    yarn: "yarn",
-    pnpm: "pnpm install",
-  }[packageManager];
-
-  try {
-    execSync(installCmd, {
-      cwd: projectPath,
-      stdio: "inherit",
-    });
-  } catch {
+  if (!pmReady) {
     console.log(
       pc.yellow(
-        "\nFailed to install dependencies. You can install them manually."
+        `Skipping dependency installation. After installing ${packageManager}, run:`
       )
     );
-  }
+    console.log(pc.dim(`  cd ${projectName}`));
+    console.log(pc.dim(`  ${packageManager === "npm" ? "npm install" : packageManager === "yarn" ? "yarn" : "pnpm install"}`));
+    console.log(pc.dim(`  cd packages/shared && ${packageManager === "npm" ? "npm run build" : `${packageManager} build`}`));
+    console.log();
+  } else {
+    // Install dependencies
+    console.log(pc.cyan("Installing dependencies..."));
+    console.log();
 
-  // Build shared package first
-  console.log();
-  console.log(pc.cyan("Building shared package..."));
-  
-  try {
-    const buildCmd = packageManager === "npm" ? "npm run build" : `${packageManager} build`;
-    execSync(buildCmd, {
-      cwd: path.join(projectPath, "packages", "shared"),
-      stdio: "inherit",
-    });
-  } catch {
-    console.log(
-      pc.yellow("\nFailed to build shared package. Run 'pnpm build' in packages/shared manually.")
-    );
+    const installCmd = {
+      npm: "npm install",
+      yarn: "yarn",
+      pnpm: "pnpm install",
+    }[packageManager];
+
+    try {
+      execSync(installCmd, {
+        cwd: projectPath,
+        stdio: "inherit",
+      });
+    } catch {
+      console.log(
+        pc.yellow(
+          "\nFailed to install dependencies. You can install them manually."
+        )
+      );
+    }
+
+    // Build shared package first
+    console.log();
+    console.log(pc.cyan("Building shared package..."));
+
+    try {
+      const buildCmd = packageManager === "npm" ? "npm run build" : `${packageManager} build`;
+      execSync(buildCmd, {
+        cwd: path.join(projectPath, "packages", "shared"),
+        stdio: "inherit",
+      });
+    } catch {
+      console.log(
+        pc.yellow(
+          `\nFailed to build shared package. Run '${packageManager === "npm" ? "npm run build" : `${packageManager} build`}' in packages/shared manually.`
+        )
+      );
+    }
   }
 
   // Success message

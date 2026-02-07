@@ -52,14 +52,44 @@ export class CreateUserDto {
 }
 ```
 
+## Documentation Structure
+
+```
+docs/
+├── API.md              # API endpoint reference
+├── overview/           # Project overview & architecture
+│   └── ARCHITECTURE.md
+├── kanban/             # Task management (TODO/DOING/DONE)
+│   ├── README.md       # Board status & priority order
+│   ├── TODO/
+│   ├── DOING/
+│   └── DONE/
+└── pages/              # Page-specific documentation
+```
+
 ## Before Making Changes
 
-1. Check `docs/ARCHITECTURE.md` for current patterns
+1. Check `docs/overview/ARCHITECTURE.md` for current patterns
 2. Check `docs/API.md` for existing endpoints
-3. Check `docs/PROGRESS.md` for project status
+3. Check `docs/kanban/README.md` for task priorities
 
 ## After Making Changes
 
 1. Update `docs/API.md` when adding/modifying endpoints
-2. Update `docs/PROGRESS.md` to reflect progress
-3. Run `pnpm build` to verify shared package changes work
+2. Move completed tasks in `docs/kanban/` (DOING → DONE)
+3. Add new TODO items to `docs/kanban/TODO/` when needed
+4. Run `pnpm build` to verify shared package changes work
+5. **If you edited `apps/web/**` files** → Run the Post-Edit Verification from `frontend-patterns.mdc`:
+   ```bash
+   curl -s -o /dev/null -w "Web: %{http_code}\n" http://localhost:3000
+   ```
+   If the status is not `200`, diagnose and fix before moving on.
+6. **If you edited `apps/api/**` files** → Verify the API:
+   ```bash
+   curl -s -o /dev/null -w "API: %{http_code}\n" http://localhost:4000/api/health
+   ```
+
+## Common Errors
+
+- **"Cannot find module './XXX.js'"** in Next.js → Stale webpack cache. Run `rm -rf apps/web/.next` and restart the dev server. Do NOT debug the chunk file — it's always a cache issue.
+- **Port already in use** → Another process is using the port. Check with `lsof -i :3000` or `lsof -i :4000`, or use `pnpm dev:clean` to restart fresh.

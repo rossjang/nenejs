@@ -76,6 +76,7 @@ The project is in active development.
 - [ ] E2E testing setup
 
 ### Phase 3: Production Ready
+- [x] Vercel deployment (frontend) - https://nene-js.vercel.app
 - [ ] Docker setup
 - [ ] CI/CD pipeline
 - [ ] Production deployment guide

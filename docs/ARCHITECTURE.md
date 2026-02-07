@@ -155,6 +155,11 @@ Build pipeline is configured in `turbo.json`:
 - `dev` runs in parallel for all apps
 - Outputs cached: `dist/**`, `.next/**`
 
+## Deployment
+
+- **Frontend (Next.js)**: Vercel - https://nene-js.vercel.app
+- **Backend (NestJS)**: TBD
+
 ## Development Workflow
 
 1. Install dependencies: `pnpm install`

@@ -21,39 +21,47 @@ pnpm create nene
 npm create nene@latest my-app
 ```
 
-## Templates
-
-- **default** - Full-stack setup with frontend and backend
-- **minimal** - Minimal setup for quick prototyping
-
 ## Options
 
 ```
 Usage: create-nene [project-name] [options]
 
 Options:
-  -t, --template <template>  Template to use (default, minimal)
-  --typescript               Use TypeScript (default: true)
-  --no-typescript            Do not use TypeScript
-  --eslint                   Use ESLint (default: true)
-  --no-eslint                Do not use ESLint
-  -V, --version              Output the version number
-  -h, --help                 Display help for command
+  -V, --version  Output the version number
+  -h, --help     Display help for command
 ```
+
+During setup, you will be prompted to select a package manager (pnpm, npm, or yarn).
 
 ## What's Inside
 
-A newly created project includes:
+A newly created project is a full-stack monorepo with the following structure:
 
 ```
 my-app/
-├── src/
-│   ├── app/           # Frontend pages and layouts
-│   └── server/        # Backend API and services
-├── public/            # Static assets
-├── package.json
-├── tsconfig.json
-└── README.md
+├── apps/
+│   ├── web/              # Next.js 16 frontend (port 3000)
+│   │   └── src/app/      # Pages and layouts
+│   └── api/              # NestJS 11 backend (port 4000)
+│       └── src/          # Controllers, modules, services
+├── packages/
+│   └── shared/           # Shared types, DTOs, constants
+│       └── src/
+│           ├── types/    # TypeScript types and DTOs
+│           └── constants/ # Shared constants (API routes, etc.)
+├── docs/                 # AI-friendly documentation
+│   ├── API.md            # API endpoint reference
+│   ├── overview/
+│   │   └── ARCHITECTURE.md  # Project architecture
+│   ├── kanban/           # Task management (TODO/DOING/DONE)
+│   └── pages/            # Page documentation
+├── scripts/
+│   └── dev.sh            # Development server startup script
+├── .cursor/
+│   └── rules/            # Cursor AI agent rules
+├── turbo.json            # Turborepo configuration
+├── pnpm-workspace.yaml   # pnpm workspace configuration
+└── package.json
 ```
 
 ## License

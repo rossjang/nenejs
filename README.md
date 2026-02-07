@@ -36,14 +36,20 @@ This creates a full-stack monorepo with:
 ```
 my-app/
 ├── apps/
-│   ├── web/              # Next.js frontend (port 3000)
-│   └── api/              # NestJS backend (port 4000)
+│   ├── web/              # Next.js 16 frontend (port 3000)
+│   └── api/              # NestJS 11 backend (port 4000)
 ├── packages/
 │   └── shared/           # Shared types, DTOs, constants
 ├── docs/                 # AI-friendly documentation
-│   ├── ARCHITECTURE.md   # Project architecture
-│   ├── API.md            # API reference
-│   └── PROGRESS.md       # Development progress
+│   ├── API.md            # API endpoint reference
+│   ├── overview/
+│   │   └── ARCHITECTURE.md  # Project architecture
+│   ├── kanban/           # Task management (TODO/DOING/DONE)
+│   └── pages/            # Page documentation
+├── scripts/
+│   └── dev.sh            # Development server startup script
+├── .cursor/
+│   └── rules/            # Cursor AI agent rules
 ├── turbo.json
 └── pnpm-workspace.yaml
 ```
@@ -136,16 +142,16 @@ pnpm build:shared
 
 This project is designed for AI-assisted development:
 
-1. **Check `docs/PROGRESS.md`** - Current development status
-2. **Read `docs/ARCHITECTURE.md`** - Project structure and patterns
-3. **See `docs/API.md`** - API endpoint reference
+1. **Read `docs/overview/ARCHITECTURE.md`** - Project structure and patterns
+2. **See `docs/API.md`** - API endpoint reference
+3. **Check `docs/kanban/`** - Task management board (TODO/DOING/DONE)
 4. **Use shared types** - Don't duplicate type definitions
 
 ## Documentation
 
-- [Architecture](docs/ARCHITECTURE.md) - Project structure and patterns
+- [Architecture](docs/overview/ARCHITECTURE.md) - Project structure and patterns
 - [API Reference](docs/API.md) - Backend API documentation
-- [Progress](docs/PROGRESS.md) - Development progress tracker
+- [Kanban Board](docs/kanban/) - Task management
 
 ## Contributing
 

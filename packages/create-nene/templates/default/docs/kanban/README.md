@@ -8,9 +8,9 @@ Task management board for this project.
 
 | Status | Count |
 | ------ | ----- |
-| TODO   | 1     |
+| TODO   | 6     |
 | DOING  | 0     |
-| DONE   | 1     |
+| DONE   | 2     |
 
 ## How It Works
 
@@ -57,4 +57,9 @@ Any relevant context or references.
 
 ## Priority Order
 
-1. `TODO/01-database-integration.md` - Database setup
+1. `TODO/01-define-project.md` - Define what this project is about
+2. `TODO/02-define-tech-stack.md` - Finalize tech stack & configuration
+3. `TODO/03-define-data-models.md` - Design database schema & types
+4. `TODO/04-build-first-feature.md` - Build first full-stack feature
+5. `TODO/05-setup-auth.md` - Add authentication
+6. `TODO/06-customize-frontend.md` - Customize UI & branding

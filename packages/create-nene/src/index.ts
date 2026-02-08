@@ -226,6 +226,20 @@ function renameGitignore(projectPath: string): void {
   }
 }
 
+function renameDotEnvFiles(projectPath: string): void {
+  // Rename _env files to .env (npm publish strips .env files)
+  const envFiles = [
+    path.join(projectPath, "apps", "api", "_env"),
+  ];
+
+  for (const envPath of envFiles) {
+    const targetPath = envPath.replace("_env", ".env");
+    if (fs.existsSync(envPath)) {
+      fs.renameSync(envPath, targetPath);
+    }
+  }
+}
+
 async function promptForOptions(projectName?: string): Promise<ProjectOptions> {
   const defaultProjectName = projectName || "my-nene-app";
 
@@ -319,6 +333,9 @@ async function createProject(options: ProjectOptions): Promise<void> {
   // Rename _gitignore to .gitignore
   renameGitignore(projectPath);
 
+  // Rename _env files to .env
+  renameDotEnvFiles(projectPath);
+
   // Update package.json with project name
   updatePackageJson(projectPath, projectName);
 
@@ -337,6 +354,7 @@ async function createProject(options: ProjectOptions): Promise<void> {
     console.log(pc.dim(`  cd ${projectName}`));
     console.log(pc.dim(`  ${packageManager === "npm" ? "npm install" : packageManager === "yarn" ? "yarn" : "pnpm install"}`));
     console.log(pc.dim(`  cd packages/shared && ${packageManager === "npm" ? "npm run build" : `${packageManager} build`}`));
+    console.log(pc.dim(`  cd ../../apps/api && npx prisma generate && npx prisma migrate dev --name init`));
     console.log();
   } else {
     // Install dependencies
@@ -378,6 +396,32 @@ async function createProject(options: ProjectOptions): Promise<void> {
           `\nFailed to build shared package. Run '${packageManager === "npm" ? "npm run build" : `${packageManager} build`}' in packages/shared manually.`
         )
       );
+    }
+
+    // Setup database (Prisma generate + migrate)
+    console.log();
+    console.log(pc.cyan("Setting up database..."));
+
+    const apiPath = path.join(projectPath, "apps", "api");
+    try {
+      execSync("npx prisma generate", {
+        cwd: apiPath,
+        stdio: "inherit",
+      });
+      execSync("npx prisma migrate dev --name init --skip-seed", {
+        cwd: apiPath,
+        stdio: "inherit",
+      });
+      console.log(pc.green("  ✓ Database ready (SQLite)"));
+    } catch {
+      console.log(
+        pc.yellow(
+          "\nFailed to setup database. Run the following manually:"
+        )
+      );
+      console.log(pc.dim(`  cd apps/api`));
+      console.log(pc.dim(`  npx prisma generate`));
+      console.log(pc.dim(`  npx prisma migrate dev --name init`));
     }
   }
 

@@ -3,4 +3,7 @@ export default () => ({
   frontend: {
     url: process.env.FRONTEND_URL || 'http://localhost:3000',
   },
+  database: {
+    url: process.env.DATABASE_URL || 'file:./dev.db',
+  },
 });

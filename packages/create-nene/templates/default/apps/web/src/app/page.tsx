@@ -7,6 +7,7 @@ interface HealthStatus {
   status: string;
   timestamp: string;
   uptime: number;
+  database: 'connected' | 'disconnected';
 }
 
 type ServiceStatus = 'checking' | 'active' | 'inactive';
@@ -58,7 +59,7 @@ export default function Home() {
     return () => clearInterval(interval);
   }, []);
 
-  const allOperational = apiStatus === 'active';
+  const allOperational = apiStatus === 'active' && health?.database === 'connected';
 
   return (
     <div className="bg-background-dark text-slate-200 min-h-screen flex flex-col items-center">
@@ -181,6 +182,29 @@ export default function Home() {
                   </td>
                   <td className="px-6 py-5 text-right">
                     <StatusBadge status={apiStatus} />
+                  </td>
+                </tr>
+                {/* Database */}
+                <tr className="group hover:bg-white/[0.02] transition-colors">
+                  <td className="px-6 py-5 text-sm font-medium text-white flex items-center gap-3">
+                    <span className="text-primary">&#9679;</span>
+                    Database (SQLite)
+                  </td>
+                  <td className="px-6 py-5 text-sm font-mono text-slate-500">
+                    —
+                  </td>
+                  <td className="px-6 py-5 text-right">
+                    {apiStatus === 'checking' ? (
+                      <StatusBadge status="checking" />
+                    ) : health?.database === 'connected' ? (
+                      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-white/10 text-white">
+                        Connected
+                      </span>
+                    ) : (
+                      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-500/20 text-red-400 border border-red-500/30">
+                        Disconnected
+                      </span>
+                    )}
                   </td>
                 </tr>
                 {/* Shared Package */}

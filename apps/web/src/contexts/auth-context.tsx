@@ -41,33 +41,40 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       })
       .catch(() => {
         localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
         setState({ user: null, isLoading: false, isAuthenticated: false });
       });
   }, []);
 
   const login = useCallback(async (email: string, password: string) => {
-    const { user, accessToken } = await api.auth.login({ email, password });
+    const { user, accessToken, refreshToken } = await api.auth.login({
+      email,
+      password,
+    });
     localStorage.setItem("accessToken", accessToken);
+    localStorage.setItem("refreshToken", refreshToken);
     setState({ user, isLoading: false, isAuthenticated: true });
   }, []);
 
   const register = useCallback(
     async (email: string, password: string, name?: string) => {
-      const { user, accessToken } = await api.auth.register({
+      const { user, accessToken, refreshToken } = await api.auth.register({
         email,
         password,
         name,
       });
       localStorage.setItem("accessToken", accessToken);
+      localStorage.setItem("refreshToken", refreshToken);
       setState({ user, isLoading: false, isAuthenticated: true });
     },
     [],
   );
 
   const logout = useCallback(() => {
-    localStorage.removeItem("accessToken");
-    setState({ user: null, isLoading: false, isAuthenticated: false });
     api.auth.logout().catch(() => {});
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+    setState({ user: null, isLoading: false, isAuthenticated: false });
   }, []);
 
   const value = useMemo(

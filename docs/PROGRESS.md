@@ -70,7 +70,7 @@ The project is in active development.
 ### Phase 1: Core Features
 - [x] Complete auth flow (register, login, logout)
 - [x] User management
-- [ ] Session handling (refresh tokens)
+- [x] Session handling (refresh tokens)
 
 ### Phase 2: Developer Experience
 - [ ] Swagger/OpenAPI documentation

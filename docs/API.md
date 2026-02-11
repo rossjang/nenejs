@@ -67,7 +67,8 @@ Register a new user.
     "createdAt": "2024-01-01T00:00:00.000Z",
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
-  "accessToken": "eyJhbGciOiJIUzI1NiIs..."
+  "accessToken": "eyJhbGciOiJIUzI1NiIs...",
+  "refreshToken": "a1b2c3d4e5f6..."
 }
 ```
 
@@ -98,7 +99,8 @@ Login with email and password.
     "createdAt": "2024-01-01T00:00:00.000Z",
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
-  "accessToken": "eyJhbGciOiJIUzI1NiIs..."
+  "accessToken": "eyJhbGciOiJIUzI1NiIs...",
+  "refreshToken": "a1b2c3d4e5f6..."
 }
 ```
 
@@ -107,9 +109,47 @@ Login with email and password.
 
 ---
 
+#### POST /api/auth/refresh
+
+Exchange a valid refresh token for a new access token + refresh token pair (token rotation).
+
+**Request Body:**
+```json
+{
+  "refreshToken": "a1b2c3d4e5f6..."
+}
+```
+
+**Response (200):**
+```json
+{
+  "user": {
+    "id": "clxyz...",
+    "email": "user@example.com",
+    "name": "John Doe",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  "accessToken": "eyJhbGciOiJIUzI1NiIs...",
+  "refreshToken": "f6e5d4c3b2a1..."
+}
+```
+
+**Errors:**
+- `401 Unauthorized` — Invalid, expired, or revoked refresh token. Reuse of a revoked token revokes ALL user sessions (theft detection).
+
+---
+
 #### POST /api/auth/logout
 
-Logout current user (stateless — client discards token).
+Logout current user. Revokes the provided refresh token.
+
+**Request Body (optional):**
+```json
+{
+  "refreshToken": "a1b2c3d4e5f6..."
+}
+```
 
 **Response (200):**
 ```json

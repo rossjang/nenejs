@@ -34,6 +34,11 @@ export class UpdateUserDto {
   email?: string;
 }
 
+export class RefreshTokenDto {
+  @IsString()
+  refreshToken!: string;
+}
+
 export class PaginationDto {
   page?: number = 1;
   limit?: number = 10;

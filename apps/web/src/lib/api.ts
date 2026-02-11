@@ -12,9 +12,35 @@ class ApiError extends Error {
   }
 }
 
+// Refresh mutex: concurrent 401s share a single refresh request
+let refreshPromise: Promise<AuthResponse> | null = null;
+
+async function refreshTokens(): Promise<AuthResponse> {
+  const refreshToken = localStorage.getItem('refreshToken');
+  if (!refreshToken) throw new ApiError(401, 'No refresh token');
+
+  const res = await fetch(`${API_BASE}/auth/refresh`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ refreshToken }),
+  });
+
+  if (!res.ok) {
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
+    throw new ApiError(res.status, 'Token refresh failed');
+  }
+
+  const data: AuthResponse = await res.json();
+  localStorage.setItem('accessToken', data.accessToken);
+  localStorage.setItem('refreshToken', data.refreshToken);
+  return data;
+}
+
 async function request<T>(
   path: string,
   options: RequestInit = {},
+  retry = true,
 ): Promise<T> {
   const token =
     typeof window !== 'undefined' ? localStorage.getItem('accessToken') : null;
@@ -32,6 +58,21 @@ async function request<T>(
     ...options,
     headers,
   });
+
+  // 401 auto-retry with refresh token
+  if (res.status === 401 && retry && typeof window !== 'undefined') {
+    try {
+      if (!refreshPromise) {
+        refreshPromise = refreshTokens();
+      }
+      await refreshPromise;
+      refreshPromise = null;
+      return request<T>(path, options, false);
+    } catch {
+      refreshPromise = null;
+      throw new ApiError(401, 'Session expired');
+    }
+  }
 
   if (!res.ok) {
     const body = await res.json().catch(() => ({}));
@@ -62,7 +103,13 @@ export const api = {
     },
 
     logout(): Promise<{ message: string }> {
-      return request('/auth/logout', { method: 'POST' });
+      const refreshToken = typeof window !== 'undefined'
+        ? localStorage.getItem('refreshToken')
+        : null;
+      return request('/auth/logout', {
+        method: 'POST',
+        body: JSON.stringify({ refreshToken }),
+      });
     },
 
     me(): Promise<User> {

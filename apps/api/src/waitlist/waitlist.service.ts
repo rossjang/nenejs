@@ -7,9 +7,11 @@ export class WaitlistService {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(dto: CreateWaitlistDto): Promise<WaitlistResponseDto> {
+    const email = dto.email.toLowerCase().trim();
+
     // Check if email already exists
     const existing = await this.prisma.waitlist.findUnique({
-      where: { email: dto.email },
+      where: { email },
     });
 
     if (existing) {
@@ -17,7 +19,7 @@ export class WaitlistService {
     }
 
     const entry = await this.prisma.waitlist.create({
-      data: { email: dto.email },
+      data: { email },
     });
 
     return {

@@ -73,7 +73,6 @@ The project is in active development.
 - [x] Session handling (refresh tokens)
 
 ### Phase 2: Developer Experience
-- [ ] Swagger/OpenAPI documentation
 - [ ] API client generation
 - [ ] E2E testing setup
 
@@ -86,8 +85,9 @@ The project is in active development.
 ### Phase 4: Advanced Features
 - [ ] WebSocket support
 - [ ] File upload
-- [ ] Rate limiting
+- [x] Rate limiting
 - [ ] Caching
+- [ ] Swagger/OpenAPI documentation
 
 ---
 

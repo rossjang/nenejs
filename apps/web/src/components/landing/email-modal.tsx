@@ -11,11 +11,13 @@ interface EmailModalProps {
 export function EmailModal({ isOpen, onClose }: EmailModalProps) {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("loading");
-    
+    setErrorMessage("");
+
     try {
       const response = await fetch("/api/waitlist", {
         method: "POST",
@@ -24,13 +26,15 @@ export function EmailModal({ isOpen, onClose }: EmailModalProps) {
       });
 
       if (!response.ok) {
-        throw new Error("Failed to submit email");
+        const data = await response.json().catch(() => ({}));
+        throw new Error(data.error || "Failed to submit email");
       }
 
       setStatus("success");
       setEmail(""); // Clear email on success
-    } catch {
+    } catch (err) {
       setStatus("error");
+      setErrorMessage(err instanceof Error ? err.message : "Something went wrong. Please try again.");
     }
   };
 
@@ -67,7 +71,7 @@ export function EmailModal({ isOpen, onClose }: EmailModalProps) {
             />
             {status === "error" && (
               <p className="text-red-400 text-sm mt-2">
-                Something went wrong. Please try again.
+                {errorMessage}
               </p>
             )}
             <button

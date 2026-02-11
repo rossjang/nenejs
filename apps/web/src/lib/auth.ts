@@ -1,21 +1,15 @@
-// TODO: Replace with backend API authentication when apps/api JWT auth is ready
-// This file previously used NextAuth.js with Prisma directly.
-// The new architecture uses apps/api for authentication.
+// Auth is now handled by the backend API (apps/api) with JWT tokens.
+// See: src/contexts/auth-context.tsx for the client-side auth provider.
+// See: src/lib/api.ts for the API client.
 
-// Placeholder exports to prevent import errors
+// Legacy NextAuth route handler stubs (kept to prevent 404 on /api/auth/*)
 export const handlers = {
-  GET: () => new Response("Auth not configured", { status: 501 }),
-  POST: () => new Response("Auth not configured", { status: 501 }),
-};
-
-export const signIn = async () => {
-  throw new Error("Auth not configured - use backend API");
-};
-
-export const signOut = async () => {
-  throw new Error("Auth not configured - use backend API");
-};
-
-export const auth = async () => {
-  return null;
+  GET: () => new Response(JSON.stringify({ message: "Use backend API for auth" }), {
+    status: 200,
+    headers: { "Content-Type": "application/json" },
+  }),
+  POST: () => new Response(JSON.stringify({ message: "Use backend API for auth" }), {
+    status: 200,
+    headers: { "Content-Type": "application/json" },
+  }),
 };

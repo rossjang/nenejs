@@ -23,6 +23,8 @@ The project is in active development.
 - [x] CORS configuration
 - [x] Database integration (Prisma + SQLite)
 - [x] Waitlist API endpoint (POST /waitlist, GET /waitlist/count)
+- [x] Authentication module (JWT) — register, login, logout, me
+- [x] User CRUD endpoints — list, get, update, delete (self-only)
 
 ### apps/web (Next.js Frontend)
 - [x] Next.js 16 with App Router
@@ -31,6 +33,8 @@ The project is in active development.
 - [x] Documentation pages (MDX)
 - [x] Blog pages
 - [x] Auth pages (UI only)
+- [x] Auth context & hooks — JWT-based auth with API client
+- [x] Protected routes — ProtectedRoute component, dashboard page
 
 ### packages/shared
 - [x] Shared types (User, ApiResponse, etc.)
@@ -56,23 +60,17 @@ The project is in active development.
 
 ## In Progress
 
-### apps/api
-- [ ] Authentication module (JWT) - deferred, not needed for waitlist MVP
-- [ ] User CRUD endpoints - deferred, not needed for waitlist MVP
-
 ### apps/web
 - [x] Waitlist API integration (calls backend API)
-- [ ] Auth context and hooks - deferred
-- [ ] Protected routes - deferred
 
 ---
 
 ## Planned
 
 ### Phase 1: Core Features
-- [ ] Complete auth flow (register, login, logout)
-- [ ] User management
-- [ ] Session handling
+- [x] Complete auth flow (register, login, logout)
+- [x] User management
+- [ ] Session handling (refresh tokens)
 
 ### Phase 2: Developer Experience
 - [ ] Swagger/OpenAPI documentation

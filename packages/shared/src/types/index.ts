@@ -23,6 +23,11 @@ export interface PaginatedResponse<T> {
   totalPages: number;
 }
 
+export interface AuthResponse {
+  user: User;
+  accessToken: string;
+}
+
 export interface HealthStatus {
   status: 'ok' | 'error';
   timestamp: string;

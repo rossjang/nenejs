@@ -2,17 +2,18 @@
 
 import { useState, FormEvent } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useAuth, ApiError } from "@/contexts/auth-context";
 
-interface SignUpFormProps {
-  onSubmit?: (name: string, email: string, password: string) => void;
-}
-
-export function SignUpForm({ onSubmit }: SignUpFormProps) {
+export function SignUpForm() {
+  const router = useRouter();
+  const { register } = useAuth();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [agreeToTerms, setAgreeToTerms] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [serverError, setServerError] = useState<string | null>(null);
   const [errors, setErrors] = useState<{
     name?: string;
     email?: string;
@@ -58,20 +59,30 @@ export function SignUpForm({ onSubmit }: SignUpFormProps) {
     if (!validateForm()) return;
 
     setIsLoading(true);
-    console.log("Sign up submitted:", { name, email, password });
+    setServerError(null);
 
-    if (onSubmit) {
-      onSubmit(name, email, password);
-    }
-
-    // Simulate API call
-    setTimeout(() => {
+    try {
+      await register(email, password, name || undefined);
+      router.push("/dashboard");
+    } catch (err) {
+      if (err instanceof ApiError) {
+        setServerError(err.message);
+      } else {
+        setServerError("Something went wrong. Please try again.");
+      }
+    } finally {
       setIsLoading(false);
-    }, 1000);
+    }
   };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
+      {serverError && (
+        <div className="p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-sm">
+          {serverError}
+        </div>
+      )}
+
       {/* Name Field */}
       <div>
         <label

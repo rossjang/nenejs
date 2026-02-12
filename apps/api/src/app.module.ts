@@ -8,6 +8,9 @@ import { HealthModule } from './health/health.module';
 import { PrismaModule } from './prisma';
 import { UsersModule } from './users';
 import { WaitlistModule } from './waitlist';
+import { BlogModule } from './blog';
+import { ShowcaseModule } from './showcase';
+import { FeaturesModule } from './features';
 import configuration from './config/configuration';
 
 @Module({
@@ -24,6 +27,9 @@ import configuration from './config/configuration';
     AuthModule,
     UsersModule,
     WaitlistModule,
+    BlogModule,
+    ShowcaseModule,
+    FeaturesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -1,37 +1,15 @@
 import { ExternalLink } from "lucide-react";
 import type { ShowcaseProject } from "@/lib/showcase";
+import {
+  SHOWCASE_CATEGORY_COLORS as categoryColors,
+  SHOWCASE_CATEGORY_LABELS as categoryLabels,
+  SHOWCASE_CATEGORY_GRADIENTS as categoryGradients,
+} from "@/lib/constants/showcase";
 
 interface ShowcaseCardProps {
   project: ShowcaseProject;
   onClick?: () => void;
 }
-
-const categoryColors: Record<string, string> = {
-  ai: "#0070F3",
-  saas: "#10B981",
-  ecommerce: "#F59E0B",
-  opensource: "#8B5CF6",
-  devtools: "#EC4899",
-  creative: "#F97316",
-};
-
-const categoryLabels: Record<string, string> = {
-  ai: "AI",
-  saas: "SaaS",
-  ecommerce: "E-commerce",
-  opensource: "Open Source",
-  devtools: "DevTools",
-  creative: "Creative",
-};
-
-const categoryGradients: Record<string, string> = {
-  ai: "from-blue-500/30 via-cyan-500/20 to-blue-600/30",
-  saas: "from-emerald-500/30 via-teal-500/20 to-green-600/30",
-  ecommerce: "from-amber-500/30 via-orange-500/20 to-yellow-600/30",
-  opensource: "from-violet-500/30 via-purple-500/20 to-fuchsia-600/30",
-  devtools: "from-pink-500/30 via-rose-500/20 to-pink-600/30",
-  creative: "from-orange-500/30 via-amber-500/20 to-orange-600/30",
-};
 
 export default function ShowcaseCard({ project, onClick }: ShowcaseCardProps) {
   const color = categoryColors[project.category] || "#6B7280";
@@ -97,7 +75,7 @@ export default function ShowcaseCard({ project, onClick }: ShowcaseCardProps) {
         {/* Content */}
         <div className="p-5">
           <h3 className="text-white font-semibold text-lg mb-2 group-hover:text-white/90 transition-colors">
-            {project.title}
+            {project.name}
           </h3>
           <p className="text-slate-400 text-sm leading-relaxed">
             {project.description}

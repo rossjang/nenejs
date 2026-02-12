@@ -43,3 +43,45 @@ export class PaginationDto {
   page?: number = 1;
   limit?: number = 10;
 }
+
+// Blog DTOs
+export class BlogQueryDto {
+  @IsString()
+  @IsOptional()
+  category?: string;
+
+  @IsOptional()
+  page?: number = 1;
+
+  @IsOptional()
+  limit?: number = 10;
+}
+
+// Showcase DTOs
+export class ShowcaseQueryDto {
+  @IsString()
+  @IsOptional()
+  category?: string;
+
+  @IsOptional()
+  featured?: boolean;
+}
+
+export class CreateShowcaseProjectDto {
+  @IsString()
+  name!: string;
+
+  @IsString()
+  description!: string;
+
+  @IsString()
+  category!: string;
+
+  @IsString()
+  @IsOptional()
+  url?: string;
+
+  @IsString()
+  @IsOptional()
+  github?: string;
+}

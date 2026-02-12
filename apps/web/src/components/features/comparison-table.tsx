@@ -1,66 +1,21 @@
 import { Check, X } from "lucide-react";
+import type { ComparisonRowItem } from "@/lib/features";
 
-interface ComparisonRow {
-  feature: string;
-  nene: string | boolean;
-  traditional: string | boolean;
+interface ComparisonTableProps {
+  rows: ComparisonRowItem[];
 }
 
-const comparisonData: ComparisonRow[] = [
-  {
-    feature: "Setup time",
-    nene: "5 min",
-    traditional: "2hr+",
-  },
-  {
-    feature: "Type sharing",
-    nene: "Automatic",
-    traditional: "Manual setup",
-  },
-  {
-    feature: "API boilerplate",
-    nene: "None",
-    traditional: "fetch/axios required",
-  },
-  {
-    feature: "Front/back integration",
-    nene: true,
-    traditional: false,
-  },
-  {
-    feature: "AI-friendly docs",
-    nene: "Built-in structure",
-    traditional: "Ad-hoc",
-  },
-  {
-    feature: "Single deploy",
-    nene: true,
-    traditional: false,
-  },
-  {
-    feature: "Context switching",
-    nene: "Minimal",
-    traditional: "Frequent",
-  },
-  {
-    feature: "Documentation structure",
-    nene: "Optimized for agents",
-    traditional: "Limited",
-  },
-];
-
-function CellValue({ value }: { value: string | boolean }) {
-  if (typeof value === "boolean") {
-    return value ? (
-      <Check className="h-5 w-5 text-green-400" />
-    ) : (
-      <X className="h-5 w-5 text-red-400" />
-    );
+function CellValue({ value, isCheck }: { value: string; isCheck: boolean }) {
+  if (isCheck) {
+    return <Check className="h-5 w-5 text-green-400" />;
+  }
+  if (value === "") {
+    return <X className="h-5 w-5 text-red-400" />;
   }
   return <span>{value}</span>;
 }
 
-export default function ComparisonTable() {
+export default function ComparisonTable({ rows }: ComparisonTableProps) {
   return (
     <section className="py-24 px-6 lg:px-20">
       <div className="max-w-5xl mx-auto">
@@ -93,20 +48,20 @@ export default function ComparisonTable() {
               </tr>
             </thead>
             <tbody>
-              {comparisonData.map((row, index) => (
+              {rows.map((row) => (
                 <tr
-                  key={index}
+                  key={row.id}
                   className="border-b border-white/5 last:border-b-0 hover:bg-white/[0.02] transition-colors"
                 >
                   <td className="py-4 px-6 text-slate-300">{row.feature}</td>
                   <td className="py-4 px-6 text-center">
                     <div className="flex justify-center text-green-400 font-medium">
-                      <CellValue value={row.nene} />
+                      <CellValue value={row.neneValue} isCheck={row.hasNeneCheck} />
                     </div>
                   </td>
                   <td className="py-4 px-6 text-center">
                     <div className="flex justify-center text-slate-500">
-                      <CellValue value={row.traditional} />
+                      <CellValue value={row.othersValue} isCheck={row.hasOthersCheck} />
                     </div>
                   </td>
                 </tr>

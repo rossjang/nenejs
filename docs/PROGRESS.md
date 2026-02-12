@@ -25,6 +25,11 @@ The project is in active development.
 - [x] Waitlist API endpoint (POST /waitlist, GET /waitlist/count)
 - [x] Authentication module (JWT) — register, login, logout, me
 - [x] User CRUD endpoints — list, get, update, delete (self-only)
+- [x] DB schema extension — Author, BlogPost, ShowcaseProject, Feature, ComparisonRow models
+- [x] Seed script — mock data migration to DB (blog posts, authors, showcase, features, comparison)
+- [x] Blog API module — posts (paginated, category filter), post by slug, authors
+- [x] Showcase API module — projects (category/featured filter), categories, community submit
+- [x] Features API module — features list, comparison table data
 
 ### apps/web (Next.js Frontend)
 - [x] Next.js 16 with App Router
@@ -35,12 +40,20 @@ The project is in active development.
 - [x] Auth pages (UI only)
 - [x] Auth context & hooks — JWT-based auth with API client
 - [x] Protected routes — ProtectedRoute component, dashboard page
+- [x] Blog API integration — mock data removed, Server Component + Client Component pattern, markdown rendering
+- [x] Showcase API integration — JSON import removed, async Server Components, fallback data
+- [x] Features API integration — hardcoded arrays removed, async Server Components
+- [x] Dashboard real data — user info from auth context, proper empty states
+- [x] Duplicate constants cleanup — shared constants files for blog/showcase categories
 
 ### packages/shared
 - [x] Shared types (User, ApiResponse, etc.)
 - [x] Shared DTOs with validation
 - [x] API route constants
 - [x] Utility functions
+- [x] Blog/Showcase/Feature types — Author, BlogPost, ShowcaseProject, Feature, ComparisonRow
+- [x] Content DTOs — BlogQueryDto, ShowcaseQueryDto, CreateShowcaseProjectDto
+- [x] Content route constants — CONTENT_ROUTES
 
 ### packages/create-nene
 - [x] CLI scaffolding tool

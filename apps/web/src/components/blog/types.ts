@@ -1,3 +1,8 @@
+export {
+  BLOG_CATEGORY_COLORS as CATEGORY_COLORS,
+  BLOG_CATEGORY_LABELS as CATEGORY_LABELS,
+} from "@/lib/constants/blog";
+
 export interface Author {
   id: string;
   name: string;
@@ -22,17 +27,3 @@ export interface BlogPost {
   readingTime: number;
   featured: boolean;
 }
-
-export const CATEGORY_COLORS: Record<BlogPost["category"], string> = {
-  announcement: "#0070F3",
-  tutorial: "#10B981",
-  engineering: "#8B5CF6",
-  community: "#F59E0B",
-};
-
-export const CATEGORY_LABELS: Record<BlogPost["category"], string> = {
-  announcement: "Announcement",
-  tutorial: "Tutorial",
-  engineering: "Engineering",
-  community: "Community",
-};

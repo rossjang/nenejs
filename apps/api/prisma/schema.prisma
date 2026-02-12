@@ -43,3 +43,90 @@ model Waitlist {
 
   @@map("waitlist")
 }
+
+// Blog author profiles
+model Author {
+  id        String     @id @default(cuid())
+  name      String
+  role      String?
+  avatar    String?
+  bio       String?
+  twitter   String?
+  github    String?
+  posts     BlogPost[]
+  createdAt DateTime   @default(now())
+
+  @@map("authors")
+}
+
+// Blog posts
+model BlogPost {
+  id          String    @id @default(cuid())
+  slug        String    @unique
+  title       String
+  excerpt     String
+  content     String?   // MDX content body
+  coverImage  String?
+  category    String    // announcement | tutorial | engineering | community
+  tags        String?   // JSON array stored as string (SQLite compat)
+  readingTime Int       @default(0)
+  featured    Boolean   @default(false)
+  published   Boolean   @default(false)
+  publishedAt DateTime?
+  author      Author    @relation(fields: [authorId], references: [id])
+  authorId    String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([authorId])
+  @@index([category])
+  @@map("blog_posts")
+}
+
+// Showcase community projects
+model ShowcaseProject {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  name        String
+  description String
+  image       String?
+  category    String   // ai | saas | ecommerce | opensource | devtools | creative
+  tags        String?  // JSON array stored as string (SQLite compat)
+  url         String?
+  github      String?
+  featured    Boolean  @default(false)
+  approved    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+
+  @@index([category])
+  @@map("showcase_projects")
+}
+
+// Feature descriptions for marketing page
+model Feature {
+  id           String   @id @default(cuid())
+  title        String
+  description  String
+  bullets      String   // JSON array stored as string
+  codeExample  String?
+  codeFilename String?
+  accentColor  String?
+  reversed     Boolean  @default(false)
+  order        Int      @default(0)
+  createdAt    DateTime @default(now())
+
+  @@map("features")
+}
+
+// Comparison table rows (nene.js vs traditional)
+model ComparisonRow {
+  id             String  @id @default(cuid())
+  feature        String
+  neneValue      String
+  othersValue    String
+  hasNeneCheck   Boolean @default(false)
+  hasOthersCheck Boolean @default(false)
+  order          Int     @default(0)
+
+  @@map("comparison_rows")
+}

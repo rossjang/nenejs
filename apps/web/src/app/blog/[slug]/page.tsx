@@ -1,7 +1,8 @@
 import { notFound } from "next/navigation";
 import Header from "@/components/landing/header";
 import Footer from "@/components/landing/footer";
-import { PostHeader, PostContent, getPostBySlug, samplePosts } from "@/components/blog";
+import { PostHeader, PostContent } from "@/components/blog";
+import { getPostBySlug, fetchBlogPosts } from "@/components/blog/data";
 
 interface BlogPostPageProps {
   params: Promise<{
@@ -11,7 +12,8 @@ interface BlogPostPageProps {
 
 // Generate static params for all posts
 export async function generateStaticParams() {
-  return samplePosts.map((post) => ({
+  const posts = await fetchBlogPosts();
+  return posts.map((post) => ({
     slug: post.slug,
   }));
 }
@@ -19,7 +21,7 @@ export async function generateStaticParams() {
 // Generate metadata for SEO
 export async function generateMetadata({ params }: BlogPostPageProps) {
   const { slug } = await params;
-  const post = getPostBySlug(slug);
+  const post = await getPostBySlug(slug);
 
   if (!post) {
     return {
@@ -35,7 +37,7 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { slug } = await params;
-  const post = getPostBySlug(slug);
+  const post = await getPostBySlug(slug);
 
   if (!post) {
     notFound();

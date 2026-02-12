@@ -5,10 +5,10 @@ interface FeatureSectionProps {
   title: string;
   description: string;
   bullets: string[];
-  codeExample: string;
-  codeFilename: string;
+  codeExample?: string;
+  codeFilename?: string;
   reversed?: boolean;
-  accentColor: string;
+  accentColor?: string;
 }
 
 export default function FeatureSection({
@@ -18,7 +18,7 @@ export default function FeatureSection({
   codeExample,
   codeFilename,
   reversed = false,
-  accentColor,
+  accentColor = "#6B7280",
 }: FeatureSectionProps) {
   return (
     <section className="py-24 px-6 lg:px-20">
@@ -60,7 +60,13 @@ export default function FeatureSection({
 
           {/* Code Demo */}
           <div className={reversed ? "lg:order-1" : ""}>
-            <CodeDemo code={codeExample} filename={codeFilename} />
+            {codeExample && codeFilename ? (
+              <CodeDemo code={codeExample} filename={codeFilename} />
+            ) : (
+              <div className="w-full aspect-square rounded-xl border border-white/10 bg-[#0E0E0E] flex items-center justify-center">
+                <span className="text-slate-600 text-sm">Code example coming soon</span>
+              </div>
+            )}
           </div>
         </div>
       </div>

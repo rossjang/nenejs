@@ -53,7 +53,7 @@ nenejs/
 | UI | React | 19 |
 | Styling | Tailwind CSS | 4 |
 | Components | Radix UI, Lucide Icons | - |
-| Content | next-mdx-remote | 5 |
+| Content | next-mdx-remote | 6 |
 | Backend | NestJS | 11 |
 | Database | Prisma + SQLite (LibSQL) | 7 |
 | Auth | JWT (access + refresh tokens) | - |

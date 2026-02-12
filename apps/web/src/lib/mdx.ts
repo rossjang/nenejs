@@ -55,6 +55,7 @@ export async function getDocBySlug(
     source: content,
     options: {
       parseFrontmatter: true,
+      blockJS: false,
       mdxOptions: {
         remarkPlugins: [remarkGfm],
         rehypePlugins: [
@@ -164,6 +165,7 @@ export async function getBlogPostBySlug(
     source: content,
     options: {
       parseFrontmatter: true,
+      blockJS: false,
       mdxOptions: {
         remarkPlugins: [remarkGfm],
         rehypePlugins: [

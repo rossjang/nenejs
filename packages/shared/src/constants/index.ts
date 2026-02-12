@@ -31,3 +31,22 @@ export const DEFAULT_PAGINATION = {
   LIMIT: 10,
   MAX_LIMIT: 100,
 } as const;
+
+// Blog & Showcase & Features routes
+export const CONTENT_ROUTES = {
+  BLOG: {
+    POSTS: '/api/blog/posts',
+    POST_BY_SLUG: (slug: string) => `/api/blog/posts/${slug}`,
+    AUTHORS: '/api/blog/authors',
+  },
+  SHOWCASE: {
+    PROJECTS: '/api/showcase/projects',
+    PROJECT_BY_SLUG: (slug: string) => `/api/showcase/projects/${slug}`,
+    CATEGORIES: '/api/showcase/categories',
+    SUBMIT: '/api/showcase/submit',
+  },
+  FEATURES: {
+    LIST: '/api/features',
+    COMPARISON: '/api/features/comparison',
+  },
+} as const;

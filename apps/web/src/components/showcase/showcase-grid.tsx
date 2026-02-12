@@ -4,23 +4,22 @@ import { useState } from "react";
 import ShowcaseFilters, { type Category } from "./showcase-filters";
 import ShowcaseCard from "./showcase-card";
 import ShowcaseDetail from "./showcase-detail";
-import {
-  getAllProjects,
-  getProjectsByCategory,
-  type ShowcaseProject,
-} from "@/lib/showcase";
+import type { ShowcaseProject } from "@/lib/showcase";
 
-export default function ShowcaseGrid() {
+interface ShowcaseGridProps {
+  projects: ShowcaseProject[];
+}
+
+export default function ShowcaseGrid({ projects }: ShowcaseGridProps) {
   const [activeCategory, setActiveCategory] = useState<Category>("all");
   const [selectedProject, setSelectedProject] = useState<ShowcaseProject | null>(
     null
   );
 
-  const allProjects = getAllProjects();
   const filteredProjects =
     activeCategory === "all"
-      ? allProjects
-      : getProjectsByCategory(activeCategory);
+      ? projects
+      : projects.filter((p) => p.category === activeCategory);
 
   const handleProjectClick = (project: ShowcaseProject) => {
     setSelectedProject(project);

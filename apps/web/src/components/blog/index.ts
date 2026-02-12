@@ -7,4 +7,4 @@ export { default as PostHeader } from "./post-header";
 export { default as PostContent } from "./post-content";
 
 export * from "./types";
-export * from "./data";
+export { fetchBlogPosts, getPostBySlug, getFeaturedPost } from "./data";

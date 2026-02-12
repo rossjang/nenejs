@@ -81,9 +81,9 @@ docs/plan/
 
 | Status   | Count |
 | -------- | ----- |
-| ✅ DONE  | 15    |
+| ✅ DONE  | 25    |
 | 🔄 DOING | 0     |
-| 📋 TODO  | 17    |
+| 📋 TODO  | 12    |
 
 ## Priority Order (Phase 1)
 
@@ -139,35 +139,35 @@ docs/plan/
                                                     24 Cleanup Constants
 ```
 
-#### Layer 1: 기반 (선행 작업)
+#### Layer 1: 기반 (선행 작업) — ✅ 완료
 
-| # | Task | Priority | Labels |
-|---|------|----------|--------|
-| 15 | [`15-db-schema-extension.md`](TODO/15-db-schema-extension.md) — DB 스키마 확장 (Blog, Author, Showcase, Feature, Comparison 모델) | 🔥 High | `backend` `infrastructure` |
-| 16 | [`16-shared-types-dto.md`](TODO/16-shared-types-dto.md) — Shared 타입/DTO 추가 (@nene/shared) | 🔥 High | `infrastructure` `backend` `ui` |
+| # | Task | Status | Labels |
+|---|------|--------|--------|
+| 15 | [`15-db-schema-extension.md`](DONE/15-db-schema-extension.md) — DB 스키마 확장 | ✅ Done | `backend` `infrastructure` |
+| 16 | [`16-shared-types-dto.md`](DONE/16-shared-types-dto.md) — Shared 타입/DTO 추가 | ✅ Done | `infrastructure` `backend` `ui` |
 
-#### Layer 2: Backend API 모듈
+#### Layer 2: Backend API 모듈 — ✅ 완료
 
-| # | Task | Priority | Labels |
-|---|------|----------|--------|
-| 17 | [`17-blog-api-module.md`](TODO/17-blog-api-module.md) — Blog API (posts, authors, categories) | 🔥 High | `backend` `blog` |
-| 18 | [`18-showcase-api-module.md`](TODO/18-showcase-api-module.md) — Showcase API (projects, categories, submit) | 🔥 High | `backend` `showcase` |
-| 19 | [`19-features-api-module.md`](TODO/19-features-api-module.md) — Features & Comparison API | 🟠 Medium | `backend` `feature` |
+| # | Task | Status | Labels |
+|---|------|--------|--------|
+| 17 | [`17-blog-api-module.md`](DONE/17-blog-api-module.md) — Blog API | ✅ Done | `backend` `blog` |
+| 18 | [`18-showcase-api-module.md`](DONE/18-showcase-api-module.md) — Showcase API | ✅ Done | `backend` `showcase` |
+| 19 | [`19-features-api-module.md`](DONE/19-features-api-module.md) — Features & Comparison API | ✅ Done | `backend` `feature` |
 
-#### Layer 3: Frontend API 연동
+#### Layer 3: Frontend API 연동 — ✅ 완료
 
-| # | Task | Priority | Labels |
-|---|------|----------|--------|
-| 20 | [`20-web-blog-api-integration.md`](TODO/20-web-blog-api-integration.md) — Blog mock → API (data.ts, post-content.tsx) | 🔥 High | `ui` `blog` |
-| 21 | [`21-web-showcase-api-integration.md`](TODO/21-web-showcase-api-integration.md) — Showcase mock → API (showcase.json, landing) | 🔥 High | `ui` `showcase` |
-| 22 | [`22-web-features-api-integration.md`](TODO/22-web-features-api-integration.md) — Features 하드코딩 → API | 🟠 Medium | `ui` `feature` |
+| # | Task | Status | Labels |
+|---|------|--------|--------|
+| 20 | [`20-web-blog-api-integration.md`](DONE/20-web-blog-api-integration.md) — Blog mock → API | ✅ Done | `ui` `blog` |
+| 21 | [`21-web-showcase-api-integration.md`](DONE/21-web-showcase-api-integration.md) — Showcase mock → API | ✅ Done | `ui` `showcase` |
+| 22 | [`22-web-features-api-integration.md`](DONE/22-web-features-api-integration.md) — Features 하드코딩 → API | ✅ Done | `ui` `feature` |
 
-#### Layer 4: 마무리
+#### Layer 4: 마무리 — ✅ 완료
 
-| # | Task | Priority | Labels |
-|---|------|----------|--------|
-| 23 | [`23-web-dashboard-real-data.md`](TODO/23-web-dashboard-real-data.md) — Dashboard placeholder → 실제 사용자 데이터 | 🟠 Medium | `ui` `auth` |
-| 24 | [`24-cleanup-duplicate-constants.md`](TODO/24-cleanup-duplicate-constants.md) — 중복 상수 정리 (카테고리 색상/라벨 통합) | 🔵 Low | `ui` `infrastructure` |
+| # | Task | Status | Labels |
+|---|------|--------|--------|
+| 23 | [`23-web-dashboard-real-data.md`](DONE/23-web-dashboard-real-data.md) — Dashboard → 실제 사용자 데이터 | ✅ Done | `ui` `auth` |
+| 24 | [`24-cleanup-duplicate-constants.md`](DONE/24-cleanup-duplicate-constants.md) — 중복 상수 정리 | ✅ Done | `ui` `infrastructure` |
 
 ## How to Use
 

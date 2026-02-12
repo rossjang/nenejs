@@ -1,39 +1,68 @@
-import showcaseData from "../../data/showcase.json";
+const API_URL = process.env.API_URL || process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
 
 export interface ShowcaseProject {
   id: string;
   slug: string;
-  title: string;
+  name: string;
   description: string;
-  image: string;
+  image?: string;
   category: string;
   tags: string[];
-  url: string;
+  url?: string;
   github?: string;
   featured: boolean;
 }
 
-export function getAllProjects(): ShowcaseProject[] {
-  return showcaseData.projects as ShowcaseProject[];
+export async function getAllProjects(): Promise<ShowcaseProject[]> {
+  try {
+    const res = await fetch(`${API_URL}/showcase/projects`, {
+      next: { revalidate: 60 },
+    });
+    if (!res.ok) return [];
+    return res.json();
+  } catch {
+    return [];
+  }
 }
 
-export function getFeaturedProjects(): ShowcaseProject[] {
-  return showcaseData.projects.filter((p) => p.featured) as ShowcaseProject[];
+export async function getFeaturedProjects(): Promise<ShowcaseProject[]> {
+  try {
+    const res = await fetch(`${API_URL}/showcase/projects?featured=true`, {
+      next: { revalidate: 60 },
+    });
+    if (!res.ok) return [];
+    return res.json();
+  } catch {
+    return [];
+  }
 }
 
-export function getProjectsByCategory(category: string): ShowcaseProject[] {
-  if (category === "all") return showcaseData.projects as ShowcaseProject[];
-  return showcaseData.projects.filter(
-    (p) => p.category === category
-  ) as ShowcaseProject[];
+export async function getProjectsByCategory(category: string): Promise<ShowcaseProject[]> {
+  if (category === "all") return getAllProjects();
+  try {
+    const res = await fetch(`${API_URL}/showcase/projects?category=${category}`, {
+      next: { revalidate: 60 },
+    });
+    if (!res.ok) return [];
+    return res.json();
+  } catch {
+    return [];
+  }
 }
 
-export function getProjectBySlug(slug: string): ShowcaseProject | undefined {
-  return showcaseData.projects.find((p) => p.slug === slug) as
-    | ShowcaseProject
-    | undefined;
+export async function getProjectBySlug(slug: string): Promise<ShowcaseProject | null> {
+  try {
+    const res = await fetch(`${API_URL}/showcase/projects/${slug}`, {
+      next: { revalidate: 60 },
+    });
+    if (!res.ok) return null;
+    return res.json();
+  } catch {
+    return null;
+  }
 }
 
-export function getCategories(): string[] {
-  return ["all", ...new Set(showcaseData.projects.map((p) => p.category))];
+export async function getCategories(): Promise<string[]> {
+  const projects = await getAllProjects();
+  return ["all", ...new Set(projects.map((p) => p.category))];
 }

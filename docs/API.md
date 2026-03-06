@@ -278,11 +278,63 @@ Delete user. Users can only delete their own account.
 
 ---
 
+### Waitlist
+
+#### POST /api/waitlist
+
+Add an email to the waitlist. Rate limited to 3 requests per 60 seconds.
+
+**Request Body:**
+```json
+{
+  "email": "user@example.com"
+}
+```
+
+| Field | Type | Required | Validation |
+|-------|------|----------|------------|
+| email | string | Yes | Valid email |
+
+**Response (201):**
+```json
+{
+  "success": true,
+  "message": "Successfully added to waitlist",
+  "data": {
+    "id": "clxyz...",
+    "email": "user@example.com",
+    "createdAt": "2024-01-01T00:00:00.000Z"
+  }
+}
+```
+
+**Errors:**
+- `409 Conflict` — Email already on waitlist
+- `429 Too Many Requests` — Rate limit exceeded
+
+---
+
+#### GET /api/waitlist/count
+
+Get the total number of waitlist entries.
+
+**Response (200):**
+```json
+{
+  "success": true,
+  "data": {
+    "count": 42
+  }
+}
+```
+
+---
+
 ### Blog
 
 #### GET /api/blog/posts
 
-List blog posts (paginated, with optional category filter).
+List blog posts (paginated, with optional category filter). Only published posts are returned.
 
 **Query Parameters:**
 
@@ -327,7 +379,7 @@ List blog posts (paginated, with optional category filter).
 
 #### GET /api/blog/posts/:slug
 
-Get a single blog post by slug.
+Get a single blog post by slug. Only published posts are returned.
 
 **Response (200):** Single post object (same structure as items above).
 
@@ -360,7 +412,7 @@ List all authors.
 
 #### GET /api/showcase/projects
 
-List showcase projects (with optional category/featured filter).
+List showcase projects (with optional category/featured filter). Only approved projects are returned.
 
 **Query Parameters:**
 
@@ -392,7 +444,7 @@ List showcase projects (with optional category/featured filter).
 
 #### GET /api/showcase/projects/:slug
 
-Get a single project by slug.
+Get a single project by slug. Only approved projects are returned.
 
 **Response (200):** Single project object.
 
@@ -417,7 +469,7 @@ Get project counts per category.
 
 #### POST /api/showcase/submit
 
-Submit a community project for review.
+Submit a community project for review. Submitted projects are not approved by default.
 
 **Request Body:**
 ```json
@@ -430,6 +482,15 @@ Submit a community project for review.
   "tags": ["tag1", "tag2"]
 }
 ```
+
+| Field | Type | Required |
+|-------|------|----------|
+| name | string | Yes |
+| description | string | Yes |
+| category | string | Yes |
+| url | string | No |
+| github | string | No |
+| tags | string[] | No |
 
 **Response (201):** Created project object (with `approved: false`).
 
@@ -481,6 +542,37 @@ Get framework comparison table data.
 
 ---
 
+## Endpoint Summary
+
+| Method | Path | Auth | Rate Limit | Description |
+|--------|------|------|------------|-------------|
+| GET | `/api` | No | Global | Welcome message |
+| GET | `/api/health` | No | Global | Health check |
+| POST | `/api/auth/register` | No | Global | User registration |
+| POST | `/api/auth/login` | No | Global | Login |
+| POST | `/api/auth/refresh` | No | Global | Token refresh (rotation) |
+| POST | `/api/auth/logout` | No | Global | Logout (revoke token) |
+| GET | `/api/auth/me` | JWT | Global | Current user info |
+| GET | `/api/users` | JWT | Global | List users (paginated) |
+| GET | `/api/users/:id` | JWT | Global | Get user by ID |
+| PATCH | `/api/users/:id` | JWT | Global | Update user (self only) |
+| DELETE | `/api/users/:id` | JWT | Global | Delete user (self only) |
+| POST | `/api/waitlist` | No | 3/60s | Add email to waitlist |
+| GET | `/api/waitlist/count` | No | Global | Get waitlist count |
+| GET | `/api/blog/posts` | No | Global | List blog posts (paginated) |
+| GET | `/api/blog/posts/:slug` | No | Global | Get blog post by slug |
+| GET | `/api/blog/authors` | No | Global | List authors |
+| GET | `/api/showcase/projects` | No | Global | List showcase projects |
+| GET | `/api/showcase/projects/:slug` | No | Global | Get project by slug |
+| GET | `/api/showcase/categories` | No | Global | Category counts |
+| POST | `/api/showcase/submit` | No | Global | Submit community project |
+| GET | `/api/features` | No | Global | List features |
+| GET | `/api/features/comparison` | No | Global | Comparison table data |
+
+**Global rate limit**: 10 requests per 60 seconds.
+
+---
+
 ## Error Handling
 
 All errors follow this format:
@@ -499,10 +591,13 @@ All errors follow this format:
 |------|-------------|
 | 200 | Success |
 | 201 | Created |
-| 400 | Bad Request - validation failed |
-| 401 | Unauthorized - not logged in |
-| 403 | Forbidden - no permission |
+| 204 | No Content |
+| 400 | Bad Request — validation failed |
+| 401 | Unauthorized — not logged in |
+| 403 | Forbidden — no permission |
 | 404 | Not Found |
+| 409 | Conflict — duplicate resource |
+| 429 | Too Many Requests — rate limited |
 | 500 | Internal Server Error |
 
 ## Validation

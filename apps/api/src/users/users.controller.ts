@@ -12,8 +12,8 @@ import {
 } from '@nestjs/common';
 import { UpdateUserDto } from '@nene/shared';
 import type { User } from '@nene/shared';
-import { JwtAuthGuard, CurrentUser } from '../auth';
-import { UsersService } from './users.service';
+import { JwtAuthGuard, CurrentUser } from '../auth/index.js';
+import { UsersService } from './users.service.js';
 
 @Controller('users')
 @UseGuards(JwtAuthGuard)

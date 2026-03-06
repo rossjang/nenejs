@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { PrismaService } from '../prisma';
+import { PrismaService } from '../prisma/index.js';
 import { parsePagination, createPaginatedResponse } from '@nene/shared';
 
 @Injectable()

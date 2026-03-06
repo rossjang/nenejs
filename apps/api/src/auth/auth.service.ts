@@ -6,9 +6,9 @@ import {
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { randomBytes, createHash } from 'crypto';
-import * as bcrypt from 'bcryptjs';
+import bcrypt from 'bcryptjs';
 import type { AuthResponse, User } from '@nene/shared';
-import { PrismaService } from '../prisma';
+import { PrismaService } from '../prisma/index.js';
 import type { CreateUserDto, LoginDto } from '@nene/shared';
 
 @Injectable()

@@ -1,17 +1,17 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { ThrottlerModule } from '@nestjs/throttler';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { AuthModule } from './auth';
-import { HealthModule } from './health/health.module';
-import { PrismaModule } from './prisma';
-import { UsersModule } from './users';
-import { WaitlistModule } from './waitlist';
-import { BlogModule } from './blog';
-import { ShowcaseModule } from './showcase';
-import { FeaturesModule } from './features';
-import configuration from './config/configuration';
+import { AppController } from './app.controller.js';
+import { AppService } from './app.service.js';
+import { AuthModule } from './auth/index.js';
+import { HealthModule } from './health/health.module.js';
+import { PrismaModule } from './prisma/index.js';
+import { UsersModule } from './users/index.js';
+import { WaitlistModule } from './waitlist/index.js';
+import { BlogModule } from './blog/index.js';
+import { ShowcaseModule } from './showcase/index.js';
+import { FeaturesModule } from './features/index.js';
+import configuration from './config/configuration.js';
 
 @Module({
   imports: [

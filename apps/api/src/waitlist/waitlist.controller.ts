@@ -8,8 +8,8 @@ import {
 } from '@nestjs/common';
 import { Throttle, ThrottlerGuard } from '@nestjs/throttler';
 import { UseGuards } from '@nestjs/common';
-import { WaitlistService } from './waitlist.service';
-import { CreateWaitlistDto } from './waitlist.dto';
+import { WaitlistService } from './waitlist.service.js';
+import { CreateWaitlistDto } from './waitlist.dto.js';
 
 @Controller('waitlist')
 export class WaitlistController {

@@ -1,6 +1,6 @@
 import { Injectable, ConflictException } from '@nestjs/common';
-import { PrismaService } from '../prisma';
-import { CreateWaitlistDto, WaitlistResponseDto } from './waitlist.dto';
+import { PrismaService } from '../prisma/index.js';
+import { CreateWaitlistDto, WaitlistResponseDto } from './waitlist.dto.js';
 
 @Injectable()
 export class WaitlistService {

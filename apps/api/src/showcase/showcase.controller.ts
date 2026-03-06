@@ -1,5 +1,5 @@
 import { Controller, Get, Post, Param, Query, Body } from '@nestjs/common';
-import { ShowcaseService } from './showcase.service';
+import { ShowcaseService } from './showcase.service.js';
 
 @Controller('showcase')
 export class ShowcaseController {

@@ -1,5 +1,5 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
-import { BlogService } from './blog.service';
+import { BlogService } from './blog.service.js';
 
 @Controller('blog')
 export class BlogController {

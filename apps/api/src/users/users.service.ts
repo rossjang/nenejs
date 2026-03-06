@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common';
 import type { User } from '@nene/shared';
 import type { UpdateUserDto } from '@nene/shared';
-import { PrismaService } from '../prisma';
+import { PrismaService } from '../prisma/index.js';
 
 @Injectable()
 export class UsersService {

@@ -1,1 +1,1 @@
-export { FeaturesModule } from './features.module';
+export { FeaturesModule } from './features.module.js';

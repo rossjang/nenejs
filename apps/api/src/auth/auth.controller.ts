@@ -9,9 +9,9 @@ import {
 } from '@nestjs/common';
 import { CreateUserDto, LoginDto, RefreshTokenDto } from '@nene/shared';
 import type { AuthResponse, User } from '@nene/shared';
-import { AuthService } from './auth.service';
-import { JwtAuthGuard } from './jwt-auth.guard';
-import { CurrentUser } from './current-user.decorator';
+import { AuthService } from './auth.service.js';
+import { JwtAuthGuard } from './jwt-auth.guard.js';
+import { CurrentUser } from './current-user.decorator.js';
 
 @Controller('auth')
 export class AuthController {

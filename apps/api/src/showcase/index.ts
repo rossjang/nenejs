@@ -1,1 +1,1 @@
-export { ShowcaseModule } from './showcase.module';
+export { ShowcaseModule } from './showcase.module.js';

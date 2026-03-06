@@ -91,7 +91,7 @@ pnpm dev              # Run all apps
 pnpm dev:web          # Run frontend only
 pnpm dev:api          # Run backend only
 pnpm build            # Build all
-pnpm --filter @app/shared build  # Rebuild shared package after changes
+pnpm build:shared     # Rebuild shared package after changes
 ```
 
 ## Before Making Changes
@@ -108,8 +108,28 @@ pnpm --filter @app/shared build  # Rebuild shared package after changes
 4. If you edited `apps/web/**`, verify: `curl -s -o /dev/null -w "%{http_code}" http://localhost:3000`
 5. If you edited `apps/api/**`, verify: `curl -s -o /dev/null -w "%{http_code}" http://localhost:4000/api/health`
 
+## Environment Variables
+
+**apps/api/.env**:
+```
+PORT=4000
+FRONTEND_URL=http://localhost:3000
+DATABASE_URL=file:./prisma/dev.db
+JWT_SECRET=your-secret-key
+JWT_EXPIRES_IN=15m
+```
+
+**apps/web/.env.local**:
+```
+NEXT_PUBLIC_API_URL=http://localhost:4000
+```
+
+- Backend: Use `@nestjs/config` ConfigService
+- Frontend: `NEXT_PUBLIC_` prefix for client-side variables (never put secrets here)
+
 ## Common Errors
 
 - **"Cannot find module './XXX.js'"** in Next.js: Stale webpack cache. Run `rm -rf apps/web/.next` and restart.
 - **Port already in use**: Check with `lsof -i :3000` or `lsof -i :4000`.
-- **Shared package not found**: Rebuild with `pnpm --filter @app/shared build`.
+- **Shared package not found**: Rebuild with `pnpm build:shared`.
+- **Prisma client not generated**: Run `cd apps/api && npx prisma generate`.

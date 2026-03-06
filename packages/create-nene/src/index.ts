@@ -9,9 +9,12 @@ import { execSync } from "node:child_process";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+type DatabaseOption = "sqlite" | "postgresql" | "supabase";
+
 interface ProjectOptions {
   projectName: string;
   packageManager: "npm" | "yarn" | "pnpm";
+  database: DatabaseOption;
 }
 
 function validateProjectName(name: string): boolean {
@@ -240,6 +243,144 @@ function renameDotEnvFiles(projectPath: string): void {
   }
 }
 
+function configureDatabasePostgresql(projectPath: string): void {
+  // Update schema.prisma provider
+  const schemaPath = path.join(projectPath, "apps", "api", "prisma", "schema.prisma");
+  if (fs.existsSync(schemaPath)) {
+    let content = fs.readFileSync(schemaPath, "utf-8");
+    content = content.replace(
+      'provider = "sqlite"',
+      'provider = "postgresql"'
+    );
+    content = content.replace(
+      "// Prisma schema - SQLite for local development",
+      "// Prisma schema - PostgreSQL via Docker"
+    );
+    fs.writeFileSync(schemaPath, content);
+  }
+
+  // Update .env with PostgreSQL URL
+  const envPath = path.join(projectPath, "apps", "api", ".env");
+  if (fs.existsSync(envPath)) {
+    let content = fs.readFileSync(envPath, "utf-8");
+    content = content.replace(
+      /# Database.*\nDATABASE_URL="file:\.\/dev\.db"/,
+      '# Database - PostgreSQL (via Docker Compose)\nDATABASE_URL="postgresql://app:app@localhost:5432/app"'
+    );
+    fs.writeFileSync(envPath, content);
+  }
+
+  // Generate docker-compose.yml
+  const composePath = path.join(projectPath, "docker-compose.yml");
+  fs.writeFileSync(composePath, `services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: app
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: app
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
+`);
+}
+
+function configureDatabaseSupabase(projectPath: string): void {
+  // Update schema.prisma provider
+  const schemaPath = path.join(projectPath, "apps", "api", "prisma", "schema.prisma");
+  if (fs.existsSync(schemaPath)) {
+    let content = fs.readFileSync(schemaPath, "utf-8");
+    content = content.replace(
+      'provider = "sqlite"',
+      'provider = "postgresql"'
+    );
+    content = content.replace(
+      "// Prisma schema - SQLite for local development",
+      "// Prisma schema - Supabase (hosted PostgreSQL)"
+    );
+    fs.writeFileSync(schemaPath, content);
+  }
+
+  // Update .env with Supabase connection template
+  const envPath = path.join(projectPath, "apps", "api", ".env");
+  if (fs.existsSync(envPath)) {
+    let content = fs.readFileSync(envPath, "utf-8");
+    content = content.replace(
+      /# Database.*\nDATABASE_URL="file:\.\/dev\.db"/,
+      `# Database - Supabase (hosted PostgreSQL)
+# Get your connection string from: Supabase Dashboard > Settings > Database
+DATABASE_URL="postgresql://postgres.[YOUR-PROJECT-REF]:[YOUR-PASSWORD]@aws-0-[REGION].pooler.supabase.com:6543/postgres"
+
+# Supabase client (for Storage, Realtime, Auth, etc.)
+# Get these from: Supabase Dashboard > Settings > API
+SUPABASE_URL="https://[YOUR-PROJECT-REF].supabase.co"
+SUPABASE_ANON_KEY="your-anon-key"`
+    );
+    fs.writeFileSync(envPath, content);
+  }
+
+  // Add @supabase/supabase-js to API dependencies
+  const apiPkgPath = path.join(projectPath, "apps", "api", "package.json");
+  if (fs.existsSync(apiPkgPath)) {
+    const pkg = JSON.parse(fs.readFileSync(apiPkgPath, "utf-8"));
+    pkg.dependencies["@supabase/supabase-js"] = "^2.49.0";
+    fs.writeFileSync(apiPkgPath, JSON.stringify(pkg, null, 2) + "\n");
+  }
+
+  // Create Supabase module
+  const supabaseDir = path.join(projectPath, "apps", "api", "src", "supabase");
+  fs.mkdirSync(supabaseDir, { recursive: true });
+
+  fs.writeFileSync(
+    path.join(supabaseDir, "supabase.module.ts"),
+    `import { Global, Module } from '@nestjs/common';
+import { SupabaseService } from './supabase.service';
+
+@Global()
+@Module({
+  providers: [SupabaseService],
+  exports: [SupabaseService],
+})
+export class SupabaseModule {}
+`
+  );
+
+  fs.writeFileSync(
+    path.join(supabaseDir, "supabase.service.ts"),
+    `import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
+
+@Injectable()
+export class SupabaseService {
+  private client: SupabaseClient;
+
+  constructor(private readonly config: ConfigService) {
+    const url = this.config.getOrThrow<string>('SUPABASE_URL');
+    const key = this.config.getOrThrow<string>('SUPABASE_ANON_KEY');
+    this.client = createClient(url, key);
+  }
+
+  getClient(): SupabaseClient {
+    return this.client;
+  }
+}
+`
+  );
+
+  fs.writeFileSync(
+    path.join(supabaseDir, "index.ts"),
+    `export { SupabaseModule } from './supabase.module';
+export { SupabaseService } from './supabase.service';
+`
+  );
+}
+
 async function promptForOptions(projectName?: string): Promise<ProjectOptions> {
   const defaultProjectName = projectName || "my-nene-app";
 
@@ -284,6 +425,26 @@ async function promptForOptions(projectName?: string): Promise<ProjectOptions> {
         ],
         initial: 0,
       },
+      {
+        type: "select",
+        name: "database",
+        message: "Choose database:",
+        choices: [
+          {
+            title: "SQLite (default, zero config)",
+            value: "sqlite",
+          },
+          {
+            title: "PostgreSQL (local Docker)",
+            value: "postgresql",
+          },
+          {
+            title: "Supabase (hosted PostgreSQL)",
+            value: "supabase",
+          },
+        ],
+        initial: 0,
+      },
     ],
     {
       onCancel: () => {
@@ -296,11 +457,12 @@ async function promptForOptions(projectName?: string): Promise<ProjectOptions> {
   return {
     projectName: projectName || response.projectName,
     packageManager: response.packageManager,
+    database: response.database || "sqlite",
   };
 }
 
 async function createProject(options: ProjectOptions): Promise<void> {
-  const { projectName, packageManager } = options;
+  const { projectName, packageManager, database } = options;
   const projectPath = path.resolve(process.cwd(), projectName);
 
   // Check if directory exists
@@ -341,6 +503,13 @@ async function createProject(options: ProjectOptions): Promise<void> {
 
   // Update sub-package names
   updateSubPackageNames(projectPath, projectName);
+
+  // Configure database (post-process template files)
+  if (database === "postgresql") {
+    configureDatabasePostgresql(projectPath);
+  } else if (database === "supabase") {
+    configureDatabaseSupabase(projectPath);
+  }
 
   // Ensure package manager is available
   const pmReady = ensurePackageManager(packageManager);
@@ -408,11 +577,22 @@ async function createProject(options: ProjectOptions): Promise<void> {
         cwd: apiPath,
         stdio: "inherit",
       });
-      execSync("npx prisma migrate dev --name init --skip-seed", {
-        cwd: apiPath,
-        stdio: "inherit",
-      });
-      console.log(pc.green("  ✓ Database ready (SQLite)"));
+
+      if (database === "sqlite") {
+        execSync("npx prisma migrate dev --name init --skip-seed", {
+          cwd: apiPath,
+          stdio: "inherit",
+        });
+        console.log(pc.green("  ✓ Database ready (SQLite)"));
+      } else if (database === "postgresql") {
+        console.log(pc.yellow("  ⚠ PostgreSQL selected — start Docker first:"));
+        console.log(pc.dim(`    docker compose up -d`));
+        console.log(pc.dim(`    cd apps/api && npx prisma migrate dev --name init`));
+      } else if (database === "supabase") {
+        console.log(pc.yellow("  ⚠ Supabase selected — update .env with your credentials:"));
+        console.log(pc.dim(`    1. Set DATABASE_URL, SUPABASE_URL, SUPABASE_ANON_KEY in apps/api/.env`));
+        console.log(pc.dim(`    2. cd apps/api && npx prisma db push`));
+      }
     } catch {
       console.log(
         pc.yellow(
@@ -451,6 +631,15 @@ async function createProject(options: ProjectOptions): Promise<void> {
   );
   console.log();
   console.log("This will start both the frontend (port 3000) and backend (port 4000).");
+
+  if (database === "postgresql") {
+    console.log();
+    console.log(pc.yellow("Note:") + " Run " + pc.cyan("docker compose up -d") + " before starting the dev server.");
+  } else if (database === "supabase") {
+    console.log();
+    console.log(pc.yellow("Note:") + " Update " + pc.cyan("apps/api/.env") + " with your Supabase credentials before starting.");
+  }
+
   console.log();
   console.log("Happy coding!");
   console.log();

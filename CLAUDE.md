@@ -65,11 +65,12 @@ nenejs/
 
 ## Critical Rules
 
-1. **NEVER duplicate types.** All types, DTOs, and constants must be imported from `@nene/shared`. Never redefine interfaces that already exist in the shared package.
-2. **Read `docs/ARCHITECTURE.md`** before making structural changes.
-3. **Update `docs/API.md`** when adding or modifying endpoints.
-4. **Update `docs/PROGRESS.md`** to reflect any progress made.
-5. **Run `pnpm build`** to verify shared package changes compile correctly.
+1. **NEVER modify files outside this project.** Only read and write files within the `/home/ross/ross/nenejs/` directory. Do not access, create, or modify any files outside of this project root.
+2. **NEVER duplicate types.** All types, DTOs, and constants must be imported from `@nene/shared`. Never redefine interfaces that already exist in the shared package.
+3. **Read `docs/ARCHITECTURE.md`** before making structural changes.
+4. **Update `docs/API.md`** when adding or modifying endpoints.
+5. **Update `docs/PROGRESS.md`** to reflect any progress made.
+6. **Run `pnpm build`** to verify shared package changes compile correctly.
 
 ## Common Commands
 

@@ -11,7 +11,8 @@
     "lint": "turbo run lint",
     "dev:web": "turbo run dev --filter=@nene/web",
     "dev:api": "turbo run dev --filter=@nene/api",
-    "build:shared": "turbo run build --filter=@nene/shared"
+    "build:shared": "turbo run build --filter=@nene/shared",
+    "test": "turbo run test"
   },
   "devDependencies": {
     "turbo": "^2.0.0"
